@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { ApolloProvider } from "@apollo/client";
+import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
-import AppLoading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
+import { persistCache, AsyncStorageWrapper } from "apollo3-cache-persist";
+import AsyncStorage from "@react-native-community/async-storage";
 import {
   ApolloClient,
   InMemoryCache,
   NormalizedCacheObject,
 } from "@apollo/client";
-import { persistCache, AsyncStorageWrapper } from "apollo3-cache-persist";
-import AsyncStorage from "@react-native-community/async-storage";
-import { ApolloProvider } from "@apollo/client";
 import apolloOptions from "./apollo";
+import NavController from "./components/NavController";
+import { AuthProvider } from "./components/AuthContext";
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -47,11 +48,12 @@ const App: React.FC = () => {
   useEffect(() => {
     preLoad();
   }, []);
+
   return isLoaded && clientS && isLoggedIn !== null ? (
     <ApolloProvider client={clientS}>
-      <View>
-        <Text>Hello</Text>
-      </View>
+      <AuthProvider initLoggedIn={isLoggedIn}>
+        <NavController />
+      </AuthProvider>
     </ApolloProvider>
   ) : (
     <AppLoading />
