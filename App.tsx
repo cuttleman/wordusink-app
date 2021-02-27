@@ -42,6 +42,7 @@ const App: React.FC = () => {
       }
       setClientS(client);
       setIsLoaded(true);
+      AsyncStorage.clear();
     } catch (e) {}
   };
 
