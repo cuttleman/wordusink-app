@@ -2,18 +2,9 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import constants from "../constants";
+import { AuthButtonP, AuthBtnSt } from "../types/interfaces";
 
-interface AuthButtonP {
-  text: string;
-  type?: string;
-  onPress: () => void;
-}
-
-interface ContainerP {
-  type: string | undefined;
-}
-
-const Container = styled(TouchableOpacity)<ContainerP>`
+const Container = styled(TouchableOpacity)<AuthBtnSt>`
   width: ${constants.width / 2}px;
   padding: 15px 0;
   border-radius: 5px;

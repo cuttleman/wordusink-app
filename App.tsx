@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { StatusBar } from "react-native";
 import { ApolloProvider } from "@apollo/client";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
@@ -22,10 +23,25 @@ const App: React.FC = () => {
     setClientS,
   ] = useState<ApolloClient<NormalizedCacheObject> | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
   const preLoad = async () => {
+    const images = [require("./assets/giphy.gif")];
     try {
       await Font.loadAsync({ ...Ionicons.font });
-      const cache = new InMemoryCache();
+      images.map(async (image) => Asset.fromModule(image).downloadAsync());
+      const cache = new InMemoryCache({
+        typePolicies: {
+          Word: {
+            fields: {
+              votes: {
+                merge(_, incoming = []) {
+                  return incoming;
+                },
+              },
+            },
+          },
+        },
+      });
       await persistCache({
         cache,
         storage: new AsyncStorageWrapper(AsyncStorage),
@@ -42,8 +58,9 @@ const App: React.FC = () => {
       }
       setClientS(client);
       setIsLoaded(true);
-      AsyncStorage.clear();
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -54,6 +71,7 @@ const App: React.FC = () => {
     <ApolloProvider client={clientS}>
       <AuthProvider initLoggedIn={isLoggedIn}>
         <NavController />
+        <StatusBar barStyle="light-content" />
       </AuthProvider>
     </ApolloProvider>
   ) : (

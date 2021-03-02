@@ -11,6 +11,7 @@ const Container = styled(View)`
   flex: 1;
   justify-content: center;
   align-items: center;
+  background-color: #ffeaa7;
 `;
 
 const SIGN_UP = gql`
@@ -63,6 +64,7 @@ const SignUp: React.FC = () => {
       console.log(e.message);
     }
   };
+
   return (
     <Container>
       <AuthButton

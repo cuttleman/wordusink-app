@@ -1,10 +1,6 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import React, { createContext, useState, useContext } from "react";
-
-interface AuthProviderP {
-  initLoggedIn: boolean;
-  children: React.ReactChild;
-}
+import { AuthProviderP } from "../types/interfaces";
 
 const AuthContext: React.Context<{}> = createContext({});
 
@@ -26,8 +22,7 @@ export const AuthProvider: React.FC<AuthProviderP> = ({
 
   const logOut = async (): Promise<void> => {
     try {
-      await AsyncStorage.setItem("isLoggedIn", "false");
-      await AsyncStorage.removeItem("token");
+      await AsyncStorage.clear();
       setIsLoggedIn(false);
     } catch (e) {
       console.log(e);
