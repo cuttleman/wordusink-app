@@ -11,6 +11,8 @@ export interface WordP {
       id: string;
     };
   };
+  index: number;
+  total: number;
 }
 
 export interface ParamsP {

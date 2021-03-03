@@ -6,7 +6,7 @@ interface optionI {
   link: ApolloLink;
 }
 
-const httpLink: HttpLink = new HttpLink({ uri: "http://172.29.25.71:5000" });
+const httpLink: HttpLink = new HttpLink({ uri: "http://172.29.19.118:5000" });
 
 const authLink: ApolloLink = setContext(async () => {
   const token = await AsyncStorage.getItem("token");

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, View, Pressable, Text, Animated } from "react-native";
 import styled from "styled-components";
 import constants from "../constants";
@@ -7,20 +7,22 @@ import { WordP } from "../types/interfaces";
 const Container = styled(View)`
   width: ${constants.width}px;
   align-items: center;
-  background-color: white;
+  padding-top: ${constants.height / 13}px;
+  background-color: #786fa6;
 `;
 
 const PhotoContainer = styled(View)`
-  width: ${constants.width}px;
-  height: ${constants.height / 1.5}px;
+  width: ${constants.width / 1.1}px;
+  height: ${constants.height / 1.8}px;
   background-color: white;
+  border-radius: 20px;
   align-items: center;
   justify-content: center;
 `;
 
 const Photo = styled(Image)`
-  width: ${constants.width / 1.2}px;
-  height: ${constants.width / 1.2}px;
+  width: ${constants.width / 1.4}px;
+  height: ${constants.width / 1.4}px;
   border-radius: 15px;
 `;
 
@@ -29,21 +31,12 @@ const BoldText = styled(Text)`
   font-weight: 700;
 `;
 
-const CaptionContainer = styled(View)`
-  width: ${constants.width}px;
-  height: ${constants.height}px;
-  background-color: #786fa6;
-  padding: 30px;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
-  position: relative;
-`;
-
 const NameContainer = styled(Pressable)`
-  position: relative;
-  top: -60px;
+  position: absolute;
   width: ${constants.width / 2}px;
   align-self: center;
+  top: ${constants.height / 1.7}px;
+  z-index: 3;
 `;
 
 const NameBox = styled(Animated.View)`
@@ -52,9 +45,9 @@ const NameBox = styled(Animated.View)`
   align-self: center;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
-  border: 2px dotted #3d3d3d;
-  padding: 30px 0;
+  border-radius: 15px;
+  border: 1px solid #3d3d3d;
+  padding: 25px 0;
 `;
 
 const Name = styled(Animated.View)`
@@ -66,13 +59,22 @@ const Name = styled(Animated.View)`
 
 const NameB = styled(Name)`
   transform: rotateY(180deg);
+  z-index: 2;
 `;
 
-export default ({ word }: WordP) => {
-  let turn = false;
+const EditContainer = styled(View)`
+  width: ${constants.width}px;
+  background-color: #786fa6;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+`;
 
-  const animation = new Animated.Value(0);
-
+export default ({ word, index, total }: WordP) => {
+  const [turn, setTurn] = useState<boolean>(false);
+  const [isInit, setIsInit] = useState<number>(0);
+  const animation = isInit
+    ? new Animated.Value(turn ? 0 : 1)
+    : new Animated.Value(0);
   const turnning = animation.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "-180deg"],
@@ -88,59 +90,43 @@ export default ({ word }: WordP) => {
     outputRange: [3, 2],
   });
 
-  const NameBZIndexing = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [2, 3],
-  });
-
   const toggleTurn = () => {
-    turn = !turn;
-    if (turn) {
+    setTurn((prev) => !prev);
+    if (!isInit) {
+      setIsInit(1);
+    }
+  };
+
+  useEffect(() => {
+    if (isInit) {
       Animated.timing(animation, {
-        toValue: 1,
-        duration: 700,
-        useNativeDriver: false,
-      }).start();
-      setTimeout(() => {
-        Animated.timing(animation, {
-          toValue: 0,
-          duration: 700,
-          useNativeDriver: false,
-        }).start();
-      }, 1000);
-    } else {
-      Animated.timing(animation, {
-        toValue: 0,
-        duration: 700,
+        toValue: turn ? 1 : 0,
+        duration: 600,
         useNativeDriver: false,
       }).start();
     }
-  };
+  }, [turn]);
 
   return (
     <Container>
       <PhotoContainer>
         <Photo source={{ uri: word.image.url }} resizeMode="contain" />
       </PhotoContainer>
-      <CaptionContainer>
-        <NameContainer onPress={toggleTurn}>
-          <NameBox
-            style={{
-              transform: [
-                { rotateY: turnning },
-                { perspective: perspectiving },
-              ],
-            }}
-          >
-            <Name style={{ zIndex: NameZIndexing }}>
-              <BoldText>{word.name}</BoldText>
-            </Name>
-            <NameB style={{ zIndex: NameBZIndexing }}>
-              <BoldText>{word.caption}</BoldText>
-            </NameB>
-          </NameBox>
-        </NameContainer>
-      </CaptionContainer>
+      <NameContainer onPress={() => toggleTurn()}>
+        <NameBox
+          style={{
+            transform: [{ rotateY: turnning }, { perspective: perspectiving }],
+          }}
+        >
+          <Name style={{ zIndex: NameZIndexing }}>
+            <BoldText>{word.name}</BoldText>
+          </Name>
+          <NameB>
+            <BoldText>{word.caption}</BoldText>
+          </NameB>
+        </NameBox>
+      </NameContainer>
+      <EditContainer></EditContainer>
     </Container>
   );
 };
