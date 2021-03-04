@@ -43,7 +43,7 @@ export default ({ words }: CardListHP) => {
         {words.map((word, idx) => (
           <PreviewWord
             key={idx}
-            onPress={() => navigate("Cards", { firstTerm: word })}
+            onPress={() => navigate("Card", { firstTerm: word })}
           >
             <WordText index={idx}>{word}</WordText>
           </PreviewWord>

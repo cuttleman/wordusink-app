@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Image, View, Pressable, Text, Animated } from "react-native";
+import {
+  Image,
+  View,
+  Pressable,
+  Text,
+  Animated,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components";
 import constants from "../constants";
+import useTurn from "../hooks/useTurn";
 import { WordP } from "../types/interfaces";
 
 const Container = styled(View)`
   width: ${constants.width}px;
+  height: ${constants.height}px;
   align-items: center;
   padding-top: ${constants.height / 13}px;
   background-color: #786fa6;
@@ -67,45 +77,22 @@ const EditContainer = styled(View)`
   background-color: #786fa6;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
+  align-items: center;
+`;
+
+const EditBtn = styled(TouchableOpacity)`
+  margin-top: 40px;
+  width: 100px;
+  height: 40px;
+  background-color: #63cdda;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default ({ word, index, total }: WordP) => {
-  const [turn, setTurn] = useState<boolean>(false);
-  const [isInit, setIsInit] = useState<number>(0);
-  const animation = isInit
-    ? new Animated.Value(turn ? 0 : 1)
-    : new Animated.Value(0);
-  const turnning = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "-180deg"],
-  });
-
-  const perspectiving = animation.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: [700, 10, 700],
-  });
-
-  const NameZIndexing = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [3, 2],
-  });
-
-  const toggleTurn = () => {
-    setTurn((prev) => !prev);
-    if (!isInit) {
-      setIsInit(1);
-    }
-  };
-
-  useEffect(() => {
-    if (isInit) {
-      Animated.timing(animation, {
-        toValue: turn ? 1 : 0,
-        duration: 600,
-        useNativeDriver: false,
-      }).start();
-    }
-  }, [turn]);
+  const { toggleTurn, turnning, perspectiving, NameZIndexing } = useTurn();
+  const { navigate } = useNavigation();
 
   return (
     <Container>
@@ -126,7 +113,20 @@ export default ({ word, index, total }: WordP) => {
           </NameB>
         </NameBox>
       </NameContainer>
-      <EditContainer></EditContainer>
+      <EditContainer>
+        <EditBtn
+          onPress={() =>
+            navigate("EditWord", {
+              wordId: word.id,
+              name: word.name,
+              caption: word.caption,
+              url: word.image.url,
+            })
+          }
+        >
+          <BoldText>Edit</BoldText>
+        </EditBtn>
+      </EditContainer>
     </Container>
   );
 };

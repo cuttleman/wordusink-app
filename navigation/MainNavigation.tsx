@@ -8,7 +8,8 @@ import Home from "../screens/Main/Home";
 import Words from "../screens/Main/Words";
 import Community from "../screens/Main/Community";
 import Profile from "../screens/Main/Profile";
-import Cards from "../screens/Main/Cards";
+import Card from "../screens/Word/Card";
+import EditWord from "../screens/Word/EditWord";
 
 interface stacksP {
   name: string;
@@ -39,7 +40,8 @@ export default () => (
       {() =>
         stackFactory([
           { name: "Home", component: Home },
-          { name: "Cards", component: Cards },
+          { name: "Card", component: Card },
+          { name: "EditWord", component: EditWord },
         ])
       }
     </Tab.Screen>

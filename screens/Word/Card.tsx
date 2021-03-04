@@ -55,17 +55,21 @@ const Cards: React.FC = () => {
     <Loading />
   ) : (
     <Container>
-      <SwiperFlatList
-        data={data?.specificWords}
-        renderItem={({ item, index }) => (
-          <Card
-            key={item.id}
-            word={item}
-            index={index}
-            total={data?.specificWords.length}
-          />
-        )}
-      />
+      {data?.specificWords?.length === 0 ? (
+        <Text>Nothing</Text>
+      ) : (
+        <SwiperFlatList
+          data={data?.specificWords}
+          renderItem={({ item, index }) => (
+            <Card
+              key={item.id}
+              word={item}
+              index={index}
+              total={data?.specificWords.length}
+            />
+          )}
+        />
+      )}
     </Container>
   );
 };

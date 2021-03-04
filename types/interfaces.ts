@@ -47,3 +47,14 @@ export interface AuthProviderP {
 export interface WordNameSt {
   turn: boolean;
 }
+
+export interface EditWordParams {
+  params?: {
+    wordId?: string;
+    name?: string;
+    caption?: string;
+    url?: string;
+  };
+}
+
+export type InputHooksP = string | undefined;
