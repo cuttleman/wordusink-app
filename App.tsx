@@ -7,12 +7,8 @@ import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons";
 import { persistCache, AsyncStorageWrapper } from "apollo3-cache-persist";
 import AsyncStorage from "@react-native-community/async-storage";
-import {
-  ApolloClient,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from "@apollo/client";
-import apolloOptions from "./apollo";
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { options as apolloOptions, cache } from "./apollo";
 import NavController from "./components/NavController";
 import { AuthProvider } from "./components/AuthContext";
 
@@ -29,19 +25,7 @@ const App: React.FC = () => {
     try {
       await Font.loadAsync({ ...Ionicons.font });
       images.map(async (image) => Asset.fromModule(image).downloadAsync());
-      const cache = new InMemoryCache({
-        typePolicies: {
-          Word: {
-            fields: {
-              votes: {
-                merge(_, incoming = []) {
-                  return incoming;
-                },
-              },
-            },
-          },
-        },
-      });
+
       await persistCache({
         cache,
         storage: new AsyncStorageWrapper(AsyncStorage),

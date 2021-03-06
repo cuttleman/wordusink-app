@@ -6,7 +6,7 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 import styled from "styled-components";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
-import { ParamsP } from "../../types/interfaces";
+import { SpecificWordParamsP } from "../../types/interfaces";
 
 const SPECIFIC_WORDS = gql`
   query specificWords($alphabet: String!) {
@@ -19,10 +19,6 @@ const SPECIFIC_WORDS = gql`
       }
       votes {
         id
-        author {
-          userName
-          email
-        }
       }
     }
   }
@@ -35,20 +31,10 @@ const Container = styled(View)`
 `;
 
 const Cards: React.FC = () => {
-  const { params }: ParamsP = useRoute();
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const { data, refetch } = useQuery(SPECIFIC_WORDS, {
+  const { params }: SpecificWordParamsP = useRoute();
+  const { data, loading } = useQuery(SPECIFIC_WORDS, {
+    fetchPolicy: "cache-and-network",
     variables: { alphabet: params?.firstTerm?.toLowerCase() },
-  });
-
-  const getData = () => {
-    refetch();
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getData();
   });
 
   return loading ? (

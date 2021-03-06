@@ -1,23 +1,35 @@
 export interface WordP {
-  word: {
-    id: string;
-    name: string;
-    caption: string;
-    image: {
-      id: string;
-      url: string;
-    };
-    votes: {
-      id: string;
-    };
-  };
-  index: number;
-  total: number;
+  word: PartialWord;
+  words?: PartialWord[];
+  index?: number;
+  total?: number;
 }
 
-export interface ParamsP {
+export interface Vote {
+  id: string;
+}
+
+export interface PartialWord {
+  id: string;
+  caption: string;
+  image: {
+    id: string;
+    url: string;
+  };
+  name: string;
+  votes: Vote[];
+}
+
+export interface SpecificWordParamsP {
   params?: {
     firstTerm?: string;
+  };
+}
+
+export interface AllWordsParamsP {
+  params?: {
+    wordId?: string;
+    words?: PartialWord[];
   };
 }
 
@@ -58,3 +70,7 @@ export interface EditWordParams {
 }
 
 export type InputHooksP = string | undefined;
+
+export interface CardNameStyle {
+  isName?: boolean;
+}

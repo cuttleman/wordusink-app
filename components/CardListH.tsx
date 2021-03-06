@@ -10,7 +10,7 @@ const Container = styled(View)`
   width: ${constants.width}px;
   height: ${constants.height / 3.5}px;
   border-bottom-left-radius: 40px;
-  background-color: #786fa6;
+  background-color: #574b90;
   align-items: center;
   padding: 5px;
 `;
@@ -43,7 +43,7 @@ export default ({ words }: CardListHP) => {
         {words.map((word, idx) => (
           <PreviewWord
             key={idx}
-            onPress={() => navigate("Card", { firstTerm: word })}
+            onPress={() => navigate("Cards", { firstTerm: word })}
           >
             <WordText index={idx}>{word}</WordText>
           </PreviewWord>

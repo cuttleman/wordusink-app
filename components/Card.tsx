@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components";
 import constants from "../constants";
 import useTurn from "../hooks/useTurn";
-import { WordP } from "../types/interfaces";
+import { CardNameStyle, WordP } from "../types/interfaces";
 
 const Container = styled(View)`
   width: ${constants.width}px;
@@ -33,12 +33,13 @@ const PhotoContainer = styled(View)`
 const Photo = styled(Image)`
   width: ${constants.width / 1.4}px;
   height: ${constants.width / 1.4}px;
-  border-radius: 15px;
+  border-radius: 10px;
 `;
 
-const BoldText = styled(Text)`
+const BoldText = styled(Text)<CardNameStyle>`
   font-size: 20px;
   font-weight: 700;
+  ${(props) => props.isName && "text-transform: capitalize;"}
 `;
 
 const NameContainer = styled(Pressable)`
@@ -106,7 +107,7 @@ export default ({ word, index, total }: WordP) => {
           }}
         >
           <Name style={{ zIndex: NameZIndexing }}>
-            <BoldText>{word.name}</BoldText>
+            <BoldText isName>{word.name}</BoldText>
           </Name>
           <NameB>
             <BoldText>{word.caption}</BoldText>

@@ -8,8 +8,9 @@ import Home from "../screens/Main/Home";
 import Words from "../screens/Main/Words";
 import Community from "../screens/Main/Community";
 import Profile from "../screens/Main/Profile";
-import Card from "../screens/Word/Card";
+import Cards from "../screens/Word/Cards";
 import EditWord from "../screens/Word/EditWord";
+import AllCards from "../screens/Word/AllCards";
 
 interface stacksP {
   name: string;
@@ -35,18 +36,28 @@ const stackFactory = (stacks: stacksP[]) => {
 };
 
 export default () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Home">
+  <Tab.Navigator
+    tabBarOptions={{
+      showLabel: false,
+      style: { backgroundColor: "#574b90", borderTopWidth: 0 },
+    }}
+  >
+    <Tab.Screen name="Home" options={{}}>
       {() =>
         stackFactory([
           { name: "Home", component: Home },
-          { name: "Card", component: Card },
+          { name: "Cards", component: Cards },
           { name: "EditWord", component: EditWord },
         ])
       }
     </Tab.Screen>
     <Tab.Screen name="Words">
-      {() => stackFactory([{ name: "Words", component: Words }])}
+      {() =>
+        stackFactory([
+          { name: "Words", component: Words },
+          { name: "AllCards", component: AllCards },
+        ])
+      }
     </Tab.Screen>
     <Tab.Screen name="Community">
       {() => stackFactory([{ name: "Community", component: Community }])}
