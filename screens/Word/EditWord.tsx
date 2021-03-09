@@ -1,5 +1,11 @@
 import React from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import styled from "styled-components";
+import {
+  useNavigation,
+  useNavigationState,
+  useRoute,
+} from "@react-navigation/native";
+import { useMutation } from "@apollo/client";
 import {
   Image,
   TextInput,
@@ -8,27 +14,9 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import styled from "styled-components";
 import useInput from "../../hooks/useInput";
 import { EditWordParams } from "../../types/interfaces";
-import { gql, useMutation } from "@apollo/client";
-
-const EDIT_WORD = gql`
-  mutation editWord(
-    $wordId: String!
-    $name: String
-    $caption: String
-    $url: String
-  ) {
-    editWord(wordId: $wordId, name: $name, caption: $caption, url: $url)
-  }
-`;
-
-const DELETE_WORD = gql`
-  mutation deleteWord($wordId: String!) {
-    deleteWord(wordId: $wordId)
-  }
-`;
+import { DELETE_WORD, EDIT_WORD } from "../../queries";
 
 const Container = styled(View)`
   flex: 1;
@@ -38,6 +26,7 @@ const Container = styled(View)`
 
 export default () => {
   const { params }: EditWordParams = useRoute();
+  const { routeNames } = useNavigationState((state) => state);
   const { navigate } = useNavigation();
   const [editWordMutation] = useMutation(EDIT_WORD);
   const [deleteWordMutation] = useMutation(DELETE_WORD);
@@ -72,7 +61,7 @@ export default () => {
         variables: { wordId: params?.wordId },
       });
       if (result) {
-        navigate("Home");
+        navigate(routeNames[0]);
       }
     } catch (e) {
       console.log(e);

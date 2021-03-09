@@ -33,6 +33,7 @@ const WordText = styled(Text)<WordTextSt>`
 
 export default ({ words }: CardListHP) => {
   const { navigate } = useNavigation();
+
   return (
     <Container>
       <ScrollView
@@ -40,14 +41,19 @@ export default ({ words }: CardListHP) => {
         contentContainerStyle={{ alignItems: "center" }}
         showsHorizontalScrollIndicator={false}
       >
-        {words.map((word, idx) => (
-          <PreviewWord
-            key={idx}
-            onPress={() => navigate("Cards", { firstTerm: word })}
-          >
-            <WordText index={idx}>{word}</WordText>
-          </PreviewWord>
-        ))}
+        {words.length === 0 ? (
+          <Text>단어를 추가해보세요</Text>
+        ) : (
+          words.map((word, idx) => (
+            <PreviewWord
+              key={idx}
+              onPress={() => navigate("Cards", { firstTerm: word.name })}
+            >
+              <Text>{word.count}</Text>
+              <WordText index={idx}>{word.name}</WordText>
+            </PreviewWord>
+          ))
+        )}
       </ScrollView>
     </Container>
   );

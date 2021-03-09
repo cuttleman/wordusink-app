@@ -1,27 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import Loading from "../../components/Loading";
 import Word from "../../components/Word";
 import { PartialWord } from "../../types/interfaces";
-
-export const ALL_WORDS = gql`
-  {
-    allWords {
-      id
-      name
-      caption
-      votes {
-        id
-      }
-      image {
-        id
-        url
-      }
-    }
-  }
-`;
+import { ALL_WORDS } from "../../queries";
 
 const Container = styled(View)`
   flex: 1;
@@ -34,7 +18,7 @@ const Container = styled(View)`
 const Words: React.FC = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { data, refetch, loading } = useQuery(ALL_WORDS, {
-    fetchPolicy: "cache-and-network",
+    variables: { isSort: false },
   });
 
   const onRefresh = async () => {
@@ -48,10 +32,6 @@ const Words: React.FC = () => {
     }
   };
 
-  const refresh = () => (
-    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-  );
-
   return loading ? (
     <Loading />
   ) : (
@@ -61,7 +41,9 @@ const Words: React.FC = () => {
       ) : (
         <ScrollView
           showsVerticalScrollIndicator={false}
-          refreshControl={refresh()}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
           {data?.allWords?.map((word: PartialWord) => (
             <Word key={word.id} word={word} words={data?.allWords} />

@@ -1,27 +1,18 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import styled from "styled-components";
 import axios from "axios";
 import * as Google from "expo-auth-session/providers/google";
 import AuthButton from "../../components/AuthButton";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useLogIn } from "../../components/AuthContext";
+import { SIGN_UP } from "../../queries";
 
 const Container = styled(View)`
   flex: 1;
   justify-content: center;
   align-items: center;
   background-color: #ffeaa7;
-`;
-
-const SIGN_UP = gql`
-  mutation signUp($email: String!) {
-    signUp(email: $email) {
-      type
-      message
-      token
-    }
-  }
 `;
 
 const SignUp: React.FC = () => {

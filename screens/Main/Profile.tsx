@@ -1,6 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import styled from "styled-components";
+import { useLogOut } from "../../components/AuthContext";
 
 const Container = styled(View)`
   flex: 1;
@@ -11,9 +12,13 @@ const Container = styled(View)`
 const TextSt = styled(Text)``;
 
 const Profile: React.FC = () => {
+  const logOut = useLogOut();
   return (
     <Container>
       <TextSt>Profile</TextSt>
+      <Button title="logout" onPress={logOut}>
+        <Text>log out</Text>
+      </Button>
     </Container>
   );
 };

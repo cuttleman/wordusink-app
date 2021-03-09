@@ -34,7 +34,10 @@ export interface AllWordsParamsP {
 }
 
 export interface CardListHP {
-  words: string[];
+  words: {
+    name?: string;
+    count?: number;
+  }[];
 }
 
 export interface WordTextSt {

@@ -1,5 +1,3 @@
-export const words = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 export const colors = [
   "#EA2027", // A
   "#eb2f06", // B

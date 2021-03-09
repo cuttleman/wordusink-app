@@ -38,7 +38,7 @@ const stackFactory = (stacks: stacksP[]) => {
 export default () => (
   <Tab.Navigator
     tabBarOptions={{
-      showLabel: false,
+      // showLabel: false,
       style: { backgroundColor: "#574b90", borderTopWidth: 0 },
     }}
   >
@@ -56,6 +56,7 @@ export default () => (
         stackFactory([
           { name: "Words", component: Words },
           { name: "AllCards", component: AllCards },
+          { name: "EditWord", component: EditWord },
         ])
       }
     </Tab.Screen>

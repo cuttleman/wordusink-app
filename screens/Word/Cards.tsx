@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Text, View, Image } from "react-native";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useRoute } from "@react-navigation/native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import styled from "styled-components";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import { SpecificWordParamsP } from "../../types/interfaces";
-
-const SPECIFIC_WORDS = gql`
-  query specificWords($alphabet: String!) {
-    specificWords(alphabet: $alphabet) {
-      id
-      name
-      caption
-      image {
-        url
-      }
-      votes {
-        id
-      }
-    }
-  }
-`;
+import { SPECIFIC_WORDS } from "../../queries";
 
 const Container = styled(View)`
   flex: 1;
