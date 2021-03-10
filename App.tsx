@@ -21,7 +21,10 @@ const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   const preLoad = async () => {
-    const images = [require("./assets/giphy.gif")];
+    const images = [
+      require("./assets/giphy.gif"),
+      require("./assets/init_human.png"),
+    ];
     try {
       await Font.loadAsync({ ...Ionicons.font });
       images.map(async (image) => Asset.fromModule(image).downloadAsync());

@@ -1,6 +1,5 @@
 import React from "react";
-import { View } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import axios from "axios";
 import * as Google from "expo-auth-session/providers/google";
 import AuthButton from "../../components/AuthButton";
@@ -8,7 +7,7 @@ import { useMutation } from "@apollo/client";
 import { useLogIn } from "../../components/AuthContext";
 import { SIGN_UP } from "../../queries";
 
-const Container = styled(View)`
+const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;

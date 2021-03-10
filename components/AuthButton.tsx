@@ -1,10 +1,9 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import constants from "../constants";
 import { AuthButtonP, AuthBtnSt } from "../types/interfaces";
 
-const Container = styled(TouchableOpacity)<AuthBtnSt>`
+const Container = styled.TouchableOpacity<AuthBtnSt>`
   width: ${constants.width / 2}px;
   padding: 15px 0;
   border-radius: 5px;
@@ -15,7 +14,7 @@ const Container = styled(TouchableOpacity)<AuthBtnSt>`
   align-items: center;
 `;
 
-const TextSt = styled(Text)`
+const TextSt = styled.Text`
   color: white;
   font-weight: 700;
   font-size: 15px;

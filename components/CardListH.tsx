@@ -1,12 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import constants from "../constants";
 import { CardListHP, WordTextSt } from "../types/interfaces";
 import { colors } from "../utils";
 
-const Container = styled(View)`
+const Container = styled.View`
   width: ${constants.width}px;
   height: ${constants.height / 3.5}px;
   border-bottom-left-radius: 40px;
@@ -15,7 +15,7 @@ const Container = styled(View)`
   padding: 5px;
 `;
 
-const PreviewWord = styled(TouchableOpacity)`
+const PreviewWord = styled.TouchableOpacity`
   width: ${constants.width / 5}px;
   height: ${constants.height / 7}px;
   background-color: white;
@@ -25,7 +25,7 @@ const PreviewWord = styled(TouchableOpacity)`
   border-radius: 10px;
 `;
 
-const WordText = styled(Text)<WordTextSt>`
+const WordText = styled.Text<WordTextSt>`
   color: ${(props) => `${colors[props.index]}`};
   font-size: 23px;
   font-weight: 700;

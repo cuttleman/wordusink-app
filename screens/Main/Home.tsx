@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import { RefreshControl, ScrollView } from "react-native";
 import { useQuery } from "@apollo/client";
 import CardListH from "../../components/CardListH";
 import { HAVING_WORDS } from "../../queries";
 import Loading from "../../components/Loading";
 
-const Container = styled(ScrollView)`
+const Container = styled.ScrollView`
   flex: 1;
   background-color: #786fa6;
 `;

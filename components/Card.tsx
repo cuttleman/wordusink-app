@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Image,
-  View,
-  Pressable,
-  Text,
-  Animated,
-  TouchableOpacity,
-} from "react-native";
+import { Animated } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import constants from "../constants";
 import useTurn from "../hooks/useTurn";
 import { CardNameStyle, WordP } from "../types/interfaces";
 
-const Container = styled(View)`
+const Container = styled.View`
   width: ${constants.width}px;
   height: ${constants.height}px;
   align-items: center;
@@ -21,7 +14,7 @@ const Container = styled(View)`
   background-color: #786fa6;
 `;
 
-const PhotoContainer = styled(View)`
+const PhotoContainer = styled.View`
   width: ${constants.width / 1.1}px;
   height: ${constants.height / 1.8}px;
   background-color: white;
@@ -30,19 +23,19 @@ const PhotoContainer = styled(View)`
   justify-content: center;
 `;
 
-const Photo = styled(Image)`
+const Photo = styled.Image`
   width: ${constants.width / 1.4}px;
   height: ${constants.width / 1.4}px;
   border-radius: 10px;
 `;
 
-const BoldText = styled(Text)<CardNameStyle>`
+const BoldText = styled.Text<CardNameStyle>`
   font-size: 20px;
   font-weight: 700;
   ${(props) => props.isName && "text-transform: capitalize;"}
 `;
 
-const NameContainer = styled(Pressable)`
+const NameContainer = styled.Pressable`
   position: absolute;
   width: ${constants.width / 2}px;
   align-self: center;
@@ -73,7 +66,7 @@ const NameB = styled(Name)`
   z-index: 2;
 `;
 
-const EditContainer = styled(View)`
+const EditContainer = styled.View`
   width: ${constants.width}px;
   background-color: #786fa6;
   border-top-left-radius: 40px;
@@ -81,7 +74,7 @@ const EditContainer = styled(View)`
   align-items: center;
 `;
 
-const EditBtn = styled(TouchableOpacity)`
+const EditBtn = styled.TouchableOpacity`
   margin-top: 40px;
   width: 100px;
   height: 40px;

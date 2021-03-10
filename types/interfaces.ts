@@ -77,3 +77,14 @@ export type InputHooksP = string | undefined;
 export interface CardNameStyle {
   isName?: boolean;
 }
+
+type AvatarSize = "lg" | "md" | "sm";
+
+export interface AvatarP {
+  avatar: string | null;
+  size: AvatarSize;
+}
+
+export interface AvatarStyle {
+  size: AvatarSize;
+}

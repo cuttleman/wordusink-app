@@ -1,15 +1,15 @@
 import React from "react";
-import { Text, View, Image } from "react-native";
+import { Text } from "react-native";
 import { useQuery } from "@apollo/client";
 import { useRoute } from "@react-navigation/native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
 import { SpecificWordParamsP } from "../../types/interfaces";
 import { SPECIFIC_WORDS } from "../../queries";
 
-const Container = styled(View)`
+const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;

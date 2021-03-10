@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
 import { useQuery } from "@apollo/client";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import Loading from "../../components/Loading";
 import Word from "../../components/Word";
 import { PartialWord } from "../../types/interfaces";
 import { ALL_WORDS } from "../../queries";
 
-const Container = styled(View)`
+const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;

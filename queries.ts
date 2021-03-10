@@ -68,3 +68,14 @@ export const DELETE_WORD = gql`
     deleteWord(wordId: $wordId)
   }
 `;
+
+export const SELF_PROFILE = gql`
+  {
+    self {
+      id
+      userName
+      email
+      avatar
+    }
+  }
+`;

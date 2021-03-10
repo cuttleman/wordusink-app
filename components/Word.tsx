@@ -1,11 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import styled from "styled-components";
+import styled from "styled-components/native";
 import constants from "../constants";
 import { CardNameStyle, WordP } from "../types/interfaces";
 
-const Container = styled(TouchableOpacity)`
+const Container = styled.TouchableOpacity`
   width: ${constants.width / 1.3}px;
   height: ${constants.height / 10}px;
   background-color: white;
@@ -17,16 +16,20 @@ const Container = styled(TouchableOpacity)`
   padding: 0 20px;
 `;
 
-const ContentContainer = styled(View)<CardNameStyle>`
+const ContentContainer = styled.View<CardNameStyle>`
   width: ${constants.width / 3}px;
   justify-content: center;
   align-items: ${(props) => (props.isName ? "flex-start" : "flex-end")};
 `;
 
-const Name = styled(Text)`
+const Name = styled.Text`
   font-size: 17px;
   font-weight: 700;
   text-transform: capitalize;
+`;
+
+const Caption = styled.Text`
+  font-size: 15px;
 `;
 
 export default ({ word, words }: WordP) => {
@@ -38,7 +41,7 @@ export default ({ word, words }: WordP) => {
         <Name>{word.name}</Name>
       </ContentContainer>
       <ContentContainer>
-        <Text>{word.caption}</Text>
+        <Caption>{word.caption}</Caption>
       </ContentContainer>
     </Container>
   );
