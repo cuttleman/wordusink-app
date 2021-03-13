@@ -38,6 +38,7 @@ export interface CardListHP {
     name?: string;
     count?: number;
   }[];
+  scrollEvent: boolean;
 }
 
 export interface WordTextSt {

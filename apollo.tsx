@@ -7,7 +7,7 @@ interface optionI {
 }
 
 // Dynamically ip everything change
-const httpLink: HttpLink = new HttpLink({ uri: "http://172.28.118.22:5000" });
+const httpLink: HttpLink = new HttpLink({ uri: "http://172.28.117.90:5000" });
 
 const authLink: ApolloLink = setContext(async () => {
   const token = await AsyncStorage.getItem("token");

@@ -5,10 +5,8 @@ import {
 } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Main/Home";
-import Words from "../screens/Main/Words";
-import Community from "../screens/Main/Community";
 import Profile from "../screens/Main/Profile";
-import Cards from "../screens/Word/Cards";
+import FirstCharCards from "../screens/Word/FirstCharCards";
 import EditWord from "../screens/Word/EditWord";
 import AllCards from "../screens/Word/AllCards";
 
@@ -46,22 +44,11 @@ export default () => (
       {() =>
         stackFactory([
           { name: "Home", component: Home },
-          { name: "Cards", component: Cards },
-          { name: "EditWord", component: EditWord },
-        ])
-      }
-    </Tab.Screen>
-    <Tab.Screen name="Words">
-      {() =>
-        stackFactory([
-          { name: "Words", component: Words },
+          { name: "FirstCharCards", component: FirstCharCards },
           { name: "AllCards", component: AllCards },
           { name: "EditWord", component: EditWord },
         ])
       }
-    </Tab.Screen>
-    <Tab.Screen name="Community">
-      {() => stackFactory([{ name: "Community", component: Community }])}
     </Tab.Screen>
     <Tab.Screen name="Profile">
       {() => stackFactory([{ name: "Profile", component: Profile }])}

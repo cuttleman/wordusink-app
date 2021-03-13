@@ -1,40 +1,38 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { RefreshControl, ScrollView } from "react-native";
 import { useQuery } from "@apollo/client";
 import CardListH from "../../components/CardListH";
-import { HAVING_WORDS } from "../../queries";
+import { ALL_WORDS, HAVING_WORDS } from "../../queries";
 import Loading from "../../components/Loading";
+import CardListV from "../../components/CardListV";
 
-const Container = styled.ScrollView`
-  flex: 1;
+const Container = styled.View`
   background-color: #786fa6;
 `;
 
 const Home: React.FC = () => {
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-  const { data, loading, refetch } = useQuery(HAVING_WORDS);
+  const [scrollDown, setScrollDown] = useState<boolean>(false);
+  const {
+    data: havingData,
+    loading: havingLoading,
+    refetch: havingRefetch,
+  } = useQuery(HAVING_WORDS);
+  const {
+    data: allWordsData,
+    loading: allWordsLoading,
+    refetch: allWordsRefetch,
+  } = useQuery(ALL_WORDS);
 
-  const onRefresh = async () => {
-    try {
-      setRefreshing(true);
-      await refetch();
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setRefreshing(false);
-    }
-  };
-
-  return loading ? (
+  return havingLoading && allWordsLoading ? (
     <Loading />
   ) : (
-    <Container
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <CardListH words={data?.havingWords} />
+    <Container>
+      <CardListH words={havingData?.havingWords} scrollEvent={scrollDown} />
+      <CardListV
+        words={allWordsData?.allWords}
+        scrollEvent={{ value: scrollDown, set: setScrollDown }}
+        refetches={{ having: havingRefetch, all: allWordsRefetch }}
+      />
     </Container>
   );
 };

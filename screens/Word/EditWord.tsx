@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import {
-  useNavigation,
-  useNavigationState,
-  useRoute,
-} from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useMutation } from "@apollo/client";
 import { Image, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import useInput from "../../hooks/useInput";
@@ -19,7 +15,6 @@ const Container = styled.View`
 
 export default () => {
   const { params }: EditWordParams = useRoute();
-  const { routeNames } = useNavigationState((state) => state);
   const { navigate } = useNavigation();
   const [editWordMutation] = useMutation(EDIT_WORD);
   const [deleteWordMutation] = useMutation(DELETE_WORD);
@@ -54,7 +49,7 @@ export default () => {
         variables: { wordId: params?.wordId },
       });
       if (result) {
-        navigate(routeNames[0]);
+        navigate("Home");
       }
     } catch (e) {
       console.log(e);
