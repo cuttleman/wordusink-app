@@ -89,3 +89,13 @@ export interface AvatarP {
 export interface AvatarStyle {
   size: AvatarSize;
 }
+
+export interface TabsP {
+  name: string;
+  Component: React.FC<{ stackNavigation: any }>;
+  iconName: "logo-google" | "camera" | "albums";
+}
+
+export interface StackNavigationP {
+  setOptions: (event: { headerRight: () => React.ReactNode }) => void;
+}

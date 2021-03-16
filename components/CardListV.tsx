@@ -19,7 +19,7 @@ const ScrollContainer = styled.ScrollView`
 `;
 
 const Footer = styled.View`
-  height: ${constants.height / 3}px;
+  height: ${constants.height / 2.4}px;
 `;
 
 export default ({
@@ -59,7 +59,7 @@ export default ({
           scrollEvent.set(true);
         }
       } else {
-        if (velocity.y < 0 && Math.floor(scrollY) < 50) {
+        if (velocity.y < 0 && Math.floor(scrollY) < 60) {
           scrollEvent.set(false);
         }
       }

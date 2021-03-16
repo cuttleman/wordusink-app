@@ -1,57 +1,21 @@
 import React from "react";
 import {
-  createStackNavigator,
   CardStyleInterpolators,
+  createStackNavigator,
 } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screens/Main/Home";
-import Profile from "../screens/Main/Profile";
-import FirstCharCards from "../screens/Word/FirstCharCards";
-import EditWord from "../screens/Word/EditWord";
-import AllCards from "../screens/Word/AllCards";
-
-interface stacksP {
-  name: string;
-  component: React.FC;
-}
+import AddNavigation from "./AddNavigation";
+import TabNavigation from "./TabNavigation";
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-const stackFactory = (stacks: stacksP[]) => {
-  return (
-    <Stack.Navigator
-      headerMode={"none"}
-      screenOptions={{
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-      }}
-    >
-      {stacks.map((stack: stacksP, idx) => (
-        <Stack.Screen key={idx} name={stack.name} component={stack.component} />
-      ))}
-    </Stack.Navigator>
-  );
-};
 
 export default () => (
-  <Tab.Navigator
-    tabBarOptions={{
-      // showLabel: false,
-      style: { backgroundColor: "#574b90", borderTopWidth: 0 },
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     }}
   >
-    <Tab.Screen name="Home" options={{}}>
-      {() =>
-        stackFactory([
-          { name: "Home", component: Home },
-          { name: "FirstCharCards", component: FirstCharCards },
-          { name: "AllCards", component: AllCards },
-          { name: "EditWord", component: EditWord },
-        ])
-      }
-    </Tab.Screen>
-    <Tab.Screen name="Profile">
-      {() => stackFactory([{ name: "Profile", component: Profile }])}
-    </Tab.Screen>
-  </Tab.Navigator>
+    <Stack.Screen name="Tab" component={TabNavigation} />
+    <Stack.Screen name="Add" component={AddNavigation} />
+  </Stack.Navigator>
 );

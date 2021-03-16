@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Text } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import styled from "styled-components/native";
 import Card from "../../components/Card";
@@ -13,7 +13,15 @@ const Container = styled.View`
 `;
 
 const Cards: React.FC = () => {
+  const navigation = useNavigation();
   const { params }: AllWordsParamsP = useRoute();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      title: "",
+    });
+  }, [navigation]);
 
   return (
     <Container>

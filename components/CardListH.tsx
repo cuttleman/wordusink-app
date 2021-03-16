@@ -44,18 +44,18 @@ export default ({ words, scrollEvent }: CardListHP) => {
   const animation = new Animated.Value(scrollEvent ? 0 : 1);
   const textSize = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [23, 19],
+    outputRange: [23, 16],
   });
   const paddingVertical = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [25, 10],
+    outputRange: [25, 0],
   });
 
   Animated.timing(animation, {
     toValue: scrollEvent ? 1 : 0,
-    duration: 400,
+    duration: 600,
     useNativeDriver: false,
-    easing: Easing.linear,
+    easing: Easing.bounce,
   }).start();
 
   return (
