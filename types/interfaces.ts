@@ -99,3 +99,9 @@ export interface TabsP {
 export interface StackNavigationP {
   setOptions: (event: { headerRight: () => React.ReactNode }) => void;
 }
+
+export interface SrollBotReachedP {
+  layoutMeasurement: { height: number };
+  contentOffset: { y: number };
+  contentSize: { height: number };
+}
