@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
   CardStyleInterpolators,
@@ -9,15 +9,12 @@ import FromLibrary from "../screens/Word/FromLibrary";
 import FromGoogle from "../screens/Word/FromGoogle";
 import FromPhoto from "../screens/Word/FromPhoto";
 import NewWord from "../screens/Word/NewWord";
-import { TabsP, StackNavigationP } from "../types/interfaces";
+import { MaterialTabsP, StackRouteP } from "../types/interfaces";
 
 const MaterialTab = createMaterialTopTabNavigator();
 const AddStack = createStackNavigator();
 
-const materialTabFactory = (
-  tabs: TabsP[],
-  stackNavigation: StackNavigationP
-) => {
+const materialTabFactory = (tabs: MaterialTabsP[], stackRoute: StackRouteP) => {
   return (
     <MaterialTab.Navigator
       tabBarOptions={{
@@ -35,7 +32,7 @@ const materialTabFactory = (
             ),
           }}
         >
-          {() => <Component stackNavigation={stackNavigation} />}
+          {() => <Component stackRoute={stackRoute} />}
         </MaterialTab.Screen>
       ))}
     </MaterialTab.Navigator>
@@ -51,7 +48,7 @@ export default () => {
     >
       <AddStack.Screen name={"NewWord"} component={NewWord} />
       <AddStack.Screen name={"SelectPhoto"}>
-        {({ navigation: stackNavigation }) => {
+        {({ route: stackRoute }) => {
           return materialTabFactory(
             [
               {
@@ -70,7 +67,7 @@ export default () => {
                 iconName: "camera",
               },
             ],
-            stackNavigation
+            stackRoute
           );
         }}
       </AddStack.Screen>

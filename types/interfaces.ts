@@ -90,14 +90,21 @@ export interface AvatarStyle {
   size: AvatarSize;
 }
 
-export interface TabsP {
+export interface ComponentInMaterialTabs {
+  stackRoute: StackRouteP;
+}
+
+export interface MaterialTabsP {
   name: string;
-  Component: React.FC<{ stackNavigation: any }>;
+  Component: React.FC<ComponentInMaterialTabs>;
   iconName: "logo-google" | "camera" | "albums";
 }
 
-export interface StackNavigationP {
-  setOptions: (event: { headerRight: () => React.ReactNode }) => void;
+export interface StackRouteP {
+  params?: {
+    name?: string;
+    caption?: string;
+  };
 }
 
 export interface SrollBotReachedP {

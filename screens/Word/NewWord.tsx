@@ -1,20 +1,55 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useLayoutEffect } from "react";
-import { Button, Text, View } from "react-native";
+import { Alert, Button, Text, TextInput, View } from "react-native";
+import constants from "../../constants";
+import useInput from "../../hooks/useInput";
 
 export default () => {
   const navigation = useNavigation();
+  const name = useInput("");
+  const caption = useInput("");
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="" onPress={() => navigation.navigate("SelectPhoto")} />
+        <Button
+          title=""
+          onPress={() => {
+            if (name.value !== "" && caption.value !== "") {
+              navigation.navigate("SelectPhoto", {
+                name: name.value,
+                caption: caption.value,
+              });
+            } else {
+              Alert.alert("Warning", "Fill the all field!");
+            }
+          }}
+        />
       ),
     });
   });
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>new word</Text>
+      <TextInput
+        style={{
+          height: 30,
+          width: constants.width / 2,
+          borderColor: "black",
+          borderWidth: 1,
+        }}
+        value={name.value}
+        onChangeText={name.onChangeText}
+      />
+      <TextInput
+        style={{
+          height: 30,
+          width: constants.width / 2,
+          borderColor: "black",
+          borderWidth: 1,
+        }}
+        value={caption.value}
+        onChangeText={caption.onChangeText}
+      />
     </View>
   );
 };

@@ -1,31 +1,28 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  Button,
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Alert } from "react-native";
+import axios from "axios";
 import Loading from "../../components/Loading";
-import constants from "../../constants";
-import { SrollBotReachedP, StackNavigationP } from "../../types/interfaces";
+import PhotoAlbum from "../../components/PhotoAlbum";
+import {
+  ComponentInMaterialTabs,
+  SrollBotReachedP,
+} from "../../types/interfaces";
 
-export default ({ stackNavigation }: { stackNavigation: StackNavigationP }) => {
+export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [startNum, setStartNum] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [selectPhoto, setSelectPhoto] = useState<string>("");
 
   const onSrollBotReached = ({
     layoutMeasurement,
     contentOffset,
     contentSize,
   }: SrollBotReachedP): void => {
-    const PADDING_BOTTOM = 2 as number;
-    const isBottom = (layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - PADDING_BOTTOM) as boolean;
+    const PADDING_BOTTOM: number = 0.1;
+    const isBottom: boolean =
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - PADDING_BOTTOM;
     if (isBottom) {
       // Refetch
       setStartNum((prev) => prev + 19);
@@ -38,12 +35,15 @@ export default ({ stackNavigation }: { stackNavigation: StackNavigationP }) => {
         setLoading(true);
       }
       const { data } = await axios.get(
-        `http://172.30.55.45:3000/api/apple/${startNum}`,
+        `http://172.30.60.103:3000/api/${stackRoute?.params?.name}/${startNum}`,
         {
           responseType: "json",
         }
       );
       setPhotos([...photos, ...data]);
+      if (selectPhoto === "") {
+        setSelectPhoto(data?.[0]);
+      }
     } catch (e) {
       console.log(e);
       Alert.alert("Error", "Dont get the data");
@@ -53,35 +53,19 @@ export default ({ stackNavigation }: { stackNavigation: StackNavigationP }) => {
   };
 
   useEffect(() => {
-    stackNavigation.setOptions({
-      headerRight: () => (
-        <Button title="" onPress={() => console.log("test1")} />
-      ),
-    });
-  }, [stackNavigation]);
-
-  useEffect(() => {
     fetchFromApi();
   }, [startNum]);
 
-  return loading ? (
+  return loading || selectPhoto === "" ? (
     <Loading />
   ) : (
-    <ScrollView
-      contentContainerStyle={{
-        flexDirection: "row",
-        flexWrap: "wrap",
-        width: constants.width,
-      }}
-      onScroll={({ nativeEvent }) => onSrollBotReached(nativeEvent)}
-    >
-      {photos.map((photo, index) => (
-        <Image
-          key={index}
-          source={{ uri: photo }}
-          style={{ width: constants.width / 3, height: constants.height / 6 }}
-        />
-      ))}
-    </ScrollView>
+    <PhotoAlbum
+      photos={photos}
+      selectPhoto={selectPhoto}
+      setSelectPhoto={setSelectPhoto}
+      onSrollBotReached={onSrollBotReached}
+      name={stackRoute.params?.name}
+      caption={stackRoute.params?.caption}
+    />
   );
 };
