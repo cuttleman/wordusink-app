@@ -5,13 +5,12 @@ import {
   CardStyleInterpolators,
 } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Home from "../screens/Main/Home";
 import Profile from "../screens/Main/Profile";
 import FirstCharCards from "../screens/Word/FirstCharCards";
 import EditWord from "../screens/Word/EditWord";
 import AllCards from "../screens/Word/AllCards";
-import Preview from "../screens/Main/Preview";
 
 interface stacksP {
   name: string;
@@ -44,6 +43,7 @@ export default () => {
         // showLabel: false,
         style: { backgroundColor: "#574b90", borderTopWidth: 0 },
       }}
+      initialRouteName="Home"
     >
       <Tab.Screen name="Home" options={{}}>
         {() =>

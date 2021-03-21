@@ -112,3 +112,18 @@ export interface SrollBotReachedP {
   contentOffset: { y: number };
   contentSize: { height: number };
 }
+
+export interface PhotoAlbumP {
+  photos: string[];
+  selectPhoto: string;
+  setSelectPhoto: React.Dispatch<React.SetStateAction<string>>;
+  onSrollBotReached: (params: SrollBotReachedP) => void;
+  name?: string;
+  caption?: string;
+}
+
+export type HomeRouteParam = {
+  Check: {
+    comebackHome: boolean;
+  };
+};

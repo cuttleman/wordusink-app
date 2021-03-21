@@ -1,7 +1,11 @@
+import { useMutation } from "@apollo/client";
+import { useNavigation, TabActions } from "@react-navigation/native";
 import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 import constants from "../constants";
+import { CREATE_WORD } from "../queries";
+import { PhotoAlbumP } from "../types/interfaces";
 
 export default ({
   photos,
@@ -10,7 +14,28 @@ export default ({
   onSrollBotReached,
   name,
   caption,
-}) => {
+}: PhotoAlbumP) => {
+  const [createWordMutation] = useMutation(CREATE_WORD);
+  const navigation = useNavigation();
+
+  const createWordHandle = async () => {
+    try {
+      const { data } = await createWordMutation({
+        variables: {
+          name,
+          caption,
+          url: selectPhoto,
+        },
+      });
+      if (data?.createWord?.result) {
+        // Will Change - regist 2021/3/21
+        navigation.navigate("Home", { comebackHome: true });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
@@ -29,10 +54,7 @@ export default ({
             right: 10,
             top: 10,
           }}
-          onPress={() =>
-            // Query
-            console.log(selectPhoto, name, caption)
-          }
+          onPress={createWordHandle}
         >
           <Text>test</Text>
         </TouchableOpacity>

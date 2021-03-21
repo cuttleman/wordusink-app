@@ -79,3 +79,12 @@ export const SELF_PROFILE = gql`
     }
   }
 `;
+
+export const CREATE_WORD = gql`
+  mutation createWord($name: String!, $caption: String!, $url: String) {
+    createWord(name: $name, caption: $caption, url: $url) {
+      result
+      message
+    }
+  }
+`;

@@ -49,7 +49,7 @@ export default () => {
         variables: { wordId: params?.wordId },
       });
       if (result) {
-        navigate("Home");
+        navigate("Home", { comebackHome: true });
       }
     } catch (e) {
       console.log(e);
