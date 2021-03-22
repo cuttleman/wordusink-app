@@ -127,3 +127,8 @@ export type HomeRouteParam = {
     comebackHome: boolean;
   };
 };
+
+export interface stacksP {
+  name: string;
+  component: React.FC;
+}

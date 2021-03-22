@@ -51,12 +51,14 @@ export default ({ words, scrollEvent }: CardListHP) => {
     outputRange: [25, 0],
   });
 
-  Animated.timing(animation, {
-    toValue: scrollEvent ? 1 : 0,
-    duration: 600,
-    useNativeDriver: false,
-    easing: Easing.bounce,
-  }).start();
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: scrollEvent ? 1 : 0,
+      duration: 700,
+      useNativeDriver: false,
+      easing: Easing.bounce,
+    }).start();
+  }, [animation]);
 
   return (
     <Container>

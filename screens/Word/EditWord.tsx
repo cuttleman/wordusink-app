@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components/native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  StackActions,
+  CommonActions,
+} from "@react-navigation/native";
 import { useMutation } from "@apollo/client";
 import { Image, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import useInput from "../../hooks/useInput";
@@ -15,13 +20,13 @@ const Container = styled.View`
 
 export default () => {
   const { params }: EditWordParams = useRoute();
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
   const [editWordMutation] = useMutation(EDIT_WORD);
   const [deleteWordMutation] = useMutation(DELETE_WORD);
   const name = useInput(params?.name);
   const caption = useInput(params?.caption);
 
-  const editHandle = async () => {
+  const doneHandle = async () => {
     try {
       const {
         data: { editWord: result },
@@ -33,9 +38,12 @@ export default () => {
         },
       });
       if (result) {
-        navigate("Cards", {
-          firstTerm: name.value?.substring(0, 1).toLowerCase(),
-        });
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+          })
+        );
       }
     } catch (e) {
       console.log(e);
@@ -49,7 +57,12 @@ export default () => {
         variables: { wordId: params?.wordId },
       });
       if (result) {
-        navigate("Home", { comebackHome: true });
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+          })
+        );
       }
     } catch (e) {
       console.log(e);
@@ -86,7 +99,7 @@ export default () => {
         onChangeText={caption.onChangeText}
         autoCapitalize={"none"}
       />
-      <TouchableOpacity onPress={() => editHandle()}>
+      <TouchableOpacity onPress={() => doneHandle()}>
         <Text>Done</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => preDeleteHandle()}>

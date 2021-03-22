@@ -8,7 +8,7 @@ interface optionI {
 
 // Dynamically ip everything change
 const httpLink: HttpLink = new HttpLink({
-  uri: "http://172.30.60.103:5000",
+  uri: "http://172.30.61.35:5000",
 });
 
 const authLink: ApolloLink = setContext(async () => {
@@ -20,12 +20,13 @@ export const options: optionI = {
   link: concat(authLink, httpLink),
 };
 
-const merged = () => (_: any, incoming = []) => incoming;
+const merged = () => (_: any, incoming = []) => {
+  return incoming;
+};
 
 export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
-      merge: true,
       fields: {
         allWords: {
           merge: merged(),
@@ -39,7 +40,6 @@ export const cache = new InMemoryCache({
       },
     },
     Word: {
-      merge: true,
       fields: {
         votes: {
           merge: merged(),

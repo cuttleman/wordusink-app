@@ -75,6 +75,7 @@ export default ({
           progressViewOffset={150}
         />
       }
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{ alignItems: "center" }}
       onScroll={onScroll}
     >

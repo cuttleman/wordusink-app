@@ -1,7 +1,19 @@
 import { useMutation } from "@apollo/client";
-import { useNavigation, TabActions } from "@react-navigation/native";
+import {
+  useNavigation,
+  TabActions,
+  CommonActions,
+  StackActions,
+} from "@react-navigation/native";
 import React from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import styled from "styled-components/native";
 import constants from "../constants";
 import { CREATE_WORD } from "../queries";
@@ -29,10 +41,13 @@ export default ({
       });
       if (data?.createWord?.result) {
         // Will Change - regist 2021/3/21
-        navigation.navigate("Home", { comebackHome: true });
+        navigation.dispatch(StackActions.replace("Tab"));
+      } else {
+        throw Error(data?.createWord?.message);
       }
     } catch (e) {
       console.log(e);
+      Alert.alert("error", e.message);
     }
   };
 
@@ -41,9 +56,9 @@ export default ({
       <View style={{ flex: 1 }}>
         <Image
           source={{ uri: selectPhoto }}
+          resizeMode={"contain"}
           style={{
-            width: constants.width,
-            height: constants.height / 2.5,
+            flex: 1,
           }}
         />
         <TouchableOpacity
@@ -63,7 +78,6 @@ export default ({
         style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          backgroundColor: "black",
           flexDirection: "row",
           flexWrap: "wrap",
           width: constants.width,

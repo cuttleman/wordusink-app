@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import { Text } from "react-native";
 import { useQuery } from "@apollo/client";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 import styled from "styled-components/native";
 import Loading from "../../components/Loading";
@@ -15,20 +15,12 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const Cards: React.FC = () => {
-  const navigation = useNavigation();
+const FirstCharCards: React.FC = () => {
   const { params }: SpecificWordParamsP = useRoute();
   const { data, loading } = useQuery(SPECIFIC_WORDS, {
     fetchPolicy: "cache-and-network",
     variables: { alphabet: params?.firstTerm?.toLowerCase() },
   });
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: true,
-      title: "",
-    });
-  }, [navigation]);
 
   return loading ? (
     <Loading />
@@ -53,4 +45,4 @@ const Cards: React.FC = () => {
   );
 };
 
-export default Cards;
+export default FirstCharCards;

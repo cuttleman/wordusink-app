@@ -23,13 +23,13 @@ export default () => {
         <Button
           title=""
           onPress={() => {
-            if (name.value !== "" && caption.value !== "") {
+            if (name.value !== "") {
               navigation.navigate("SelectPhoto", {
                 name: name.value,
                 caption: caption.value,
               });
             } else {
-              Alert.alert("Warning", "Fill the all field!");
+              Alert.alert("Warning", "Fill the name field!");
             }
           }}
         />

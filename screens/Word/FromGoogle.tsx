@@ -35,7 +35,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         setLoading(true);
       }
       const { data } = await axios.get(
-        `http://172.30.60.103:3000/api/${stackRoute?.params?.name}/${startNum}`,
+        `http://172.30.63.148:3000/api/${stackRoute?.params?.name}/${startNum}`,
         {
           responseType: "json",
         }
@@ -53,7 +53,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
   };
 
   useEffect(() => {
-    fetchFromApi();
+    // fetchFromApi();
   }, [startNum]);
 
   return loading || selectPhoto === "" ? (

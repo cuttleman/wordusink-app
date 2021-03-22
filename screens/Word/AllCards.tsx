@@ -13,15 +13,7 @@ const Container = styled.View`
 `;
 
 const Cards: React.FC = () => {
-  const navigation = useNavigation();
   const { params }: AllWordsParamsP = useRoute();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: true,
-      title: "",
-    });
-  }, [navigation]);
 
   return (
     <Container>

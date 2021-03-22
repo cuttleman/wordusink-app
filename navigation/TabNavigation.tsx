@@ -5,17 +5,13 @@ import {
   CardStyleInterpolators,
 } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import Home from "../screens/Main/Home";
 import Profile from "../screens/Main/Profile";
 import FirstCharCards from "../screens/Word/FirstCharCards";
 import EditWord from "../screens/Word/EditWord";
 import AllCards from "../screens/Word/AllCards";
-
-interface stacksP {
-  name: string;
-  component: React.FC;
-}
+import { stacksP } from "../types/interfaces";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,7 +21,8 @@ const stackFactory = (stacks: stacksP[]) => {
     <Stack.Navigator
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        headerShown: false,
+        headerShown: true,
+        title: "",
       }}
     >
       {stacks.map((stack: stacksP, idx) => (
@@ -36,7 +33,8 @@ const stackFactory = (stacks: stacksP[]) => {
 };
 
 export default () => {
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -60,7 +58,7 @@ export default () => {
         listeners={{
           tabPress: (e) => {
             e.preventDefault();
-            navigate("Add");
+            navigation.navigate("Add");
           },
         }}
         component={View}
