@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
-  NativeTouchEvent,
   RefreshControl,
   Text,
 } from "react-native";
 import styled from "styled-components/native";
 import constants from "../constants";
-import { PartialWord } from "../types/interfaces";
+import { CardListVP, PartialWord } from "../types/interfaces";
+import Loading from "./Loading";
 import Word from "./Word";
 
 const ScrollContainer = styled.ScrollView`
@@ -22,15 +22,7 @@ const Footer = styled.View`
   height: ${constants.height / 2.4}px;
 `;
 
-export default ({
-  words,
-  scrollEvent,
-  refetches,
-}: {
-  words: PartialWord[];
-  scrollEvent: { value: boolean; set: (value: boolean) => void };
-  refetches: { having: () => void; all: () => void };
-}) => {
+export default ({ words, scrollEvent, refetches, loading }: CardListVP) => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const onRefresh = async () => {
@@ -79,7 +71,9 @@ export default ({
       contentContainerStyle={{ alignItems: "center" }}
       onScroll={onScroll}
     >
-      {words?.length === 0 ? (
+      {loading ? (
+        <Loading />
+      ) : words?.length === 0 ? (
         <Text>You have 0 word</Text>
       ) : (
         words?.map((word: PartialWord) => (

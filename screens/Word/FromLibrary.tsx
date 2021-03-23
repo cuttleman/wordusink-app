@@ -8,9 +8,12 @@ import {
   SrollBotReachedP,
 } from "../../types/interfaces";
 
+const START_NUM: number = 8;
+const SCROLL_PADDING_BOTTOM: number = 0.1;
+
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<string[]>([]);
-  const [startNum, setStartNum] = useState<number>(19);
+  const [startNum, setStartNum] = useState<number>(START_NUM);
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectPhoto, setSelectPhoto] = useState<string>("");
@@ -20,13 +23,12 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     contentOffset,
     contentSize,
   }: SrollBotReachedP): void => {
-    const PADDING_BOTTOM: number = 0.1;
     const isBottom: boolean =
       layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - PADDING_BOTTOM;
+      contentSize.height - SCROLL_PADDING_BOTTOM;
     if (isBottom) {
       if (hasNext) {
-        setStartNum((prev) => prev + 19);
+        setStartNum((prev) => prev + START_NUM);
       }
     }
   };
@@ -42,10 +44,12 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         const { assets, hasNextPage } = await MediaLibrary.getAssetsAsync({
           first: startNum,
         });
+
         let data: string[] = [];
         assets.map((asset) => data.push(asset.uri));
         setPhotos(data);
         setHasNext(hasNextPage);
+
         // Initial selected
         if (selectPhoto === "") {
           setSelectPhoto(data?.[0]);

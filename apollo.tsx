@@ -8,7 +8,7 @@ interface optionI {
 
 // Dynamically ip everything change
 const httpLink: HttpLink = new HttpLink({
-  uri: "http://172.30.61.35:5000",
+  uri: "http://172.30.53.104:5000",
 });
 
 const authLink: ApolloLink = setContext(async () => {

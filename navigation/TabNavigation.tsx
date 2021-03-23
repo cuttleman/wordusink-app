@@ -11,12 +11,12 @@ import Profile from "../screens/Main/Profile";
 import FirstCharCards from "../screens/Word/FirstCharCards";
 import EditWord from "../screens/Word/EditWord";
 import AllCards from "../screens/Word/AllCards";
-import { stacksP } from "../types/interfaces";
+import { StacksP } from "../types/interfaces";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const stackFactory = (stacks: stacksP[]) => {
+const stackFactory = (stacks: StacksP[]) => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -25,7 +25,7 @@ const stackFactory = (stacks: stacksP[]) => {
         title: "",
       }}
     >
-      {stacks.map((stack: stacksP, idx) => (
+      {stacks.map((stack: StacksP, idx) => (
         <Stack.Screen key={idx} name={stack.name} component={stack.component} />
       ))}
     </Stack.Navigator>

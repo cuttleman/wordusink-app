@@ -1,25 +1,16 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useQuery } from "@apollo/client";
 import CardListH from "../../components/CardListH";
 import { ALL_WORDS, HAVING_WORDS } from "../../queries";
-import Loading from "../../components/Loading";
 import CardListV from "../../components/CardListV";
-import {
-  CommonActions,
-  RouteProp,
-  StackActions,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/core";
-import { HomeRouteParam } from "../../types/interfaces";
+import { useNavigation } from "@react-navigation/core";
 
 const Container = styled.View`
   background-color: #786fa6;
 `;
 
 const Home: React.FC = () => {
-  const route = useRoute<RouteProp<HomeRouteParam, "Check">>();
   const navigation = useNavigation();
   const [scrollDown, setScrollDown] = useState<boolean>(false);
   const {
@@ -39,14 +30,17 @@ const Home: React.FC = () => {
     });
   }, [navigation]);
 
-  return havingLoading && allWordsLoading ? (
-    <Loading />
-  ) : (
+  return (
     <Container>
-      <CardListH words={havingData?.havingWords} scrollEvent={scrollDown} />
+      <CardListH
+        words={havingData?.havingWords}
+        scrollEvent={scrollDown}
+        loading={havingLoading}
+      />
       <CardListV
         words={allWordsData?.allWords}
         scrollEvent={{ value: scrollDown, set: setScrollDown }}
+        loading={allWordsLoading}
         refetches={{ having: havingRefetch, all: allWordsRefetch }}
       />
     </Container>

@@ -1,24 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import {
-  View,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  Animated,
-  Easing,
-} from "react-native";
+import { ScrollView, Text, Animated, Easing } from "react-native";
 import styled from "styled-components/native";
 import constants from "../constants";
 import { CardListHP, WordTextSt } from "../types/interfaces";
 import { colors } from "../utils";
+import Loading from "./Loading";
 
 const Container = styled(Animated.View)`
   width: ${constants.width}px;
   border-bottom-left-radius: 40px;
   background-color: #574b90;
   align-items: center;
-  padding: 20px 0 20px 20px;
+  padding: 20px;
   position: absolute;
   z-index: 998;
 `;
@@ -39,7 +33,7 @@ const WordText = styled(Animated.Text)<WordTextSt>`
   text-transform: uppercase;
 `;
 
-export default ({ words, scrollEvent }: CardListHP) => {
+export default ({ words, scrollEvent, loading }: CardListHP) => {
   const { navigate } = useNavigation();
   const animation = new Animated.Value(scrollEvent ? 0 : 1);
   const textSize = animation.interpolate({
@@ -67,7 +61,9 @@ export default ({ words, scrollEvent }: CardListHP) => {
         contentContainerStyle={{ alignItems: "center" }}
         showsHorizontalScrollIndicator={false}
       >
-        {words.length === 0 ? (
+        {loading ? (
+          <Loading />
+        ) : words.length === 0 ? (
           <Text>단어를 추가해보세요</Text>
         ) : (
           words.map((word, idx) => (

@@ -36,6 +36,7 @@ export default () => {
       ),
     });
   });
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

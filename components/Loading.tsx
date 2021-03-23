@@ -6,11 +6,10 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #786fa6;
 `;
 
 export default () => (
   <Container>
-    <ActivityIndicator size={"large"} color={"#636e72"} />
+    <ActivityIndicator size={"large"} color={"#ffffff"} />
   </Container>
 );

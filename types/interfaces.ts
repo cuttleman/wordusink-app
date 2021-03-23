@@ -39,6 +39,14 @@ export interface CardListHP {
     count?: number;
   }[];
   scrollEvent: boolean;
+  loading: boolean;
+}
+
+export interface CardListVP {
+  words: PartialWord[];
+  scrollEvent: { value: boolean; set: (value: boolean) => void };
+  refetches: { having: () => void; all: () => void };
+  loading: boolean;
 }
 
 export interface WordTextSt {
@@ -128,7 +136,13 @@ export type HomeRouteParam = {
   };
 };
 
-export interface stacksP {
+export interface StacksP {
   name: string;
   component: React.FC;
+}
+
+export interface CameraSectionP {
+  hasPermission: boolean;
+  type: number;
+  typeAction: () => void;
 }
