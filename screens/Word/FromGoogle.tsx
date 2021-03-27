@@ -35,7 +35,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         setLoading(true);
       }
       const { data } = await axios.get(
-        `http://172.30.53.104:3000/api/${stackRoute?.params?.name}/${startNum}`,
+        `http://172.30.1.33:3000/api/${stackRoute?.params?.name}/${startNum}`,
         {
           responseType: "json",
         }
