@@ -1,3 +1,5 @@
+import { Camera } from "expo-camera";
+
 export interface WordP {
   word: PartialWord;
   words?: PartialWord[];
@@ -142,7 +144,10 @@ export interface StacksP {
 }
 
 export interface CameraSectionP {
+  cameraRef: React.MutableRefObject<Camera | null>;
   hasPermission: boolean;
   type: number;
   typeAction: () => void;
+  takeAction: () => Promise<void>;
+  readyForCamera: () => void;
 }

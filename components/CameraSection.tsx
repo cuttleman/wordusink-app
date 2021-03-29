@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { CameraSectionP } from "../types/interfaces";
 import { Camera } from "expo-camera";
+import { Ionicons } from "@expo/vector-icons";
 
 const Container = styled.View`
   flex: 1;
@@ -19,29 +20,53 @@ const Permission = styled.View`
   flex: 1;
 `;
 
+const CameraSt = styled(Camera)`
+  flex: 2;
+`;
+
 const ToggleBtn = styled.TouchableOpacity``;
 
 const ControlBox = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
 `;
 
-export default ({ hasPermission, type, typeAction }: CameraSectionP) => (
+const TakePhotoBtn = styled.TouchableOpacity`
+  border: 15px solid #f1f2f6;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+`;
+
+export default ({
+  cameraRef,
+  hasPermission,
+  type,
+  typeAction,
+  takeAction,
+  readyForCamera,
+}: CameraSectionP) => (
   <Container>
     {!hasPermission ? (
-      <NotPermission
-        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-      >
+      <NotPermission>
         <LightText>No access to Camera</LightText>
       </NotPermission>
     ) : (
-      <Permission style={{ flex: 1 }}>
-        <Camera style={{ flex: 2 }} type={type}>
+      <Permission>
+        <CameraSt
+          ref={cameraRef}
+          type={type}
+          useCamera2Api={true}
+          onCameraReady={readyForCamera}
+        >
           <ToggleBtn onPress={typeAction}>
-            <LightText style={{ color: "white" }}>click</LightText>
+            <Ionicons name={"camera-reverse"} color={"#ffffff"} size={25} />
           </ToggleBtn>
-        </Camera>
+        </CameraSt>
         <ControlBox>
-          <LightText>FromPhoto</LightText>
+          <TakePhotoBtn onPress={takeAction}></TakePhotoBtn>
         </ControlBox>
       </Permission>
     )}
