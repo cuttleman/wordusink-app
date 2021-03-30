@@ -7,12 +7,17 @@ import {
   ComponentInMaterialTabs,
   SrollBotReachedP,
 } from "../../types/interfaces";
+import { StackActions, useNavigation } from "@react-navigation/core";
+import { useMutation } from "@apollo/client";
+import { CREATE_WORD } from "../../queries";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [startNum, setStartNum] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectPhoto, setSelectPhoto] = useState<string>("");
+  const [createWordMutation] = useMutation(CREATE_WORD);
+  const navigation = useNavigation();
 
   const onSrollBotReached = ({
     layoutMeasurement,
@@ -29,13 +34,38 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     }
   };
 
+  const createWordAction = async () => {
+    try {
+      const { data } = await createWordMutation({
+        variables: {
+          name: stackRoute.params?.name,
+          caption: stackRoute.params?.caption,
+          url: selectPhoto,
+        },
+      });
+      if (data?.createWord?.result) {
+        // Will Change - regist 2021/3/21
+        navigation.dispatch(StackActions.replace("Tab"));
+      } else {
+        throw Error(data?.createWord?.message);
+      }
+    } catch (e) {
+      console.log(e);
+      Alert.alert("error", e.message);
+    }
+  };
+
+  const selectPhotoAction = (selected: string) => {
+    setSelectPhoto(selected);
+  };
+
   const fetchFromApi = async (): Promise<void> => {
     try {
       if (photos.length === 0) {
         setLoading(true);
       }
       const { data } = await axios.get(
-        `http://172.30.1.33:3000/api/${stackRoute?.params?.name}/${startNum}`,
+        `http://172.20.10.13:3000/api/${stackRoute?.params?.name}/${startNum}`,
         {
           responseType: "json",
         }
@@ -62,10 +92,9 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     <PhotoAlbum
       photos={photos}
       selectPhoto={selectPhoto}
-      setSelectPhoto={setSelectPhoto}
+      selectPhotoAction={selectPhotoAction}
       onSrollBotReached={onSrollBotReached}
-      name={stackRoute.params?.name}
-      caption={stackRoute.params?.caption}
+      createWordAction={createWordAction}
     />
   );
 };

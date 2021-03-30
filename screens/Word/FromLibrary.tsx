@@ -7,16 +7,22 @@ import {
   ComponentInMaterialTabs,
   SrollBotReachedP,
 } from "../../types/interfaces";
+import { useMutation } from "@apollo/client";
+import { StackActions, useNavigation } from "@react-navigation/core";
+import { CREATE_WORD } from "../../queries";
+import axios from "axios";
 
 const START_NUM: number = 8;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
-  const [photos, setPhotos] = useState<string[]>([]);
+  const [photos, setPhotos] = useState<MediaLibrary.Asset[]>([]);
   const [startNum, setStartNum] = useState<number>(START_NUM);
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectPhoto, setSelectPhoto] = useState<string>("");
+  const [selectPhoto, setSelectPhoto] = useState<MediaLibrary.Asset>();
+  const [createWordMutation] = useMutation(CREATE_WORD);
+  const navigation = useNavigation();
 
   const onSrollBotReached = ({
     layoutMeasurement,
@@ -33,6 +39,45 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     }
   };
 
+  const createWordAction = async () => {
+    if (selectPhoto !== undefined) {
+      const formData = new FormData();
+      formData.append("photo", {
+        name: selectPhoto.filename,
+        uri: selectPhoto.uri,
+        type: `image/${selectPhoto.filename.split(".")[1]}`,
+      });
+      const result = await axios({
+        url: "http://172.20.10.13:5000/api/upload",
+        method: "POST",
+        headers: { "Content-Type": "multipart/form-data" },
+        data: formData,
+      });
+      console.log(result);
+    }
+    // try {
+    // const { data } = await createWordMutation({
+    //   variables: {
+    //     name: stackRoute.params?.name,
+    //     caption: stackRoute.params?.caption,
+    //     url: selectPhoto,
+    //   },
+    // });
+    // if (data?.createWord?.result) {
+    //   navigation.dispatch(StackActions.replace("Tab"));
+    // } else {
+    //   throw Error(data?.createWord?.message);
+    // }
+    // } catch (e) {
+    //   console.log(e);
+    //   Alert.alert("error", e.message);
+    // }
+  };
+
+  const selectPhotoAction = (selected: MediaLibrary.Asset) => {
+    setSelectPhoto(selected);
+  };
+
   const getFromLibrary = async (): Promise<void> => {
     try {
       if (photos.length === 0) {
@@ -44,15 +89,12 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         const { assets, hasNextPage } = await MediaLibrary.getAssetsAsync({
           first: startNum,
         });
-
-        let data: string[] = [];
-        assets.map((asset) => data.push(asset.uri));
-        setPhotos(data);
+        setPhotos(assets);
         setHasNext(hasNextPage);
 
         // Initial selected
-        if (selectPhoto === "") {
-          setSelectPhoto(data?.[0]);
+        if (selectPhoto === undefined) {
+          setSelectPhoto(assets[0]);
         }
       }
     } catch (e) {
@@ -67,16 +109,15 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     getFromLibrary();
   }, [startNum]);
 
-  return loading || selectPhoto === "" ? (
+  return loading || selectPhoto === undefined ? (
     <Loading />
   ) : (
     <PhotoAlbum
       photos={photos}
       selectPhoto={selectPhoto}
-      setSelectPhoto={setSelectPhoto}
+      selectPhotoAction={selectPhotoAction}
       onSrollBotReached={onSrollBotReached}
-      name={stackRoute.params?.name}
-      caption={stackRoute.params?.caption}
+      createWordAction={createWordAction}
     />
   );
 };

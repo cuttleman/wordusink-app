@@ -1,3 +1,4 @@
+import { Asset } from "expo-media-library";
 import { Camera } from "expo-camera";
 
 export interface WordP {
@@ -123,13 +124,14 @@ export interface SrollBotReachedP {
   contentSize: { height: number };
 }
 
+export type photoPInAlbum = string | Asset;
+
 export interface PhotoAlbumP {
-  photos: string[];
-  selectPhoto: string;
-  setSelectPhoto: React.Dispatch<React.SetStateAction<string>>;
+  photos: photoPInAlbum[];
+  selectPhoto: photoPInAlbum;
+  selectPhotoAction: (photo: any) => void;
   onSrollBotReached: (params: SrollBotReachedP) => void;
-  name?: string;
-  caption?: string;
+  createWordAction: () => Promise<void>;
 }
 
 export type HomeRouteParam = {

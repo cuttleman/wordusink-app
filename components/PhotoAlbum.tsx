@@ -1,61 +1,24 @@
-import { useMutation } from "@apollo/client";
-import {
-  useNavigation,
-  TabActions,
-  CommonActions,
-  StackActions,
-} from "@react-navigation/native";
 import React from "react";
-import {
-  Alert,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 import constants from "../constants";
-import { CREATE_WORD } from "../queries";
-import { PhotoAlbumP } from "../types/interfaces";
+import { PhotoAlbumP, photoPInAlbum } from "../types/interfaces";
 
 export default ({
   photos,
   selectPhoto,
-  setSelectPhoto,
+  selectPhotoAction,
   onSrollBotReached,
-  name,
-  caption,
+  createWordAction,
 }: PhotoAlbumP) => {
-  const [createWordMutation] = useMutation(CREATE_WORD);
-  const navigation = useNavigation();
-
-  const createWordHandle = async () => {
-    try {
-      const { data } = await createWordMutation({
-        variables: {
-          name,
-          caption,
-          url: selectPhoto,
-        },
-      });
-      if (data?.createWord?.result) {
-        // Will Change - regist 2021/3/21
-        navigation.dispatch(StackActions.replace("Tab"));
-      } else {
-        throw Error(data?.createWord?.message);
-      }
-    } catch (e) {
-      console.log(e);
-      Alert.alert("error", e.message);
-    }
-  };
-
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
         <Image
-          source={{ uri: selectPhoto }}
+          source={{
+            uri:
+              typeof selectPhoto === "string" ? selectPhoto : selectPhoto.uri,
+          }}
           resizeMode={"contain"}
           style={{
             flex: 1,
@@ -69,7 +32,7 @@ export default ({
             right: 10,
             top: 10,
           }}
-          onPress={createWordHandle}
+          onPress={createWordAction}
         >
           <Text>test</Text>
         </TouchableOpacity>
@@ -84,10 +47,15 @@ export default ({
         }}
         onScroll={({ nativeEvent }) => onSrollBotReached(nativeEvent)}
       >
-        {photos.map((photo, index) => (
-          <TouchableOpacity key={index} onPress={() => setSelectPhoto(photo)}>
+        {photos.map((photo: photoPInAlbum, index: number) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => selectPhotoAction(photo)}
+          >
             <Image
-              source={{ uri: photo }}
+              source={{
+                uri: typeof photo === "string" ? photo : photo.uri,
+              }}
               style={{
                 width: constants.width / 3,
                 height: constants.height / 6,
