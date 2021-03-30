@@ -40,38 +40,36 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
   };
 
   const createWordAction = async () => {
+    const formData: any = new FormData();
     if (selectPhoto !== undefined) {
-      const formData = new FormData();
       formData.append("photo", {
         name: selectPhoto.filename,
         uri: selectPhoto.uri,
         type: `image/${selectPhoto.filename.split(".")[1]}`,
       });
-      const result = await axios({
-        url: "http://172.20.10.13:5000/api/upload",
-        method: "POST",
-        headers: { "Content-Type": "multipart/form-data" },
-        data: formData,
-      });
-      console.log(result);
+      try {
+        const {
+          data: { file },
+        } = await axios.post("http://172.20.10.13:5000/api/upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        const { data } = await createWordMutation({
+          variables: {
+            name: stackRoute.params?.name,
+            caption: stackRoute.params?.caption,
+            url: file.path,
+          },
+        });
+        if (data?.createWord?.result) {
+          navigation.dispatch(StackActions.replace("Tab"));
+        } else {
+          throw Error(data?.createWord?.message);
+        }
+      } catch (e) {
+        console.log(e);
+        Alert.alert("error", e.message);
+      }
     }
-    // try {
-    // const { data } = await createWordMutation({
-    //   variables: {
-    //     name: stackRoute.params?.name,
-    //     caption: stackRoute.params?.caption,
-    //     url: selectPhoto,
-    //   },
-    // });
-    // if (data?.createWord?.result) {
-    //   navigation.dispatch(StackActions.replace("Tab"));
-    // } else {
-    //   throw Error(data?.createWord?.message);
-    // }
-    // } catch (e) {
-    //   console.log(e);
-    //   Alert.alert("error", e.message);
-    // }
   };
 
   const selectPhotoAction = (selected: MediaLibrary.Asset) => {
