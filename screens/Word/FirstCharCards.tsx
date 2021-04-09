@@ -2,12 +2,13 @@ import React, { useLayoutEffect } from "react";
 import { Text } from "react-native";
 import { useQuery } from "@apollo/client";
 import { useRoute } from "@react-navigation/native";
-import { SwiperFlatList } from "react-native-swiper-flatlist";
+import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
-import { SpecificWordParamsP } from "../../types/interfaces";
+import { PartialWord, SpecificWordParamsP } from "../../types/interfaces";
 import { SPECIFIC_WORDS } from "../../queries";
+import constants from "../../constants";
 
 const Container = styled.View`
   flex: 1;
@@ -18,25 +19,36 @@ const Container = styled.View`
 const FirstCharCards: React.FC = () => {
   const { params }: SpecificWordParamsP = useRoute();
   const { data, loading } = useQuery(SPECIFIC_WORDS, {
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "network-only",
     variables: { alphabet: params?.firstTerm?.toLowerCase() },
   });
 
-  return loading ? (
+  const getWords: PartialWord[] | undefined = data?.specificWords;
+
+  return loading || getWords === undefined ? (
     <Loading />
   ) : (
     <Container>
-      {data?.specificWords?.length === 0 ? (
+      {getWords.length === 0 ? (
         <Text>Nothing</Text>
       ) : (
-        <SwiperFlatList
-          data={data?.specificWords}
-          renderItem={({ item, index }) => (
+        <Carousel
+          layout={"default"}
+          data={getWords}
+          sliderWidth={constants.width}
+          itemWidth={constants.width}
+          renderItem={({
+            item,
+            index,
+          }: {
+            item: PartialWord;
+            index: number;
+          }) => (
             <Card
               key={item.id}
               word={item}
               index={index}
-              total={data?.specificWords.length}
+              total={getWords.length}
             />
           )}
         />

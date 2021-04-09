@@ -17,12 +17,12 @@ const Home: React.FC = () => {
     data: havingData,
     loading: havingLoading,
     refetch: havingRefetch,
-  } = useQuery(HAVING_WORDS, { fetchPolicy: "cache-and-network" });
+  } = useQuery(HAVING_WORDS, { fetchPolicy: "network-only" });
   const {
     data: allWordsData,
     loading: allWordsLoading,
     refetch: allWordsRefetch,
-  } = useQuery(ALL_WORDS, { fetchPolicy: "cache-and-network" });
+  } = useQuery(ALL_WORDS, { fetchPolicy: "network-only" });
 
   useLayoutEffect(() => {
     navigation.setOptions({

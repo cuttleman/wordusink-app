@@ -15,8 +15,10 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [startNum, setStartNum] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [fetching, setFetching] = useState<boolean>(false);
   const [selectPhoto, setSelectPhoto] = useState<string>("");
   const [createWordMutation] = useMutation(CREATE_WORD);
+  const [hasNext, setHasNext] = useState<boolean>(true);
   const navigation = useNavigation();
 
   const onSrollBotReached = ({
@@ -30,7 +32,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       contentSize.height - PADDING_BOTTOM;
     if (isBottom) {
       // Refetch
-      setStartNum((prev) => prev + 19);
+      if (!fetching) setStartNum((prev) => prev + 19);
     }
   };
 
@@ -60,33 +62,44 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
   };
 
   const fetchFromApi = async (): Promise<void> => {
+    if (photos.length === 0) setLoading(true);
     try {
-      if (photos.length === 0) {
-        setLoading(true);
-      }
+      setFetching(true);
       const { data } = await axios.get(
-        `http://172.20.10.13:3000/api/${stackRoute?.params?.name}/${startNum}`,
+        `http://172.30.1.25:3000/api/${stackRoute?.params?.name}/${startNum}`,
         {
           responseType: "json",
         }
       );
-      setPhotos([...photos, ...data]);
+      const filteringArray = data.filter((image: string) => {
+        const pattern = new RegExp("^(data:image|https://encrypted-tbn0).*");
+        const result = pattern.test(image);
+        if (result) return image;
+      });
+
+      if (filteringArray.length === 0) {
+        setHasNext(false);
+      } else {
+        setPhotos([...photos, ...filteringArray]);
+      }
+      // Initial selected photo
       if (selectPhoto === "") {
-        setSelectPhoto(data?.[0]);
+        setSelectPhoto(filteringArray?.[0]);
       }
     } catch (e) {
       console.log(e);
       Alert.alert("Error", "Dont get the data");
     } finally {
       setLoading(false);
+      setFetching(false);
     }
   };
 
   useEffect(() => {
-    fetchFromApi();
+    if (hasNext) fetchFromApi();
   }, [startNum]);
 
-  return loading || selectPhoto === "" ? (
+  return loading || selectPhoto === "" || photos.length === 0 ? (
     <Loading />
   ) : (
     <PhotoAlbum

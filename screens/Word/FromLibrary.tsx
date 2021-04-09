@@ -50,7 +50,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       try {
         const {
           data: { file },
-        } = await axios.post("http://172.20.10.13:5000/api/upload", formData, {
+        } = await axios.post("http://172.30.1.25:5000/api/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         const { data } = await createWordMutation({
@@ -67,7 +67,6 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         }
       } catch (e) {
         console.log(e);
-        Alert.alert("error", e.message);
       }
     }
   };
