@@ -32,11 +32,11 @@ const Caption = styled.Text`
   font-size: 15px;
 `;
 
-export default ({ word, words }: WordP) => {
+export default ({ word, words, index }: WordP) => {
   const { navigate } = useNavigation();
 
   return (
-    <Container onPress={() => navigate("AllCards", { wordId: word.id, words })}>
+    <Container onPress={() => navigate("AllCards", { words, index })}>
       <ContentContainer isName>
         <Name>{word.name}</Name>
       </ContentContainer>

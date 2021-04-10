@@ -23,6 +23,11 @@ export interface PartialWord {
   votes: Vote[];
 }
 
+export interface CarouselP {
+  item: PartialWord;
+  index: number;
+}
+
 export interface SpecificWordParamsP {
   params?: {
     firstTerm?: string;
@@ -31,7 +36,7 @@ export interface SpecificWordParamsP {
 
 export interface AllWordsParamsP {
   params?: {
-    wordId?: string;
+    index?: number;
     words?: PartialWord[];
   };
 }

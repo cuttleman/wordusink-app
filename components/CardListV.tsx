@@ -76,8 +76,8 @@ export default ({ words, scrollEvent, refetches, loading }: CardListVP) => {
       ) : words?.length === 0 ? (
         <Text>You have 0 word</Text>
       ) : (
-        words?.map((word: PartialWord) => (
-          <Word key={word.id} word={word} words={words} />
+        words?.map((word: PartialWord, index: number) => (
+          <Word key={word.id} word={word} words={words} index={index} />
         ))
       )}
       <Footer></Footer>

@@ -4,7 +4,7 @@ import { useRoute } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import Card from "../../components/Card";
-import { AllWordsParamsP, PartialWord } from "../../types/interfaces";
+import { AllWordsParamsP, CarouselP } from "../../types/interfaces";
 import constants from "../../constants";
 
 const Container = styled.View`
@@ -17,28 +17,25 @@ const Container = styled.View`
 export default () => {
   const { params }: AllWordsParamsP = useRoute();
 
-  const findIndex: number | undefined = params?.words?.findIndex(
-    (word: PartialWord) => word.id === params?.wordId
-  );
-  const getWords: PartialWord[] | undefined = params?.words;
   return (
     <Container>
       {params?.words?.length === 0 ||
-      findIndex === undefined ||
-      getWords === undefined ? (
+      params?.words === undefined ||
+      params?.index === undefined ? (
         <Text>Nothing</Text>
       ) : (
         <Carousel
           layout={"default"}
-          data={getWords}
-          firstItem={findIndex}
+          data={params.words}
+          firstItem={params.index}
           sliderWidth={constants.width}
           itemWidth={constants.width}
-          renderItem={({ item }: { item: PartialWord }) => (
+          initialNumToRender={params?.words?.length}
+          renderItem={({ item, index }: CarouselP) => (
             <Card
               key={item.id}
               word={item}
-              index={findIndex}
+              index={index}
               total={params?.words?.length}
             />
           )}

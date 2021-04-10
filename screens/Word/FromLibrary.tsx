@@ -57,7 +57,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
           variables: {
             name: stackRoute.params?.name,
             caption: stackRoute.params?.caption,
-            url: file.path,
+            url: file.linkUrl,
           },
         });
         if (data?.createWord?.result) {
