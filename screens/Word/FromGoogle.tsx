@@ -10,6 +10,7 @@ import {
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { useMutation } from "@apollo/client";
 import { CREATE_WORD } from "../../queries";
+import { hostForDev } from "../../utils";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<string[]>([]);
@@ -66,7 +67,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     try {
       setFetching(true);
       const { data } = await axios.get(
-        `http://172.30.1.25:3000/api/${stackRoute?.params?.name}/${startNum}`,
+        hostForDev(3000, `/api/${stackRoute?.params?.name}/${startNum}`),
         {
           responseType: "json",
         }

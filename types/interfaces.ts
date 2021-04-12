@@ -153,7 +153,7 @@ export interface StacksP {
 export interface CameraSectionP {
   cameraRef: React.MutableRefObject<Camera | null>;
   hasPermission: boolean;
-  type: number;
+  type: "back" | "front";
   typeAction: () => void;
   takeAction: () => Promise<void>;
   readyForCamera: () => void;

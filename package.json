@@ -5,6 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "ios-test": "expo start --tunnel",
     "eject": "expo eject"
   },
   "dependencies": {
@@ -20,12 +21,14 @@
     "apollo-link-context": "^1.0.20",
     "apollo3-cache-persist": "^0.9.1",
     "axios": "^0.21.1",
+    "babel-plugin-inline-dotenv": "^1.6.0",
     "expo": "~40.0.0",
     "expo-app-loading": "^1.0.1",
     "expo-asset": "^8.2.2",
     "expo-auth-session": "3.0.0",
     "expo-camera": "~9.1.0",
     "expo-font": "8.4.0",
+    "expo-image-manipulator": "~8.4.0",
     "expo-media-library": "~10.0.0",
     "expo-permissions": "~10.0.0",
     "expo-random": "10.0.0",
@@ -48,8 +51,8 @@
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
-    "@types/styled-components": "^5.1.7",
     "@types/react-native-snap-carousel": "^3.8.2",
+    "@types/styled-components": "^5.1.7",
     "@types/styled-components-react-native": "^5.1.1",
     "typescript": "~4.0.0"
   },

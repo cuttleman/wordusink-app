@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
+import * as ImageManipulator from "expo-image-manipulator";
 import * as MediaLibrary from "expo-media-library";
+import axios from "axios";
 import Loading from "../../components/Loading";
 import PhotoAlbum from "../../components/PhotoAlbum";
 import {
@@ -10,9 +12,9 @@ import {
 import { useMutation } from "@apollo/client";
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { CREATE_WORD } from "../../queries";
-import axios from "axios";
+import { hostForDev } from "../../utils";
 
-const START_NUM: number = 8;
+const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
@@ -42,15 +44,19 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const createWordAction = async () => {
     const formData: any = new FormData();
     if (selectPhoto !== undefined) {
+      const manipulatedImg = await ImageManipulator.manipulateAsync(
+        selectPhoto.uri,
+        [{ resize: { width: 300 } }]
+      );
       formData.append("photo", {
         name: selectPhoto.filename,
-        uri: selectPhoto.uri,
+        uri: manipulatedImg.uri,
         type: `image/${selectPhoto.filename.split(".")[1]}`,
       });
       try {
         const {
           data: { file },
-        } = await axios.post("http://172.30.1.25:5000/api/upload", formData, {
+        } = await axios.post(hostForDev(5000, "/api/upload"), formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         const { data } = await createWordMutation({

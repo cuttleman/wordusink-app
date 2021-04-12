@@ -55,7 +55,12 @@ export default ({
       </NotPermission>
     ) : (
       <Permission>
-        <CameraSt ref={cameraRef} type={type} onCameraReady={readyForCamera}>
+        <CameraSt
+          ref={cameraRef}
+          type={type}
+          zoom={0}
+          onCameraReady={readyForCamera}
+        >
           <ToggleBtn onPress={typeAction}>
             <Ionicons name={"camera-reverse"} color={"#ffffff"} size={25} />
           </ToggleBtn>

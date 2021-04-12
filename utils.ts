@@ -1,3 +1,5 @@
+import * as ImageManipulator from "expo-image-manipulator";
+
 export const colors = [
   "#EA2027", // A
   "#eb2f06", // B
@@ -26,3 +28,7 @@ export const colors = [
   "#485460", // Y
   "#808e9b", // Z
 ];
+
+export const hostForDev = (port: number, param = ""): string => {
+  return `http://172.30.1.25:${port}${param}`;
+};

@@ -1,6 +1,7 @@
 import { HttpLink, concat, ApolloLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import AsyncStorage from "@react-native-community/async-storage";
+import { hostForDev } from "./utils";
 
 interface optionI {
   link: ApolloLink;
@@ -8,7 +9,7 @@ interface optionI {
 
 // Dynamically ip everything change
 const httpLink: HttpLink = new HttpLink({
-  uri: "http://172.30.1.25:5000",
+  uri: hostForDev(5000),
 });
 
 const authLink: ApolloLink = setContext(async () => {
