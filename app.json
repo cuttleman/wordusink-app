@@ -7,9 +7,9 @@
     "icon": "./assets/icon.png",
     "scheme": "your.app",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/test_splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0984e3"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

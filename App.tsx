@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "react-native";
 import { ApolloProvider } from "@apollo/client";
+// import LottieView from "lottie-react-native";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons";
+import { Rubik_400Regular, Rubik_500Medium } from "@expo-google-fonts/rubik";
+import {
+  WorkSans_400Regular,
+  WorkSans_600SemiBold,
+} from "@expo-google-fonts/work-sans";
 import { persistCache, AsyncStorageWrapper } from "apollo3-cache-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
@@ -22,11 +28,19 @@ const App: React.FC = () => {
 
   const preLoad = async () => {
     const images = [
-      require("./assets/giphy.gif"),
       require("./assets/init_human.png"),
+      require("./assets/character.png"),
+      require("./assets/front.png"),
+      require("./assets/point.png"),
     ];
     try {
-      await Font.loadAsync({ ...Ionicons.font });
+      await Font.loadAsync({
+        ...Ionicons.font,
+        Rubik_400Regular,
+        Rubik_500Medium,
+        WorkSans_400Regular,
+        WorkSans_600SemiBold,
+      });
       images.map(async (image) => Asset.fromModule(image).downloadAsync());
 
       await persistCache({

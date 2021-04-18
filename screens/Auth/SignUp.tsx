@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
 import axios from "axios";
+import { useMutation } from "@apollo/client";
 import * as Google from "expo-auth-session/providers/google";
 import AuthButton from "../../components/AuthButton";
-import { useMutation } from "@apollo/client";
+import AppName from "../../components/AppName";
 import { useLogIn } from "../../components/AuthContext";
 import { SIGN_UP } from "../../queries";
 
@@ -11,7 +12,23 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #ffeaa7;
+  background-color: #f1f2f6;
+`;
+
+const Maincharacter = styled.Image`
+  width: 200px;
+  height: 300px;
+`;
+
+const Message = styled.Text`
+  font-family: "WorkSans_400Regular";
+  font-size: 16px;
+`;
+
+const BtnContainer = styled.View`
+  position: absolute;
+  bottom: 0;
+  right: 0;
 `;
 
 const SignUp: React.FC = () => {
@@ -57,11 +74,16 @@ const SignUp: React.FC = () => {
 
   return (
     <Container>
-      <AuthButton
-        text={"with Google"}
-        type={"google"}
-        onPress={signUpWithGoogle}
-      />
+      <Message>Hello. human</Message>
+      <Maincharacter source={require("../../assets/character.png")} />
+      <AppName />
+      <BtnContainer>
+        <AuthButton
+          text={"Google Login"}
+          type={"google"}
+          onPress={signUpWithGoogle}
+        />
+      </BtnContainer>
     </Container>
   );
 };
