@@ -52,13 +52,7 @@ export interface CardListHP {
 
 export interface CardListVP {
   words: PartialWord[];
-  scrollEvent: { value: boolean; set: (value: boolean) => void };
-  refetches: { having: () => void; all: () => void };
   loading: boolean;
-}
-
-export interface WordTextSt {
-  index: number;
 }
 
 export interface AuthButtonP {
@@ -157,4 +151,9 @@ export interface CameraSectionP {
   typeAction: () => void;
   takeAction: () => Promise<void>;
   readyForCamera: () => void;
+}
+
+export interface TabIconP {
+  focused?: boolean;
+  iconName: string | any;
 }

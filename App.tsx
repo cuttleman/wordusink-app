@@ -17,6 +17,8 @@ import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { options as apolloOptions, cache } from "./apollo";
 import NavController from "./components/NavController";
 import { AuthProvider } from "./components/AuthContext";
+import { ThemeProvider } from "styled-components";
+import theme from "./theme";
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -70,10 +72,12 @@ const App: React.FC = () => {
 
   return isLoaded && clientS && isLoggedIn !== null ? (
     <ApolloProvider client={clientS}>
-      <AuthProvider initLoggedIn={isLoggedIn}>
-        <NavController />
-        <StatusBar barStyle="light-content" />
-      </AuthProvider>
+      <ThemeProvider theme={theme}>
+        <AuthProvider initLoggedIn={isLoggedIn}>
+          <NavController />
+          <StatusBar barStyle="light-content" />
+        </AuthProvider>
+      </ThemeProvider>
     </ApolloProvider>
   ) : (
     <AppLoading />

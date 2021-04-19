@@ -52,6 +52,15 @@ export const HAVING_WORDS = gql`
   }
 `;
 
+export const ALL_IMAGES = gql`
+  {
+    allImages {
+      id
+      url
+    }
+  }
+`;
+
 export const EDIT_WORD = gql`
   mutation editWord(
     $wordId: String!

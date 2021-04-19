@@ -12,6 +12,12 @@ import FirstCharCards from "../screens/Word/FirstCharCards";
 import EditWord from "../screens/Word/EditWord";
 import AllCards from "../screens/Word/AllCards";
 import { StacksP } from "../types/interfaces";
+import Words from "../screens/Main/Words";
+import theme from "../theme";
+import TabIcon from "../components/TabIcon";
+import { TouchableOpacity } from "react-native";
+import Notification from "../screens/Main/Notification";
+import { floor } from "react-native-reanimated";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,7 +28,6 @@ const stackFactory = (stacks: StacksP[]) => {
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerShown: true,
-        title: "",
       }}
     >
       {stacks.map((stack: StacksP, idx) => (
@@ -38,23 +43,55 @@ export default () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        // showLabel: false,
-        style: { backgroundColor: "#574b90", borderTopWidth: 0 },
+        showLabel: false,
+        style: {
+          backgroundColor: theme.bgColor,
+          borderTopWidth: 0,
+          elevation: 0,
+          minHeight: 60,
+        },
+        tabStyle: {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        },
       }}
       initialRouteName="Home"
     >
-      <Tab.Screen name="Home" options={{}}>
+      <Tab.Screen
+        name="Home"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} iconName={"home"} />
+          ),
+        }}
+      >
         {() =>
           stackFactory([
             { name: "Home", component: Home },
             { name: "FirstCharCards", component: FirstCharCards },
+            { name: "EditWord", component: EditWord },
+          ])
+        }
+      </Tab.Screen>
+      <Tab.Screen
+        name="Words"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} iconName={"document-text"} />
+          ),
+        }}
+      >
+        {() =>
+          stackFactory([
+            { name: "Words", component: Words },
             { name: "AllCards", component: AllCards },
             { name: "EditWord", component: EditWord },
           ])
         }
       </Tab.Screen>
       <Tab.Screen
-        name="Add"
+        name="FakeAdd"
         listeners={{
           tabPress: (e) => {
             e.preventDefault();
@@ -62,8 +99,32 @@ export default () => {
           },
         }}
         component={View}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} iconName={"add-circle"} />
+          ),
+        }}
       />
-      <Tab.Screen name="Profile">
+      <Tab.Screen
+        name="Notification"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} iconName={"notifications"} />
+          ),
+        }}
+      >
+        {() =>
+          stackFactory([{ name: "Notification", component: Notification }])
+        }
+      </Tab.Screen>
+      <Tab.Screen
+        name="Profile"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} iconName={"person"} />
+          ),
+        }}
+      >
         {() => stackFactory([{ name: "Profile", component: Profile }])}
       </Tab.Screen>
     </Tab.Navigator>

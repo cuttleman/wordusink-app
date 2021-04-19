@@ -3,46 +3,47 @@ import React, { useEffect } from "react";
 import { ScrollView, Text, Animated, Easing } from "react-native";
 import styled from "styled-components/native";
 import constants from "../constants";
-import { CardListHP, WordTextSt } from "../types/interfaces";
-import { colors } from "../utils";
+import { CardListHP } from "../types/interfaces";
 import Loading from "./Loading";
 
 const Container = styled(Animated.View)`
   width: ${constants.width}px;
-  border-bottom-left-radius: 40px;
-  background-color: #574b90;
+  background-color: ${(prop) => prop.theme.bgColor};
+  border-bottom-width: 1px;
+  border-bottom-color: ${(prop) => prop.theme.tabColor};
   align-items: center;
   padding: 20px;
   position: absolute;
   z-index: 998;
 `;
 
-const PreviewWord = styled.TouchableOpacity`
-  width: ${constants.width / 5}px;
-  background-color: white;
+const PreviewWordContainer = styled(Animated.View)`
+  border-width: 2px;
+  border-color: ${(prop) => prop.theme.mainColor};
   margin: 0 5px;
+  border-radius: 100px;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  padding: 5px;
+  background-color: white;
 `;
 
-const WordText = styled(Animated.Text)<WordTextSt>`
-  color: ${(props) => `${colors[props.index]}`};
-  font-weight: 700;
+const PreviewWord = styled.TouchableOpacity``;
+
+const WordText = styled(Animated.Text)`
+  font-family: "Rubik_500Medium";
+  color: black;
+  padding-horizontal: 25px;
+  font-size: 18px;
   text-transform: uppercase;
 `;
 
 export default ({ words, scrollEvent, loading }: CardListHP) => {
   const { navigate } = useNavigation();
   const animation = new Animated.Value(scrollEvent ? 0 : 1);
-  const textSize = animation.interpolate({
+
+  const textPadding = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [23, 16],
-  });
-  const paddingVertical = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [25, 0],
+    outputRange: [20, 5],
   });
 
   useEffect(() => {
@@ -67,19 +68,17 @@ export default ({ words, scrollEvent, loading }: CardListHP) => {
           <Text>단어를 추가해보세요</Text>
         ) : (
           words.map((word, idx) => (
-            <PreviewWord
-              key={idx}
-              onPress={() =>
-                navigate("FirstCharCards", { firstTerm: word.name })
-              }
-            >
-              <WordText
-                index={idx}
-                style={{ fontSize: textSize, paddingVertical }}
+            <PreviewWordContainer key={idx}>
+              <PreviewWord
+                onPress={() =>
+                  navigate("FirstCharCards", { firstTerm: word.name })
+                }
               >
-                {word.name}
-              </WordText>
-            </PreviewWord>
+                <WordText style={{ paddingVertical: textPadding }}>
+                  {word.name}
+                </WordText>
+              </PreviewWord>
+            </PreviewWordContainer>
           ))
         )}
       </ScrollView>

@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/core";
+import React, { useLayoutEffect, useState } from "react";
 import { Button, RefreshControl, Text } from "react-native";
 import styled from "styled-components/native";
 import { useLogOut } from "../../components/AuthContext";
@@ -15,6 +16,7 @@ const Container = styled.ScrollView`
 `;
 
 const Profile: React.FC = () => {
+  const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { data, loading, refetch } = useQuery(SELF_PROFILE);
   const logOut = useLogOut();
@@ -29,6 +31,12 @@ const Profile: React.FC = () => {
       setRefreshing(false);
     }
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "프로필",
+    });
+  }, [navigation]);
 
   return loading ? (
     <Loading />
