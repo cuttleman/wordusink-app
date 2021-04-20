@@ -11,7 +11,7 @@ import { SELF_PROFILE } from "../../queries";
 
 const Container = styled.ScrollView`
   width: ${constants.width}px;
-  background-color: #786fa6;
+  background-color: ${(prop) => prop.theme.bgColor};
   padding-top: 15px;
 `;
 
@@ -34,7 +34,7 @@ const Profile: React.FC = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "프로필",
+      headerShown: false,
     });
   }, [navigation]);
 

@@ -3,14 +3,11 @@ import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../theme";
 import { TabIconP } from "../types/interfaces";
-import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import constants from "../constants";
 
 const BtnContainer = styled.TouchableOpacity`
   position: absolute;
-  elevation: 5;
-  bottom: 10px;
+  bottom: 5px;
   border-radius: 50px;
   border-width: 0px;
   width: 50px;
@@ -36,7 +33,10 @@ export default ({ focused = false, iconName = "home" }: TabIconP) => {
       color={focused ? theme.mainColor : "black"}
     />
   ) : (
-    <BtnContainer onPress={() => navigation.navigate("Add")}>
+    <BtnContainer
+      onPress={() => navigation.navigate("Add")}
+      style={{ elevation: 5 }}
+    >
       <BtnText>+</BtnText>
     </BtnContainer>
   );

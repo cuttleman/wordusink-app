@@ -7,10 +7,22 @@ import { ALL_WORDS } from "../../queries";
 import constants from "../../constants";
 import { useNavigation } from "@react-navigation/core";
 
+const Container = styled.View`
+  flex: 1;
+  background-color: ${(prop) => prop.theme.bgColor};
+`;
+
 const ScrollContainer = styled.ScrollView`
-  width: ${constants.width}px;
-  height: ${constants.height}px;
-  background-color: #786fa6;
+  background-color: transparent;
+`;
+
+const BgImage = styled.Image`
+  position: absolute;
+  flex: 1;
+  opacity: 0.3;
+  z-index: 0;
+  bottom: 0;
+  left: 0;
 `;
 
 export default () => {
@@ -33,19 +45,25 @@ export default () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "모든 단어",
+      headerShown: false,
     });
   }, [navigation]);
 
   return (
-    <ScrollContainer
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ alignItems: "center", padding: 30 }}
-    >
-      <CardListV words={data?.allWords} loading={loading} />
-    </ScrollContainer>
+    <Container>
+      <BgImage
+        source={require("../../assets/front.png")}
+        resizeMode={"contain"}
+      />
+      <ScrollContainer
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ alignItems: "center", padding: 30 }}
+      >
+        <CardListV words={data?.allWords} loading={loading} />
+      </ScrollContainer>
+    </Container>
   );
 };

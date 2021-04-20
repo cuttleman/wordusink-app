@@ -157,3 +157,7 @@ export interface TabIconP {
   focused?: boolean;
   iconName: string | any;
 }
+
+export interface IsCaptionP {
+  isCaption: string;
+}

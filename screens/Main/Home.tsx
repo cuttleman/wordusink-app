@@ -8,16 +8,27 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   RefreshControl,
-  View,
 } from "react-native";
 import constants from "../../constants";
 import HomeSlide from "../../components/HomeSlide";
 import SectionTitle from "../../components/SectionTitle";
 
-const ScrollContainer = styled.ScrollView`
-  width: ${constants.width}px;
-  height: ${constants.height * 2}px;
+const Container = styled.View`
+  flex: 1;
   background-color: ${(prop) => prop.theme.bgColor};
+`;
+
+const ScrollContainer = styled.ScrollView`
+  background-color: transparent;
+`;
+
+const BgImage = styled.Image`
+  position: absolute;
+  flex: 1;
+  opacity: 0.3;
+  z-index: 0;
+  bottom: 0;
+  left: 0;
 `;
 
 const Home: React.FC = () => {
@@ -67,7 +78,11 @@ const Home: React.FC = () => {
   }, [navigation]);
 
   return (
-    <>
+    <Container>
+      <BgImage
+        source={require("../../assets/front.png")}
+        resizeMode={"cover"}
+      />
       <CardListH
         words={data?.havingWords}
         scrollEvent={scrollDown}
@@ -82,13 +97,17 @@ const Home: React.FC = () => {
           />
         }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ alignItems: "center", paddingTop: 140 }}
+        contentContainerStyle={{
+          alignItems: "center",
+          paddingTop: 130,
+          paddingBottom: 70,
+        }}
         onScroll={onScroll}
       >
         <SectionTitle text={"PRACTICE FROM IMAGES"} />
         <HomeSlide />
       </ScrollContainer>
-    </>
+    </Container>
   );
 };
 

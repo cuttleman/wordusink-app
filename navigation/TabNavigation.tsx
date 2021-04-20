@@ -15,9 +15,7 @@ import { StacksP } from "../types/interfaces";
 import Words from "../screens/Main/Words";
 import theme from "../theme";
 import TabIcon from "../components/TabIcon";
-import { TouchableOpacity } from "react-native";
 import Notification from "../screens/Main/Notification";
-import { floor } from "react-native-reanimated";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
