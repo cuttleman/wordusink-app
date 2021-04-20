@@ -85,7 +85,7 @@ const Home: React.FC = () => {
         contentContainerStyle={{ alignItems: "center", paddingTop: 140 }}
         onScroll={onScroll}
       >
-        <SectionTitle text={"이미지를 보고 의미를 파악해보세요"} />
+        <SectionTitle text={"PRACTICE FROM IMAGES"} />
         <HomeSlide />
       </ScrollContainer>
     </>

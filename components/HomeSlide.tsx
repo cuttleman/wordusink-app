@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components/native";
-import Carousel, { Pagination } from "react-native-snap-carousel";
+import Carousel from "react-native-snap-carousel";
 import { useQuery } from "@apollo/client";
 import { ALL_IMAGES } from "../queries";
 import constants from "../constants";
 import Loading from "./Loading";
-import theme from "../theme";
-
-const Container = styled.View``;
 
 const ItemContainer = styled.View`
-  background-color: white;
   padding: 10px;
+  height: 230px;
+  background-color: white;
   border-radius: 10px;
   border-width: 1px;
   border-color: ${(prop) => prop.theme.tabColor};
 `;
 
 const ItemIamge = styled.Image`
-  height: 250px;
+  flex: 1;
 `;
 
 export default () => {
@@ -26,20 +24,24 @@ export default () => {
     fetchPolicy: "network-only",
   });
 
-  return loading ? (
+  return loading || data.allImages === undefined ? (
     <Loading />
   ) : (
     <ItemContainer>
       <Carousel
+        layout={"default"}
         data={data.allImages}
-        renderItem={({ item }: { item: { id: string; url: string } }) => (
-          <ItemIamge source={{ uri: item.url }} resizeMode={"contain"} />
-        )}
+        firstItem={0}
+        initialNumToRender={data.allImages.length}
+        initialScrollIndex={0}
         sliderWidth={constants.width / 1.2}
         itemWidth={constants.width / 1.2}
         autoplay={true}
-        autoplayDelay={6000}
+        // autoplayInterval={3000}
         loop={true}
+        renderItem={({ item }: { item: { id: string; url: string } }) => (
+          <ItemIamge source={{ uri: item.url }} resizeMode={"contain"} />
+        )}
       />
     </ItemContainer>
   );

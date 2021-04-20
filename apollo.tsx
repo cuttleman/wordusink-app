@@ -38,6 +38,9 @@ export const cache = new InMemoryCache({
         havingWords: {
           merge: merged(),
         },
+        allImages: {
+          merge: merged(),
+        },
       },
     },
     Word: {
