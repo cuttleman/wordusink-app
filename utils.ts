@@ -30,5 +30,5 @@ export const colors = [
 ];
 
 export const hostForDev = (port: number, param = ""): string => {
-  return `http://172.30.1.25:${port}${param}`;
+  return `http://172.30.1.52:${port}${param}`;
 };

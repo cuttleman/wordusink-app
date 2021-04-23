@@ -81,7 +81,7 @@ const Home: React.FC = () => {
     <Container>
       <BgImage
         source={require("../../assets/front.png")}
-        resizeMode={"cover"}
+        resizeMode={"contain"}
       />
       <CardListH
         words={data?.havingWords}

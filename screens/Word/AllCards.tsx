@@ -11,7 +11,7 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #786fa6;
+  background-color: ${(prop) => prop.theme.bgColor};
 `;
 
 export default () => {
@@ -30,6 +30,9 @@ export default () => {
           firstItem={params.index}
           sliderWidth={constants.width}
           itemWidth={constants.width}
+          slideInterpolatedStyle={() => ({
+            opacity: 1,
+          })}
           initialNumToRender={params?.words?.length}
           renderItem={({ item, index }: CarouselP) => (
             <Card

@@ -5,22 +5,33 @@ import styled from "styled-components/native";
 import constants from "../constants";
 import useTurn from "../hooks/useTurn";
 import { CardNameStyle, WordP } from "../types/interfaces";
+import { Ionicons } from "@expo/vector-icons";
+import theme from "../theme";
 
 const Container = styled.View`
-  width: ${constants.width}px;
-  height: ${constants.height}px;
+  flex: 1;
   align-items: center;
-  padding-top: ${constants.height / 13}px;
-  background-color: #786fa6;
+  justify-content: center;
+`;
+
+const CardContainer = styled.View`
+  width: ${constants.width / 1.1}px;
+  height: ${constants.height / 1.5}px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: ${(prop) => prop.theme.mainColor};
 `;
 
 const PhotoContainer = styled.View`
-  width: ${constants.width / 1.1}px;
-  height: ${constants.height / 1.8}px;
+  width: ${constants.width / 1.3}px;
+  height: ${constants.height / 2.3}px;
   background-color: white;
   border-radius: 20px;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
 `;
 
 const Photo = styled.Image`
@@ -36,50 +47,52 @@ const BoldText = styled.Text<CardNameStyle>`
 `;
 
 const NameContainer = styled.Pressable`
-  position: absolute;
   width: ${constants.width / 2}px;
-  align-self: center;
-  top: ${constants.height / 1.7}px;
-  z-index: 3;
 `;
 
 const NameBox = styled(Animated.View)`
   width: ${constants.width / 2}px;
+  height: 50px;
   background-color: white;
   align-self: center;
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  border: 1px solid #3d3d3d;
+  border-width: 1px;
+  border-color: black;
   padding: 25px 0;
+  overflow: hidden;
 `;
 
 const Name = styled(Animated.View)`
   position: absolute;
   background-color: white;
   width: ${constants.width / 2.2}px;
+  height: 50px;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
 `;
 
-const NameB = styled(Name)`
+const Caption = styled(Name)`
   transform: rotateY(180deg);
   z-index: 2;
 `;
 
 const EditContainer = styled.View`
-  width: ${constants.width}px;
-  background-color: #786fa6;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  justify-content: center;
   align-items: center;
+  padding: 5px;
+  background-color: ${(prop) => prop.theme.liteMainColor};
 `;
 
 const EditBtn = styled.TouchableOpacity`
-  margin-top: 40px;
-  width: 100px;
-  height: 40px;
-  background-color: #63cdda;
-  border-radius: 10px;
   justify-content: center;
   align-items: center;
 `;
@@ -90,37 +103,46 @@ export default ({ word, index, total }: WordP) => {
 
   return (
     <Container>
-      <PhotoContainer>
-        <Photo source={{ uri: word.image.url }} resizeMode="contain" />
-      </PhotoContainer>
-      <NameContainer onPress={() => toggleTurn()}>
-        <NameBox
-          style={{
-            transform: [{ rotateY: turnning }, { perspective: perspectiving }],
-          }}
-        >
-          <Name style={{ zIndex: NameZIndexing }}>
-            <BoldText isName>{word.name}</BoldText>
-          </Name>
-          <NameB>
-            <BoldText>{word.caption}</BoldText>
-          </NameB>
-        </NameBox>
-      </NameContainer>
-      <EditContainer>
-        <EditBtn
-          onPress={() =>
-            navigate("EditWord", {
-              wordId: word.id,
-              name: word.name,
-              caption: word.caption,
-              url: word.image.url,
-            })
-          }
-        >
-          <BoldText>Edit</BoldText>
-        </EditBtn>
-      </EditContainer>
+      <CardContainer
+        style={{
+          elevation: 10,
+        }}
+      >
+        <PhotoContainer>
+          <Photo source={{ uri: word.image.url }} resizeMode="contain" />
+        </PhotoContainer>
+        <NameContainer onPress={() => toggleTurn()}>
+          <NameBox
+            style={{
+              transform: [
+                { rotateY: turnning },
+                { perspective: perspectiving },
+              ],
+            }}
+          >
+            <Name style={{ zIndex: NameZIndexing }}>
+              <BoldText isName>{word.name}</BoldText>
+            </Name>
+            <Caption>
+              <BoldText>{word.caption}</BoldText>
+            </Caption>
+          </NameBox>
+        </NameContainer>
+        <EditContainer>
+          <EditBtn
+            onPress={() =>
+              navigate("EditWord", {
+                wordId: word.id,
+                name: word.name,
+                caption: word.caption,
+                url: word.image.url,
+              })
+            }
+          >
+            <Ionicons name={"create"} color={"white"} size={25} />
+          </EditBtn>
+        </EditContainer>
+      </CardContainer>
     </Container>
   );
 };

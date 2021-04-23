@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import { Text } from "react-native";
 import { useQuery } from "@apollo/client";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import Loading from "../../components/Loading";
@@ -17,6 +17,7 @@ const Container = styled.View`
 `;
 
 const FirstCharCards: React.FC = () => {
+  const navigation = useNavigation();
   const { params }: SpecificWordParamsP = useRoute();
   const { data, loading } = useQuery(SPECIFIC_WORDS, {
     fetchPolicy: "network-only",
@@ -24,6 +25,12 @@ const FirstCharCards: React.FC = () => {
   });
 
   const getWords: PartialWord[] | undefined = data?.specificWords;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "Home",
+    });
+  }, [navigation]);
 
   return loading || getWords === undefined ? (
     <Loading />
@@ -37,6 +44,10 @@ const FirstCharCards: React.FC = () => {
           data={getWords}
           sliderWidth={constants.width}
           itemWidth={constants.width}
+          slideInterpolatedStyle={() => ({
+            opacity: 1,
+          })}
+          initialNumToRender={getWords.length}
           renderItem={({
             item,
             index,

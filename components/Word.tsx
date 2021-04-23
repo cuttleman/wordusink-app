@@ -16,6 +16,7 @@ const Container = styled.TouchableOpacity`
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  overflow: hidden;
 `;
 
 const ContentContainer = styled.View<CardNameStyle>`
