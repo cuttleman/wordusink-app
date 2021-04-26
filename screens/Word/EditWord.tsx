@@ -11,6 +11,7 @@ import { Image, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import useInput from "../../hooks/useInput";
 import { EditWordParams } from "../../types/interfaces";
 import { DELETE_WORD, EDIT_WORD } from "../../queries";
+import { engValidation } from "../../utils";
 
 const Container = styled.View`
   flex: 1;
@@ -28,6 +29,16 @@ export default () => {
 
   const doneHandle = async () => {
     try {
+      if (name.value === "") {
+        throw new Error("단어 이름을 적어주세요");
+      } else if (caption.value !== undefined && caption.value.length > 8) {
+        throw new Error("한글 뜻은 8자까지 입력할 수 있습니다.");
+      } else if (
+        name.value !== undefined &&
+        engValidation(name.value) === false
+      ) {
+        throw new Error("단어는 띄어쓰기 없이 영어로 적어주세요");
+      }
       const {
         data: { editWord: result },
       } = await editWordMutation({
@@ -46,7 +57,7 @@ export default () => {
         );
       }
     } catch (e) {
-      console.log(e);
+      Alert.alert("", e.message);
     }
   };
   const deleteHandle = async () => {

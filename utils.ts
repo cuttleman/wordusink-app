@@ -32,3 +32,8 @@ export const colors = [
 export const hostForDev = (port: number, param = ""): string => {
   return `http://172.30.1.52:${port}${param}`;
 };
+
+export const engValidation = (term: string): boolean => {
+  const enRegex = new RegExp("^[a-zA-Z]*$");
+  return enRegex.test(term);
+};

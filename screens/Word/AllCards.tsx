@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Text } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import Card from "../../components/Card";
@@ -30,9 +30,8 @@ export default () => {
           firstItem={params.index}
           sliderWidth={constants.width}
           itemWidth={constants.width}
-          slideInterpolatedStyle={() => ({
-            opacity: 1,
-          })}
+          inactiveSlideOpacity={1}
+          inactiveSlideScale={0.8}
           initialNumToRender={params?.words?.length}
           renderItem={({ item, index }: CarouselP) => (
             <Card

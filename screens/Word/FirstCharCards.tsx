@@ -6,7 +6,11 @@ import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
-import { PartialWord, SpecificWordParamsP } from "../../types/interfaces";
+import {
+  CarouselP,
+  PartialWord,
+  SpecificWordParamsP,
+} from "../../types/interfaces";
 import { SPECIFIC_WORDS } from "../../queries";
 import constants from "../../constants";
 
@@ -17,7 +21,6 @@ const Container = styled.View`
 `;
 
 const FirstCharCards: React.FC = () => {
-  const navigation = useNavigation();
   const { params }: SpecificWordParamsP = useRoute();
   const { data, loading } = useQuery(SPECIFIC_WORDS, {
     fetchPolicy: "network-only",
@@ -25,12 +28,6 @@ const FirstCharCards: React.FC = () => {
   });
 
   const getWords: PartialWord[] | undefined = data?.specificWords;
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: "Home",
-    });
-  }, [navigation]);
 
   return loading || getWords === undefined ? (
     <Loading />
@@ -44,17 +41,10 @@ const FirstCharCards: React.FC = () => {
           data={getWords}
           sliderWidth={constants.width}
           itemWidth={constants.width}
-          slideInterpolatedStyle={() => ({
-            opacity: 1,
-          })}
+          inactiveSlideOpacity={1}
+          inactiveSlideScale={0.8}
           initialNumToRender={getWords.length}
-          renderItem={({
-            item,
-            index,
-          }: {
-            item: PartialWord;
-            index: number;
-          }) => (
+          renderItem={({ item, index }: CarouselP) => (
             <Card
               key={item.id}
               word={item}

@@ -24,8 +24,12 @@ const stackFactory = (stacks: StacksP[]) => {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.tabColor,
+        },
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerShown: true,
+        title: "",
       }}
     >
       {stacks.map((stack: StacksP, idx) => (

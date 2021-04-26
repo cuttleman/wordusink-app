@@ -43,6 +43,7 @@ export default () => {
   return (
     <AddStack.Navigator
       screenOptions={{
+        title: "",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >

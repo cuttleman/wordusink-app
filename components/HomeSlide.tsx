@@ -30,11 +30,12 @@ export default () => {
         data={data.allImages}
         firstItem={0}
         initialNumToRender={data.allImages.length}
-        initialScrollIndex={0}
         sliderWidth={constants.width / 1.2}
         itemWidth={constants.width / 1.2}
         autoplay={true}
         loop={true}
+        autoplayInterval={5000}
+        loopClonesPerSide={data.allImages.length}
         renderItem={({ item }: { item: { id: string; url: string } }) => (
           <Image
             source={{ uri: item.url }}
