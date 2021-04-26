@@ -9,6 +9,8 @@ declare module "styled-components" {
     titleColor: string;
     liteMainColor: string;
     cardIconColor: string;
+    doneColor: string;
+    deleteColor: string;
   }
 }
 
@@ -19,4 +21,6 @@ export default {
   titleColor: "#747d8c",
   liteMainColor: "#9980FA",
   cardIconColor: "#474787",
+  doneColor: "#70a1ff",
+  deleteColor: "#1289A7",
 } as DefaultTheme;

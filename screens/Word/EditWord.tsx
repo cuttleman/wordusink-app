@@ -1,58 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import {
   useNavigation,
   useRoute,
-  StackActions,
   CommonActions,
+  useNavigationState,
 } from "@react-navigation/native";
 import { useMutation } from "@apollo/client";
-import { Image, TextInput, Text, TouchableOpacity, Alert } from "react-native";
+import { Alert } from "react-native";
 import useInput from "../../hooks/useInput";
 import { EditWordParams } from "../../types/interfaces";
 import { DELETE_WORD, EDIT_WORD } from "../../queries";
-import { engValidation } from "../../utils";
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
+import { inputValidation } from "../../utils";
+import Edit from "../../components/Edit";
 
 export default () => {
   const { params }: EditWordParams = useRoute();
   const navigation = useNavigation();
+  const routesHistory: string[] = useNavigationState(
+    (state) => state.routeNames
+  );
   const [editWordMutation] = useMutation(EDIT_WORD);
   const [deleteWordMutation] = useMutation(DELETE_WORD);
-  const name = useInput(params?.name);
-  const caption = useInput(params?.caption);
+  const inputName = useInput(params?.name);
+  const inputCaption = useInput(params?.caption);
 
   const doneHandle = async () => {
     try {
-      if (name.value === "") {
-        throw new Error("단어 이름을 적어주세요");
-      } else if (caption.value !== undefined && caption.value.length > 8) {
-        throw new Error("한글 뜻은 8자까지 입력할 수 있습니다.");
-      } else if (
-        name.value !== undefined &&
-        engValidation(name.value) === false
-      ) {
-        throw new Error("단어는 띄어쓰기 없이 영어로 적어주세요");
-      }
+      inputValidation(inputName?.value, inputCaption?.value);
       const {
         data: { editWord: result },
       } = await editWordMutation({
         variables: {
           wordId: params?.wordId,
-          name: name.value,
-          caption: caption.value,
+          name: inputName.value,
+          caption: inputCaption.value,
         },
       });
       if (result) {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: "Home" }],
+            routes: [{ name: routesHistory[0] }],
           })
         );
       }
@@ -60,6 +49,7 @@ export default () => {
       Alert.alert("", e.message);
     }
   };
+
   const deleteHandle = async () => {
     try {
       const {
@@ -71,7 +61,7 @@ export default () => {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: "Home" }],
+            routes: [{ name: routesHistory[0] }],
           })
         );
       }
@@ -82,40 +72,27 @@ export default () => {
 
   const preDeleteHandle = () => {
     Alert.alert(
-      "Really Delete one?",
+      `\'${inputName.value}\' 를 정말 지우시겠습니까?`,
       "",
       [
         {
-          text: "Cancel",
+          text: "아니요",
           style: "cancel",
         },
-        { text: "OK", onPress: () => deleteHandle() },
+        { text: "예", onPress: () => deleteHandle() },
       ],
       { cancelable: false }
     );
   };
+
   return (
-    <Container>
-      <Image
-        source={{ uri: params?.url }}
-        style={{ width: 200, height: 200 }}
-      />
-      <TextInput
-        value={name.value}
-        onChangeText={name.onChangeText}
-        autoCapitalize={"none"}
-      />
-      <TextInput
-        value={caption.value}
-        onChangeText={caption.onChangeText}
-        autoCapitalize={"none"}
-      />
-      <TouchableOpacity onPress={() => doneHandle()}>
-        <Text>Done</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => preDeleteHandle()}>
-        <Text>Delete</Text>
-      </TouchableOpacity>
-    </Container>
+    <Edit
+      url={params?.url}
+      doneHandle={doneHandle}
+      deleteHandle={deleteHandle}
+      preDeleteHandle={preDeleteHandle}
+      name={inputName}
+      caption={inputCaption}
+    />
   );
 };

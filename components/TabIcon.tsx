@@ -5,22 +5,31 @@ import theme from "../theme";
 import { TabIconP } from "../types/interfaces";
 import { useNavigation } from "@react-navigation/core";
 
-const BtnContainer = styled.TouchableOpacity`
+const Container = styled.View`
   position: absolute;
-  bottom: 5px;
+  bottom: 3px;
+  border-radius: 50px;
+  border-width: 6px;
+  border-color: ${(prop) => prop.theme.bgColor};
+  background-color: ${(prop) => prop.theme.bgColor};
+  justify-content: center;
+  align-items: center;
+`;
+
+const BtnContainer = styled.TouchableOpacity`
   border-radius: 50px;
   border-width: 0px;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: ${(prop) => prop.theme.mainColor};
-  z-index: 999;
 `;
 
 const BtnText = styled.Text`
-  font-size: 25px;
+  margin-bottom: 3px;
+  font-size: 35px;
   color: ${(prop) => prop.theme.bgColor};
 `;
 
@@ -33,11 +42,13 @@ export default ({ focused = false, iconName = "home" }: TabIconP) => {
       color={focused ? theme.mainColor : "black"}
     />
   ) : (
-    <BtnContainer
-      onPress={() => navigation.navigate("Add")}
-      style={{ elevation: 5 }}
-    >
-      <BtnText>+</BtnText>
-    </BtnContainer>
+    <Container>
+      <BtnContainer
+        onPress={() => navigation.navigate("Add")}
+        style={{ elevation: 5 }}
+      >
+        <BtnText>+</BtnText>
+      </BtnContainer>
+    </Container>
   );
 };

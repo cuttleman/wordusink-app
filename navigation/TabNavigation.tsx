@@ -25,7 +25,7 @@ const stackFactory = (stacks: StacksP[]) => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: theme.tabColor,
+          backgroundColor: theme.bgColor,
         },
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerShown: true,
@@ -45,6 +45,7 @@ export default () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
+        keyboardHidesTabBar: true,
         showLabel: false,
         style: {
           backgroundColor: theme.bgColor,

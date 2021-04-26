@@ -6,7 +6,6 @@ import constants from "../constants";
 import useTurn from "../hooks/useTurn";
 import { CardNameStyle, WordP } from "../types/interfaces";
 import { Ionicons } from "@expo/vector-icons";
-import theme from "../theme";
 
 const Container = styled.View`
   flex: 1;
@@ -42,7 +41,7 @@ const Photo = styled.Image`
 
 const BoldText = styled.Text<CardNameStyle>`
   font-size: 20px;
-  font-weight: 700;
+  font-family: "Rubik_500Medium";
   ${(props) => props.isName && "text-transform: capitalize;"}
 `;
 
@@ -111,7 +110,7 @@ export default ({ word, index, total }: WordP) => {
         <PhotoContainer>
           <Photo source={{ uri: word.image.url }} resizeMode="contain" />
         </PhotoContainer>
-        <NameContainer onPress={() => toggleTurn()}>
+        <NameContainer onPress={toggleTurn}>
           <NameBox
             style={{
               transform: [

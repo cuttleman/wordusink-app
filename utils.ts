@@ -33,7 +33,20 @@ export const hostForDev = (port: number, param = ""): string => {
   return `http://172.30.1.52:${port}${param}`;
 };
 
-export const engValidation = (term: string): boolean => {
-  const enRegex = new RegExp("^[a-zA-Z]*$");
-  return enRegex.test(term);
+export const inputValidation = (
+  name: string | undefined,
+  caption: string | undefined
+): void => {
+  const engValidation = (term: string): boolean => {
+    const enRegex = new RegExp("^[a-zA-Z]*$");
+    return enRegex.test(term);
+  };
+
+  if (name === "") {
+    throw new Error("단어 이름을 입력해주세요.");
+  } else if (caption !== undefined && caption.length > 8) {
+    throw new Error("한글 뜻은 8자까지 입력할 수 있습니다.");
+  } else if (name !== undefined && engValidation(name) === false) {
+    throw new Error("단어는 띄어쓰기 없이 영어로 입력해주세요.");
+  }
 };

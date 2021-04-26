@@ -61,17 +61,9 @@ export interface AuthButtonP {
   onPress: () => void;
 }
 
-export interface AuthBtnSt {
-  type: string | undefined;
-}
-
 export interface AuthProviderP {
   initLoggedIn: boolean;
   children: React.ReactChild[];
-}
-
-export interface WordNameSt {
-  turn: boolean;
 }
 
 export interface EditWordParams {
@@ -85,8 +77,18 @@ export interface EditWordParams {
 
 export type InputHooksP = string | undefined;
 
-export interface CardNameStyle {
-  isName?: boolean;
+export interface InputHooksR {
+  value: InputHooksP;
+  onChangeText: (text: string) => void;
+}
+
+export interface EditP {
+  url: string | undefined;
+  name: InputHooksR;
+  caption: InputHooksR;
+  doneHandle: () => Promise<void>;
+  deleteHandle: () => Promise<void>;
+  preDeleteHandle: () => void;
 }
 
 type AvatarSize = "lg" | "md" | "sm";
@@ -158,6 +160,24 @@ export interface TabIconP {
   iconName: string | any;
 }
 
+// Styled Type
+
 export interface IsCaptionP {
   isCaption: string;
+}
+
+export interface AuthBtnSt {
+  type: string | undefined;
+}
+
+export interface CardNameStyle {
+  isName?: boolean;
+}
+
+export interface WordNameSt {
+  turn: boolean;
+}
+
+export interface EditBtnSt {
+  isDone?: boolean;
 }

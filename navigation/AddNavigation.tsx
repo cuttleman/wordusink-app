@@ -10,6 +10,7 @@ import FromGoogle from "../screens/Word/FromGoogle";
 import FromPhoto from "../screens/Word/FromPhoto";
 import NewWord from "../screens/Word/NewWord";
 import { MaterialTabsP, StackRouteP } from "../types/interfaces";
+import theme from "../theme";
 
 const MaterialTab = createMaterialTopTabNavigator();
 const AddStack = createStackNavigator();
@@ -44,6 +45,7 @@ export default () => {
     <AddStack.Navigator
       screenOptions={{
         title: "",
+        headerStyle: { backgroundColor: theme.bgColor },
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
