@@ -1,6 +1,7 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useLayoutEffect } from "react";
-import { Alert, Button, Text, TouchableOpacity } from "react-native";
+import { Alert } from "react-native";
 import New, { NextBtn, NextText } from "../../components/New";
 import useInput from "../../hooks/useInput";
 import { inputValidation } from "../../utils";
@@ -26,7 +27,12 @@ export default () => {
             }
           }}
         >
-          <NextText>dfadf</NextText>
+          <NextText>이미지 선택</NextText>
+          <MaterialIcons
+            name={"keyboard-arrow-right"}
+            color={"white"}
+            size={18}
+          />
         </NextBtn>
       ),
     });

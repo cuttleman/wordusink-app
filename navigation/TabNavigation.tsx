@@ -16,6 +16,7 @@ import Words from "../screens/Main/Words";
 import theme from "../theme";
 import TabIcon from "../components/TabIcon";
 import Notification from "../screens/Main/Notification";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,6 +28,9 @@ const stackFactory = (stacks: StacksP[]) => {
         headerStyle: {
           backgroundColor: theme.colors.bgColor,
         },
+        headerBackImage: () => (
+          <MaterialIcons name={"keyboard-arrow-left"} size={30} />
+        ),
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerShown: true,
         title: "",

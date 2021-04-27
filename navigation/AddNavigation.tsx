@@ -4,7 +4,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from "@react-navigation/stack";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import FromLibrary from "../screens/Word/FromLibrary";
 import FromGoogle from "../screens/Word/FromGoogle";
 import FromPhoto from "../screens/Word/FromPhoto";
@@ -46,6 +46,9 @@ export default () => {
       screenOptions={{
         title: "",
         headerStyle: { backgroundColor: theme.colors.bgColor },
+        headerBackImage: () => (
+          <MaterialIcons name={"keyboard-arrow-left"} size={30} />
+        ),
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
