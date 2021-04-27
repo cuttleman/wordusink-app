@@ -15,7 +15,7 @@ import SectionTitle from "../../components/SectionTitle";
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${(prop) => prop.theme.bgColor};
+  background-color: ${(prop) => prop.theme.colors.bgColor};
 `;
 
 const ScrollContainer = styled.ScrollView`

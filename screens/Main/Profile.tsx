@@ -11,7 +11,7 @@ import { SELF_PROFILE } from "../../queries";
 
 const Container = styled.ScrollView`
   width: ${constants.width}px;
-  background-color: ${(prop) => prop.theme.bgColor};
+  background-color: ${(prop) => prop.theme.colors.bgColor};
   padding-top: 15px;
 `;
 

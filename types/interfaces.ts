@@ -91,6 +91,8 @@ export interface EditP {
   preDeleteHandle: () => void;
 }
 
+export type NewP = { [K in "name" | "caption"]: InputHooksR };
+
 type AvatarSize = "lg" | "md" | "sm";
 
 export interface AvatarP {

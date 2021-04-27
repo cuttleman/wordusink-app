@@ -8,9 +8,9 @@ const Container = styled.View`
 `;
 
 const Text = styled.Text`
-  font-family: "WorkSans_600SemiBold";
+  font-family: ${(prop) => prop.theme.fontFamily.workSans600};
   font-size: 16px;
-  color: ${(prop) => prop.theme.titleColor};
+  color: ${(prop) => prop.theme.colors.titleColor};
 `;
 
 export default ({ text }: { text: string }) => (

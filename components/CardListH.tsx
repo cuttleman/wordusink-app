@@ -8,9 +8,9 @@ import Loading from "./Loading";
 
 const Container = styled(Animated.View)`
   width: ${constants.width}px;
-  background-color: ${(prop) => prop.theme.bgColor};
+  background-color: ${(prop) => prop.theme.colors.bgColor};
   border-bottom-width: 1px;
-  border-bottom-color: ${(prop) => prop.theme.tabColor};
+  border-bottom-color: ${(prop) => prop.theme.colors.tabColor};
   align-items: center;
   padding: 20px;
   position: absolute;
@@ -19,7 +19,7 @@ const Container = styled(Animated.View)`
 
 const PreviewWordContainer = styled(Animated.View)`
   border-width: 2px;
-  border-color: ${(prop) => prop.theme.mainColor};
+  border-color: ${(prop) => prop.theme.colors.mainColor};
   margin: 0 5px;
   border-radius: 100px;
   justify-content: center;

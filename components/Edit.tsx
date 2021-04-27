@@ -19,7 +19,7 @@ const CardContainer = styled.View`
   justify-content: space-between;
   border-radius: 20px;
   padding: 20px;
-  background-color: ${(prop) => prop.theme.mainColor};
+  background-color: ${(prop) => prop.theme.colors.mainColor};
 `;
 
 const ContentsContainer = styled.View`
@@ -51,7 +51,7 @@ const TextInputS = styled.TextInput`
   margin-bottom: 10px;
   background-color: white;
   font-size: 18px;
-  font-family: "Rubik_500Medium";
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500}
   border-radius: 10px;
 `;
 
@@ -67,7 +67,7 @@ const Button = styled.TouchableOpacity<EditBtnSt>`
   align-items: center;
   border-radius: 10px;
   background-color: ${(prop) =>
-    prop.isDone ? prop.theme.doneColor : prop.theme.deleteColor};
+    prop.isDone ? prop.theme.colors.doneColor : prop.theme.colors.deleteColor};
 `;
 
 const BtnText = styled.Text`
@@ -87,19 +87,19 @@ export default ({ url, name, caption, doneHandle, preDeleteHandle }: EditP) => {
             </PhotoContainer>
             <InputContainer>
               <TextInputS
-                selectionColor={theme.liteMainColor}
+                selectionColor={theme.colors.liteMainColor}
                 value={name.value}
                 onChangeText={name.onChangeText}
                 autoCapitalize={"none"}
                 placeholder={"단어 이름"}
               />
               <TextInputS
-                selectionColor={theme.liteMainColor}
+                selectionColor={theme.colors.liteMainColor}
                 value={caption.value}
                 onChangeText={caption.onChangeText}
                 autoCapitalize={"none"}
-                maxLength={7}
-                placeholder={"단어 뜻 (7글자)"}
+                maxLength={8}
+                placeholder={"단어 뜻 (8글자)"}
               />
             </InputContainer>
           </ContentsContainer>

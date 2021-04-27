@@ -21,7 +21,7 @@ const Maincharacter = styled.Image`
 `;
 
 const Message = styled.Text`
-  font-family: "WorkSans_400Regular";
+  font-family: ${(prop) => prop.theme.fontFamily.workSans400};
   font-size: 16px;
 `;
 

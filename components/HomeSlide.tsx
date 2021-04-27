@@ -13,7 +13,7 @@ const ItemContainer = styled.View`
   background-color: white;
   border-radius: 10px;
   border-width: 1px;
-  border-color: ${(prop) => prop.theme.tabColor};
+  border-color: ${(prop) => prop.theme.colors.tabColor};
 `;
 
 export default () => {

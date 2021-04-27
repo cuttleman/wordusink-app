@@ -10,8 +10,8 @@ const Container = styled.View`
   bottom: 3px;
   border-radius: 50px;
   border-width: 6px;
-  border-color: ${(prop) => prop.theme.bgColor};
-  background-color: ${(prop) => prop.theme.bgColor};
+  border-color: ${(prop) => prop.theme.colors.bgColor};
+  background-color: ${(prop) => prop.theme.colors.bgColor};
   justify-content: center;
   align-items: center;
 `;
@@ -24,13 +24,13 @@ const BtnContainer = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(prop) => prop.theme.mainColor};
+  background-color: ${(prop) => prop.theme.colors.mainColor};
 `;
 
 const BtnText = styled.Text`
   margin-bottom: 3px;
   font-size: 35px;
-  color: ${(prop) => prop.theme.bgColor};
+  color: ${(prop) => prop.theme.colors.bgColor};
 `;
 
 export default ({ focused = false, iconName = "home" }: TabIconP) => {
@@ -39,7 +39,7 @@ export default ({ focused = false, iconName = "home" }: TabIconP) => {
     <Ionicons
       name={focused ? iconName : `${iconName}-outline`}
       size={30}
-      color={focused ? theme.mainColor : "black"}
+      color={focused ? theme.colors.mainColor : "black"}
     />
   ) : (
     <Container>

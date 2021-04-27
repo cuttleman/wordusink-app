@@ -11,7 +11,7 @@ const Container = styled.TouchableOpacity`
   margin: 10px 0;
   border-radius: 10px;
   border-width: 1px;
-  border-color: ${(prop) => prop.theme.tabColor};
+  border-color: ${(prop) => prop.theme.colors.tabColor};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -27,13 +27,13 @@ const ContentContainer = styled.View<CardNameStyle>`
 
 const Name = styled.Text`
   font-size: 17px;
-  font-family: "Rubik_500Medium";
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
   text-transform: capitalize;
 `;
 
 const Caption = styled.Text<IsCaptionP>`
   font-size: 15px;
-  color: ${(prop) => (prop.isCaption ? "black" : prop.theme.tabColor)};
+  color: ${(prop) => (prop.isCaption ? "black" : prop.theme.colors.tabColor)};
 `;
 
 export default ({ word, words, index }: WordP) => {

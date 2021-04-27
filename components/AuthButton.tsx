@@ -20,7 +20,7 @@ const Btn = styled.TouchableOpacity<AuthBtnSt>`
 const TextSt = styled.Text`
   color: white;
   font-size: 17px;
-  font-family: "WorkSans_600SemiBold";
+  font-family: ${(prop) => prop.theme.fontFamily.workSans600};
 `;
 
 export default ({ text, type, onPress }: AuthButtonP) => {

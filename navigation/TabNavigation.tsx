@@ -25,7 +25,7 @@ const stackFactory = (stacks: StacksP[]) => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: theme.bgColor,
+          backgroundColor: theme.colors.bgColor,
         },
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerShown: true,
@@ -48,7 +48,7 @@ export default () => {
         keyboardHidesTabBar: true,
         showLabel: false,
         style: {
-          backgroundColor: theme.bgColor,
+          backgroundColor: theme.colors.bgColor,
           borderTopWidth: 0,
           elevation: 0,
           minHeight: 60,

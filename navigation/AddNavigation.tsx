@@ -45,7 +45,7 @@ export default () => {
     <AddStack.Navigator
       screenOptions={{
         title: "",
-        headerStyle: { backgroundColor: theme.bgColor },
+        headerStyle: { backgroundColor: theme.colors.bgColor },
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >

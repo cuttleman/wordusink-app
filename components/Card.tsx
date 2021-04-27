@@ -20,7 +20,7 @@ const CardContainer = styled.View`
   justify-content: center;
   border-radius: 20px;
   padding: 20px;
-  background-color: ${(prop) => prop.theme.mainColor};
+  background-color: ${(prop) => prop.theme.colors.mainColor};
 `;
 
 const PhotoContainer = styled.View`
@@ -41,8 +41,8 @@ const Photo = styled.Image`
 
 const BoldText = styled.Text<CardNameStyle>`
   font-size: 20px;
-  font-family: "Rubik_500Medium";
-  ${(props) => props.isName && "text-transform: capitalize;"}
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
+  ${(props) => props.isName && "text-transform: capitalize;"};
 `;
 
 const NameContainer = styled.Pressable`
@@ -88,7 +88,7 @@ const EditContainer = styled.View`
   justify-content: center;
   align-items: center;
   padding: 5px;
-  background-color: ${(prop) => prop.theme.liteMainColor};
+  background-color: ${(prop) => prop.theme.colors.liteMainColor};
 `;
 
 const EditBtn = styled.TouchableOpacity`
