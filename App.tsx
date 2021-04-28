@@ -5,7 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { Rubik_400Regular, Rubik_500Medium } from "@expo-google-fonts/rubik";
 import {
   WorkSans_400Regular,
@@ -39,6 +39,7 @@ const App: React.FC = () => {
       await Font.loadAsync({
         ...Ionicons.font,
         ...MaterialIcons.font,
+        ...AntDesign.font,
         Rubik_400Regular,
         Rubik_500Medium,
         WorkSans_400Regular,

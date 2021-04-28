@@ -1,5 +1,6 @@
 import { Asset } from "expo-media-library";
 import { Camera } from "expo-camera";
+import { Animated } from "react-native";
 
 export interface WordP {
   word: PartialWord;
@@ -160,6 +161,24 @@ export interface CameraSectionP {
 export interface TabIconP {
   focused?: boolean;
   iconName: string | any;
+}
+
+type UserPSelf = {
+  id: string;
+  userName: string | null;
+  email: string;
+  avatar: string;
+};
+
+export interface UserP {
+  refreshing: boolean;
+  onRefresh: () => void;
+  self: UserPSelf | undefined;
+}
+
+export interface UserOptionsP {
+  animation: Animated.AnimatedInterpolation;
+  toggleFunc: () => void;
 }
 
 // Styled Type

@@ -12,6 +12,7 @@ declare module "styled-components" {
       cardIconColor: string;
       doneColor: string;
       deleteColor: string;
+      closeColor: string;
     };
     fontFamily: {
       rubik500: string;
@@ -32,6 +33,7 @@ export default {
     cardIconColor: "#474787",
     doneColor: "#70a1ff",
     deleteColor: "#1289A7",
+    closeColor: "#eb2f06",
   },
   fontFamily: {
     rubik500: "Rubik_500Medium",
