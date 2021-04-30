@@ -43,6 +43,13 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    User: {
+      fields: {
+        onTodayWords: {
+          merge: merged(),
+        },
+      },
+    },
     Word: {
       fields: {
         votes: {

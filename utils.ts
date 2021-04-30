@@ -43,10 +43,10 @@ export const inputValidation = (
   };
 
   if (name === "") {
-    throw new Error("단어 이름을 입력해주세요.");
+    throw new Error("Please fill in the Name field.");
   } else if (caption !== undefined && caption.length > 8) {
-    throw new Error("한글 뜻은 8자까지 입력할 수 있습니다.");
+    throw new Error("Meaning field limited 8 characters.");
   } else if (name !== undefined && engValidation(name) === false) {
-    throw new Error("단어는 띄어쓰기 없이 영어로 입력해주세요.");
+    throw new Error("No spacing, Only English on Name field.");
   }
 };

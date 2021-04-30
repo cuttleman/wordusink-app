@@ -85,6 +85,13 @@ export const SELF_PROFILE = gql`
       userName
       email
       avatar
+      images {
+        id
+        url
+      }
+      onTodayWords {
+        id
+      }
     }
   }
 `;

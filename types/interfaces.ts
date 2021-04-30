@@ -168,6 +168,13 @@ type UserPSelf = {
   userName: string | null;
   email: string;
   avatar: string;
+  images: {
+    id: string;
+    url: string;
+  }[];
+  onTodayWords: {
+    id: string;
+  }[];
 };
 
 export interface UserP {

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { RefreshControl } from "react-native";
+import { FlatList, Image, RefreshControl } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Avatar from "./Avatar";
 import useSlide from "../hooks/useSlide";
@@ -11,7 +11,7 @@ import constants from "../constants";
 const Container = styled.ScrollView`
   width: ${constants.width}px;
   background-color: ${(prop) => prop.theme.colors.bgColor};
-  padding-top: 15px;
+  padding-top: 30px;
 `;
 
 const Header = styled.View`
@@ -32,8 +32,55 @@ const UserName = styled.Text`
 
 const Options = styled.TouchableOpacity``;
 
+const AvatarContainer = styled.View`
+  margin-bottom: 30px;
+`;
+
+const HavingContainer = styled.View`
+  width: ${constants.width}px;
+  margin-bottom: 30px;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const HavingWords = styled.View`
+  align-items: center;
+  margin: 0 10px;
+`;
+
+const Title = styled.Text`
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
+  font-size: 17px;
+`;
+
+const Number = styled.Text`
+  font-family: ${(prop) => prop.theme.fontFamily.rubik400};
+  margin-top: 10px;
+  font-size: 15px;
+`;
+
+const MyImagesContainer = styled.View`
+  flex-wrap: wrap;
+  flex-direction: row;
+`;
+
+const ImageBtn = styled.View<{ index: number }>`
+  width: ${constants.width / 2}px;
+  height: ${constants.width / 2}px;
+  border-color: white;
+  border-bottom-width: 1px;
+  border-right-width: ${(prop) => (prop.index % 2 === 0 ? 1 : 0)}px;
+  overflow: hidden;
+`;
+
+const MyImage = styled.Image`
+  width: ${constants.width / 2}px;
+  height: ${constants.width / 2}px;
+`;
+
 export default ({ refreshing, onRefresh, self }: UserP) => {
   const { toggleOpen, sliding } = useSlide();
+
   return (
     <>
       <Header style={{ elevation: 5 }}>
@@ -44,15 +91,35 @@ export default ({ refreshing, onRefresh, self }: UserP) => {
         <UserOptions animation={sliding} toggleFunc={toggleOpen} />
       </Header>
       <Container
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{ alignItems: "center" }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <Avatar
-          avatar={self ? self.avatar : require("../assets/init_human.png")}
-          size={"lg"}
-        />
+        <AvatarContainer>
+          <Avatar
+            avatar={self ? self.avatar : require("../assets/init_human.png")}
+            size={"lg"}
+          />
+        </AvatarContainer>
+        <HavingContainer>
+          <HavingWords>
+            <Title>Total</Title>
+            <Number>{self?.images.length}</Number>
+          </HavingWords>
+          <HavingWords>
+            <Title>Today</Title>
+            <Number>{self?.onTodayWords.length}</Number>
+          </HavingWords>
+        </HavingContainer>
+        <MyImagesContainer>
+          {self?.images.map((image, idx) => (
+            <ImageBtn key={image.id} index={idx}>
+              <MyImage source={{ uri: image.url }} resizeMode={"cover"} />
+            </ImageBtn>
+          ))}
+        </MyImagesContainer>
       </Container>
     </>
   );

@@ -50,8 +50,8 @@ const TextInputS = styled.TextInput`
   text-align: center;
   margin-bottom: 10px;
   background-color: white;
-  font-size: 18px;
-  font-family: ${(prop) => prop.theme.fontFamily.rubik500}
+  font-size: 17px;
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
   border-radius: 10px;
 `;
 
@@ -91,7 +91,7 @@ export default ({ url, name, caption, doneHandle, preDeleteHandle }: EditP) => {
                 value={name.value}
                 onChangeText={name.onChangeText}
                 autoCapitalize={"none"}
-                placeholder={"단어 이름"}
+                placeholder={"Name"}
               />
               <TextInputS
                 selectionColor={theme.colors.liteMainColor}
@@ -99,7 +99,7 @@ export default ({ url, name, caption, doneHandle, preDeleteHandle }: EditP) => {
                 onChangeText={caption.onChangeText}
                 autoCapitalize={"none"}
                 maxLength={8}
-                placeholder={"단어 뜻 (8글자)"}
+                placeholder={"Meaning (8 character)"}
               />
             </InputContainer>
           </ContentsContainer>

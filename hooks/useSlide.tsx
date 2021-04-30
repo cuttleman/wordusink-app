@@ -24,9 +24,9 @@ export default () => {
     if (isInit) {
       Animated.timing(animation, {
         toValue: open ? 1 : 0,
-        duration: 700,
+        duration: 500,
         useNativeDriver: false,
-        easing: Easing.circle,
+        easing: Easing.ease,
       }).start();
     }
   }, [open]);

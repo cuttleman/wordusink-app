@@ -36,7 +36,6 @@ const PhotoContainer = styled.View`
 const Photo = styled.Image`
   width: ${constants.width / 1.4}px;
   height: ${constants.width / 1.4}px;
-  border-radius: 10px;
 `;
 
 const BoldText = styled.Text<CardNameStyle>`

@@ -17,7 +17,7 @@ const Container = styled(Animated.View)`
 `;
 
 const CloseBtn = styled.TouchableOpacity`
-  width: 30px;
+  width: 40px;
   height: 60px;
   background-color: ${(prop) => prop.theme.colors.closeColor};
   justify-content: center;
@@ -45,17 +45,18 @@ const BtnText = styled.Text`
 
 export default ({ animation, toggleFunc }: UserOptionsP) => {
   const logOut = useLogOut();
+
   return (
     <Container style={{ transform: [{ translateX: animation }] }}>
       <CloseBtn onPress={toggleFunc}>
         <BtnText>x</BtnText>
       </CloseBtn>
       <OptionsContainer>
-        <FuncBtn onPress={logOut}>
-          <BtnText>로그아웃</BtnText>
+        <FuncBtn onPress={logOut} style={{ elevation: 5 }}>
+          <BtnText>Log out</BtnText>
         </FuncBtn>
-        <FuncBtn isEdit>
-          <BtnText>편집</BtnText>
+        <FuncBtn isEdit style={{ elevation: 5 }}>
+          <BtnText>Edit</BtnText>
         </FuncBtn>
       </OptionsContainer>
     </Container>

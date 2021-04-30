@@ -15,7 +15,7 @@ const Avatar = styled.Image<AvatarStyle>`
 `;
 
 export default ({ avatar, size = "sm" }: AvatarP) => (
-  <Container>
+  <Container style={{ elevation: 10 }}>
     <Avatar
       size={size}
       source={avatar ? { uri: avatar } : require("../assets/init_human.png")}

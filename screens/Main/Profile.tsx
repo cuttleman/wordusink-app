@@ -8,7 +8,9 @@ import { SELF_PROFILE } from "../../queries";
 const Profile: React.FC = () => {
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const { data, loading, refetch } = useQuery(SELF_PROFILE);
+  const { data, loading, refetch } = useQuery(SELF_PROFILE, {
+    fetchPolicy: "network-only",
+  });
 
   const onRefresh = async () => {
     try {
