@@ -12,7 +12,7 @@ import useInput from "../../hooks/useInput";
 import { EditWordParams } from "../../types/interfaces";
 import { DELETE_WORD, EDIT_WORD } from "../../queries";
 import { inputValidation } from "../../utils";
-import Edit from "../../components/Edit";
+import EditW from "../../components/EditW";
 
 export default () => {
   const { params }: EditWordParams = useRoute();
@@ -86,7 +86,7 @@ export default () => {
   };
 
   return (
-    <Edit
+    <EditW
       url={params?.url}
       doneHandle={doneHandle}
       deleteHandle={deleteHandle}

@@ -6,17 +6,18 @@ import {
 } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
 import Home from "../screens/Main/Home";
+import Notification from "../screens/Main/Notification";
+import Words from "../screens/Main/Words";
 import Profile from "../screens/Main/Profile";
 import FirstCharCards from "../screens/Word/FirstCharCards";
 import EditWord from "../screens/Word/EditWord";
 import AllCards from "../screens/Word/AllCards";
+import EditProfile from "../screens/User/EditProfile";
 import { StacksP } from "../types/interfaces";
-import Words from "../screens/Main/Words";
-import theme from "../theme";
 import TabIcon from "../components/TabIcon";
-import Notification from "../screens/Main/Notification";
-import { MaterialIcons } from "@expo/vector-icons";
+import theme from "../theme";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -132,7 +133,12 @@ export default () => {
           ),
         }}
       >
-        {() => stackFactory([{ name: "Profile", component: Profile }])}
+        {() =>
+          stackFactory([
+            { name: "Profile", component: Profile },
+            { name: "EditProfile", component: EditProfile },
+          ])
+        }
       </Tab.Screen>
     </Tab.Navigator>
   );

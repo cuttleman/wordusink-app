@@ -2,9 +2,28 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useLayoutEffect } from "react";
 import { Alert } from "react-native";
-import New, { NextBtn, NextText } from "../../components/New";
+import styled from "styled-components/native";
+import New from "../../components/New";
 import useInput from "../../hooks/useInput";
 import { inputValidation } from "../../utils";
+
+const NextBtn = styled.TouchableOpacity`
+  padding: 10px;
+  padding-left: 15px;
+  margin-right: 15px;
+  background-color: ${(prop) => prop.theme.colors.mainColor};
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const NextText = styled.Text`
+  color: white;
+  font-size: 15px;
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
+`;
 
 export default () => {
   const navigation = useNavigation();

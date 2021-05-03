@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
-import { FlatList, Image, RefreshControl } from "react-native";
+import { Animated, RefreshControl } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Avatar from "./Avatar";
 import useSlide from "../hooks/useSlide";
@@ -25,7 +25,7 @@ const Header = styled.View`
   border-bottom-color: ${(prop) => prop.theme.colors.tabColor};
 `;
 
-const UserName = styled.Text`
+const UserName = styled(Animated.Text)`
   font-size: 25px;
   font-family: ${(prop) => prop.theme.fontFamily.rubik500};
 `;
@@ -79,16 +79,22 @@ const MyImage = styled.Image`
 `;
 
 export default ({ refreshing, onRefresh, self }: UserP) => {
-  const { toggleOpen, sliding } = useSlide();
+  const { toggleOpen, sliding, smalling } = useSlide();
 
   return (
     <>
       <Header style={{ elevation: 5 }}>
-        <UserName>{self?.userName ? self?.userName : "Human"}</UserName>
+        <UserName style={{ fontSize: smalling }}>
+          {self.userName ? self.userName : "Human"}
+        </UserName>
         <Options onPress={toggleOpen}>
           <AntDesign name={"menufold"} size={24} />
         </Options>
-        <UserOptions animation={sliding} toggleFunc={toggleOpen} />
+        <UserOptions
+          animation={sliding}
+          toggleFunc={toggleOpen}
+          userInfo={self}
+        />
       </Header>
       <Container
         showsVerticalScrollIndicator={false}
@@ -98,23 +104,20 @@ export default ({ refreshing, onRefresh, self }: UserP) => {
         }
       >
         <AvatarContainer>
-          <Avatar
-            avatar={self ? self.avatar : require("../assets/init_human.png")}
-            size={"lg"}
-          />
+          <Avatar avatar={self?.avatar} size={"lg"} />
         </AvatarContainer>
         <HavingContainer>
           <HavingWords>
             <Title>Total</Title>
-            <Number>{self?.images.length}</Number>
+            <Number>{self?.images?.length}</Number>
           </HavingWords>
           <HavingWords>
             <Title>Today</Title>
-            <Number>{self?.onTodayWords.length}</Number>
+            <Number>{self?.onTodayWords?.length}</Number>
           </HavingWords>
         </HavingContainer>
         <MyImagesContainer>
-          {self?.images.map((image, idx) => (
+          {self?.images?.map((image, idx) => (
             <ImageBtn key={image.id} index={idx}>
               <MyImage source={{ uri: image.url }} resizeMode={"cover"} />
             </ImageBtn>

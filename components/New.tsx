@@ -13,26 +13,6 @@ const Container = styled.View`
   justify-content: space-between;
 `;
 
-// For parent component
-export const NextBtn = styled.TouchableOpacity`
-  padding: 10px;
-  padding-left: 15px;
-  margin-right: 15px;
-  background-color: ${(prop) => prop.theme.colors.mainColor};
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
-
-// For parent component
-export const NextText = styled.Text`
-  color: white;
-  font-size: 15px;
-  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
-`;
-
 const InputContainer = styled.View`
   align-items: center;
 `;

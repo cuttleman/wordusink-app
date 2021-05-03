@@ -39,7 +39,7 @@ const PhotoContainer = styled.View`
 const ImagePreview = styled.Image`
   width: ${constants.width / 1.7}px;
   height: ${constants.width / 1.7}px;
-  border-radius: 10px;
+  border-radius: 4px;
 `;
 
 const InputContainer = styled.View``;

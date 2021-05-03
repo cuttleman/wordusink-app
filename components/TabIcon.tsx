@@ -6,12 +6,6 @@ import { TabIconP } from "../types/interfaces";
 import { useNavigation } from "@react-navigation/core";
 
 const Container = styled.View`
-  position: absolute;
-  bottom: 3px;
-  border-radius: 50px;
-  border-width: 6px;
-  border-color: ${(prop) => prop.theme.colors.bgColor};
-  background-color: ${(prop) => prop.theme.colors.bgColor};
   justify-content: center;
   align-items: center;
 `;
@@ -19,8 +13,8 @@ const Container = styled.View`
 const BtnContainer = styled.TouchableOpacity`
   border-radius: 50px;
   border-width: 0px;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;

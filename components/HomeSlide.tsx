@@ -34,13 +34,13 @@ export default () => {
         itemWidth={constants.width / 1.2}
         autoplay={true}
         loop={true}
-        autoplayInterval={5000}
+        autoplayInterval={3000}
         loopClonesPerSide={data.allImages.length}
         renderItem={({ item }: { item: { id: string; url: string } }) => (
           <Image
             source={{ uri: item.url }}
             resizeMode={"contain"}
-            style={{ flex: 1 }}
+            style={{ flex: 1, borderRadius: 5 }}
           />
         )}
       />

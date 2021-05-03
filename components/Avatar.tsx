@@ -5,6 +5,8 @@ import { AvatarP, AvatarStyle } from "../types/interfaces";
 const Container = styled.View`
   border-radius: 100px;
   background-color: white;
+  border-width: 1px;
+  border-color: ${(prop) => prop.theme.colors.tabColor};
 `;
 
 const Avatar = styled.Image<AvatarStyle>`
@@ -15,7 +17,7 @@ const Avatar = styled.Image<AvatarStyle>`
 `;
 
 export default ({ avatar, size = "sm" }: AvatarP) => (
-  <Container style={{ elevation: 10 }}>
+  <Container>
     <Avatar
       size={size}
       source={avatar ? { uri: avatar } : require("../assets/init_human.png")}

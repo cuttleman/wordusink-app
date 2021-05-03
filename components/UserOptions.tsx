@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Animated } from "react-native";
 import styled from "styled-components/native";
@@ -43,9 +44,9 @@ const BtnText = styled.Text`
   font-size: 16px;
 `;
 
-export default ({ animation, toggleFunc }: UserOptionsP) => {
+export default ({ animation, toggleFunc, userInfo }: UserOptionsP) => {
   const logOut = useLogOut();
-
+  const { navigate } = useNavigation();
   return (
     <Container style={{ transform: [{ translateX: animation }] }}>
       <CloseBtn onPress={toggleFunc}>
@@ -55,7 +56,14 @@ export default ({ animation, toggleFunc }: UserOptionsP) => {
         <FuncBtn onPress={logOut} style={{ elevation: 5 }}>
           <BtnText>Log out</BtnText>
         </FuncBtn>
-        <FuncBtn isEdit style={{ elevation: 5 }}>
+        <FuncBtn
+          onPress={() => {
+            toggleFunc();
+            return navigate("EditProfile", { userInfo });
+          }}
+          isEdit
+          style={{ elevation: 5 }}
+        >
           <BtnText>Edit</BtnText>
         </FuncBtn>
       </OptionsContainer>

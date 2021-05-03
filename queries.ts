@@ -104,3 +104,9 @@ export const CREATE_WORD = gql`
     }
   }
 `;
+
+export const EDIT_PROFILE = gql`
+  mutation editProfile($userName: String!, $avatar: String) {
+    editProfile(userName: $userName, avatar: $avatar)
+  }
+`;

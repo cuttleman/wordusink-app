@@ -2,9 +2,11 @@ import { Asset } from "expo-media-library";
 import { Camera } from "expo-camera";
 import { Animated } from "react-native";
 
+type subset<T> = { [P in keyof T]: T[P] };
+
 export interface WordP {
-  word: PartialWord;
-  words?: PartialWord[];
+  word: subset<PartialWord>;
+  words?: subset<PartialWord>[];
   index?: number;
   total?: number;
 }
@@ -21,11 +23,11 @@ export interface PartialWord {
     url: string;
   };
   name: string;
-  votes: Vote[];
+  votes: subset<Vote>[];
 }
 
 export interface CarouselP {
-  item: PartialWord;
+  item: subset<PartialWord>;
   index: number;
 }
 
@@ -38,7 +40,7 @@ export interface SpecificWordParamsP {
 export interface AllWordsParamsP {
   params?: {
     index?: number;
-    words?: PartialWord[];
+    words?: subset<PartialWord>[];
   };
 }
 
@@ -52,15 +54,15 @@ export interface CardListHP {
 }
 
 export interface CardListVP {
-  words: PartialWord[];
+  words: subset<PartialWord>[];
   loading: boolean;
 }
 
-export interface AuthButtonP {
+export type AuthButtonP = {
   text: string;
   type?: string;
   onPress: () => void;
-}
+};
 
 export interface AuthProviderP {
   initLoggedIn: boolean;
@@ -85,8 +87,8 @@ export interface InputHooksR {
 
 export interface EditP {
   url: string | undefined;
-  name: InputHooksR;
-  caption: InputHooksR;
+  name: subset<InputHooksR>;
+  caption: subset<InputHooksR>;
   doneHandle: () => Promise<void>;
   deleteHandle: () => Promise<void>;
   preDeleteHandle: () => void;
@@ -97,16 +99,12 @@ export type NewP = { [K in "name" | "caption"]: InputHooksR };
 type AvatarSize = "lg" | "md" | "sm";
 
 export interface AvatarP {
-  avatar: string | null;
-  size: AvatarSize;
-}
-
-export interface AvatarStyle {
-  size: AvatarSize;
+  avatar?: string | null;
+  size?: AvatarSize;
 }
 
 export interface ComponentInMaterialTabs {
-  stackRoute: StackRouteP;
+  stackRoute: subset<StackRouteP>;
 }
 
 export interface MaterialTabsP {
@@ -164,15 +162,15 @@ export interface TabIconP {
 }
 
 type UserPSelf = {
-  id: string;
-  userName: string | null;
-  email: string;
-  avatar: string;
-  images: {
+  id?: string;
+  userName?: string;
+  email?: string;
+  avatar?: string | null;
+  images?: {
     id: string;
     url: string;
   }[];
-  onTodayWords: {
+  onTodayWords?: {
     id: string;
   }[];
 };
@@ -180,13 +178,27 @@ type UserPSelf = {
 export interface UserP {
   refreshing: boolean;
   onRefresh: () => void;
-  self: UserPSelf | undefined;
+  self: subset<UserPSelf>;
 }
 
 export interface UserOptionsP {
   animation: Animated.AnimatedInterpolation;
   toggleFunc: () => void;
+  userInfo: subset<UserPSelf>;
 }
+
+export interface UserProfleParamsP {
+  params?: {
+    userInfo?: subset<UserPSelf>;
+  };
+}
+
+export interface EditPProp extends InputHooksR, PassedInfo {
+  editHandle: () => Promise<void>;
+  setAvatarAction: (e: any) => void;
+}
+
+export interface PassedInfo extends Pick<UserPSelf, "email" | "avatar"> {}
 
 // Styled Type
 
@@ -208,4 +220,8 @@ export interface WordNameSt {
 
 export interface EditBtnSt {
   isDone?: boolean;
+}
+
+export interface AvatarStyle {
+  size: AvatarSize;
 }

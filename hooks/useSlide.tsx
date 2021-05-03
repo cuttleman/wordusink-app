@@ -13,6 +13,11 @@ export default () => {
     outputRange: [300, 0],
   });
 
+  const smalling = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [25, 15],
+  });
+
   const toggleOpen = () => {
     setOpen((prev) => !prev);
     if (!isInit) {
@@ -24,12 +29,12 @@ export default () => {
     if (isInit) {
       Animated.timing(animation, {
         toValue: open ? 1 : 0,
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
         easing: Easing.ease,
       }).start();
     }
   }, [open]);
 
-  return { toggleOpen, sliding, open };
+  return { toggleOpen, sliding, smalling, open };
 };

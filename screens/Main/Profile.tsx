@@ -5,7 +5,7 @@ import Loading from "../../components/Loading";
 import User from "../../components/User";
 import { SELF_PROFILE } from "../../queries";
 
-const Profile: React.FC = () => {
+export default () => {
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { data, loading, refetch } = useQuery(SELF_PROFILE, {
@@ -35,5 +35,3 @@ const Profile: React.FC = () => {
     <User refreshing={refreshing} onRefresh={onRefresh} self={data?.self} />
   );
 };
-
-export default Profile;
