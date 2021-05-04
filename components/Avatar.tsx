@@ -7,6 +7,7 @@ const Container = styled.View`
   background-color: white;
   border-width: 1px;
   border-color: ${(prop) => prop.theme.colors.tabColor};
+  overflow: hidden;
 `;
 
 const Avatar = styled.Image<AvatarStyle>`

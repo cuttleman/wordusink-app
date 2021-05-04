@@ -17,14 +17,16 @@ import { hostForDev } from "../../utils";
 const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
 
-export default ({ stackRoute }: ComponentInMaterialTabs) => {
+export default ({
+  setAvatarAction,
+}: {
+  setAvatarAction: (v: MediaLibrary.Asset) => void;
+}) => {
   const [photos, setPhotos] = useState<MediaLibrary.Asset[]>([]);
   const [startNum, setStartNum] = useState<number>(START_NUM);
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectPhoto, setSelectPhoto] = useState<MediaLibrary.Asset>();
-  const [createWordMutation] = useMutation(CREATE_WORD);
-  const navigation = useNavigation();
 
   const onSrollBotReached = ({
     layoutMeasurement,
@@ -37,42 +39,6 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     if (isBottom) {
       if (hasNext) {
         setStartNum((prev) => prev + START_NUM);
-      }
-    }
-  };
-
-  const createWordAction = async () => {
-    const formData: any = new FormData();
-    if (selectPhoto !== undefined) {
-      const manipulatedImg = await ImageManipulator.manipulateAsync(
-        selectPhoto.uri,
-        [{ resize: { width: 300 } }]
-      );
-      formData.append("photo", {
-        name: selectPhoto.filename,
-        uri: manipulatedImg.uri,
-        type: `image/${selectPhoto.filename.split(".")[1]}`,
-      });
-      try {
-        const {
-          data: { file },
-        } = await axios.post(hostForDev(5000, "/api/upload"), formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        const { data } = await createWordMutation({
-          variables: {
-            name: stackRoute.params?.name,
-            caption: stackRoute.params?.caption,
-            url: file.linkUrl,
-          },
-        });
-        if (data?.createWord?.result) {
-          navigation.dispatch(StackActions.replace("Tab"));
-        } else {
-          throw Error(data?.createWord?.message);
-        }
-      } catch (e) {
-        console.log(e);
       }
     }
   };
@@ -120,7 +86,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       selectPhoto={selectPhoto}
       selectPhotoAction={selectPhotoAction}
       onSrollBotReached={onSrollBotReached}
-      doneAction={createWordAction}
+      doneAction={() => setAvatarAction(selectPhoto)}
     />
   );
 };

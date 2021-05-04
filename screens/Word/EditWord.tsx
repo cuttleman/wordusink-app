@@ -11,7 +11,7 @@ import { Alert } from "react-native";
 import useInput from "../../hooks/useInput";
 import { EditWordParams } from "../../types/interfaces";
 import { DELETE_WORD, EDIT_WORD } from "../../queries";
-import { inputValidation } from "../../utils";
+import { inputValidator } from "../../utils";
 import EditW from "../../components/EditW";
 
 export default () => {
@@ -27,7 +27,7 @@ export default () => {
 
   const doneHandle = async () => {
     try {
-      inputValidation(inputName?.value, inputCaption?.value);
+      inputValidator(inputName?.value, inputCaption?.value);
       const {
         data: { editWord: result },
       } = await editWordMutation({

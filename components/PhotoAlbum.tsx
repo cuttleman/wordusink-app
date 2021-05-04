@@ -9,7 +9,7 @@ export default ({
   selectPhoto,
   selectPhotoAction,
   onSrollBotReached,
-  createWordAction,
+  doneAction,
 }: PhotoAlbumP) => {
   return (
     <View style={{ flex: 1 }}>
@@ -32,7 +32,7 @@ export default ({
             right: 10,
             top: 10,
           }}
-          onPress={createWordAction}
+          onPress={doneAction}
         >
           <Text>test</Text>
         </TouchableOpacity>

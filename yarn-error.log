@@ -1,8 +1,8 @@
 Arguments: 
-  /home/juno/.nvm/versions/node/v14.16.0/bin/node /home/juno/.nvm/versions/node/v14.16.0/bin/yarn add @expo-google-fonts/workSans
+  /home/juno/.nvm/versions/node/v14.16.0/bin/node /home/juno/.nvm/versions/node/v14.16.0/bin/yarn add @types/rn-bottom-drawer
 
 PATH: 
-  /home/juno/.vscode-server/bin/08a217c4d27a02a5bcde898fd7981bda5b49391b/bin:/home/juno/.nvm/versions/node/v14.16.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/ProgramData/chocolatey/lib/gsudo/bin/:/mnt/c/Program Files/PostgreSQL/13/bin:/mnt/c/Program Files/heroku/bin:/mnt/c/Program Files/MongoDB/Server/4.4/bin:/mnt/c/Users/sillu/AppData/Local/Android/Sdk/emulator:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Users/sillu/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/sillu/AppData/Roaming/npm
+  /home/juno/.vscode-server/bin/3c4e3df9e89829dce27b7b5c24508306b151f30d/bin:/home/juno/.nvm/versions/node/v14.16.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/ProgramData/chocolatey/lib/gsudo/bin/:/mnt/c/Program Files/PostgreSQL/13/bin:/mnt/c/Program Files/heroku/bin:/mnt/c/Program Files/MongoDB/Server/4.4/bin:/mnt/c/Users/sillu/AppData/Local/Android/Sdk/emulator:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Users/sillu/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/sillu/AppData/Roaming/npm
 
 Yarn version: 
   1.22.10
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@expo-google-fonts%2fworkSans: Not found
+  Error: https://registry.yarnpkg.com/@types%2frn-bottom-drawer: Not found
       at Request.params.callback [as _callback] (/home/juno/.nvm/versions/node/v14.16.0/lib/node_modules/yarn/lib/cli.js:66988:18)
       at Request.self.callback (/home/juno/.nvm/versions/node/v14.16.0/lib/node_modules/yarn/lib/cli.js:140662:22)
       at Request.emit (events.js:315:20)
@@ -41,6 +41,7 @@ npm manifest:
       "@apollo/client": "^3.3.11",
       "@apollo/link-error": "^2.0.0-beta.3",
       "@expo-google-fonts/rubik": "^0.1.0",
+      "@expo-google-fonts/work-sans": "^0.1.0",
       "@expo/vector-icons": "^12.0.3",
       "@react-native-community/async-storage": "^1.12.1",
       "@react-native-community/masked-view": "0.1.10",
@@ -74,6 +75,7 @@ npm manifest:
       "react-native-snap-carousel": "^3.9.1",
       "react-native-tab-view": "^2.16.0",
       "react-native-web": "~0.13.12",
+      "rn-bottom-drawer": "^1.4.3",
       "styled-components": "^5.2.1"
     },
     "devDependencies": {
@@ -1265,6 +1267,11 @@ Lockfile:
     version "0.1.0"
     resolved "https://registry.yarnpkg.com/@expo-google-fonts/rubik/-/rubik-0.1.0.tgz#0a0f2352f342183daea7b72c7d4f9e452962a5db"
     integrity sha512-sIy8rVobcxbtGQkPdnDquyM86vNw3mneEXCVqcCo+veNd1eloY4oGXs8q4e6zSV1NpZ2nD0nE8fFMKizJNeoPg==
+  
+  "@expo-google-fonts/work-sans@^0.1.0":
+    version "0.1.0"
+    resolved "https://registry.yarnpkg.com/@expo-google-fonts/work-sans/-/work-sans-0.1.0.tgz#0839fe0b6cd9772db6227b21d22d7fe3450ef4ef"
+    integrity sha512-c24HquTDQlWjRGjEy8ZZoDEiKD8HNoiKDq+1vtZDAIhLbop0kqggbH+0FFWKigpID2tjABBlJg4MKo4iMKaRiQ==
   
   "@expo/config-plugins@1.0.20":
     version "1.0.20"
@@ -6187,6 +6194,13 @@ Lockfile:
     version "2.2.8"
     resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
     integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+  
+  rn-bottom-drawer@^1.4.3:
+    version "1.4.3"
+    resolved "https://registry.yarnpkg.com/rn-bottom-drawer/-/rn-bottom-drawer-1.4.3.tgz#25468972181c7eaa59095d619d633c8bf4aeb967"
+    integrity sha512-atS7HEQOoqLQftxyBalYHlf+YAEPw9zQ6RG00yf3xIu8TWsd5ST8Z0h3RwLFXsXnbvjP2OBvsvraZsXF8G7r0w==
+    dependencies:
+      prop-types "^15.6.2"
   
   rsvp@^4.8.4:
     version "4.8.5"

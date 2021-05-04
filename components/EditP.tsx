@@ -27,11 +27,23 @@ const AvatarEditBtn = styled.TouchableOpacity`
   border-color: ${(prop) => prop.theme.colors.tabColor};
   border-radius: 30px;
   background-color: white;
-  bottom: 0;
-  right: 0;
 `;
 
-const InputContainer = styled.View``;
+const ConditionContainer = styled.View`
+  margin-bottom: 20px;
+`;
+
+const Conditions = styled.Text`
+  color: ${(prop) => prop.theme.colors.titleColor};
+  margin-bottom: 5px;
+  margin-left: 15px;
+  font-family: ${(prop) => prop.theme.fontFamily.rubik400};
+  font-size: 14px;
+`;
+
+const InputContainer = styled.View`
+  margin-bottom: 20px;
+`;
 
 const Input = styled.TextInput`
   width: ${constants.width / 2}px;
@@ -42,27 +54,36 @@ const Input = styled.TextInput`
 `;
 
 export default ({
-  editHandle,
-  setAvatarAction,
   value,
   onChangeText,
+  avatarUrl,
   avatar,
   email,
+  albumTrigger,
 }: EditPProp) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <AvatarContainer>
-          <Avatar avatar={avatar} size={"lg"} />
-          <AvatarEditBtn style={{ elevation: 4 }}>
+          <Avatar avatar={avatarUrl ?? avatar} size="lg" />
+
+          <AvatarEditBtn
+            style={{ elevation: 4, bottom: 0, right: 0 }}
+            onPress={albumTrigger}
+          >
             <MaterialIcons name={"edit"} color="black" size={23} />
           </AvatarEditBtn>
         </AvatarContainer>
         <InputContainer>
-          <SectionTitle text={"User name"} />
+          <SectionTitle text="닉네임 *" />
+          <ConditionContainer>
+            <Conditions> _ . 은 문자 중간에만 입력할 수 있습니다.</Conditions>
+            <Conditions>띄어쓰기는 사용할 수 없습니다.</Conditions>
+            <Conditions>닉네임은 15자까지 입력할 수 있습니다.</Conditions>
+          </ConditionContainer>
           <Input
             style={{ elevation: 5 }}
-            placeholder="new Username"
+            placeholder="새로운 닉네임"
             onChangeText={onChangeText}
             value={value}
           />

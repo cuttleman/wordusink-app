@@ -5,7 +5,7 @@ import { Alert } from "react-native";
 import styled from "styled-components/native";
 import New from "../../components/New";
 import useInput from "../../hooks/useInput";
-import { inputValidation } from "../../utils";
+import { inputValidator } from "../../utils";
 
 const NextBtn = styled.TouchableOpacity`
   padding: 10px;
@@ -36,7 +36,7 @@ export default () => {
         <NextBtn
           onPress={() => {
             try {
-              inputValidation(name.value, caption.value);
+              inputValidator(name.value, caption.value);
               navigation.navigate("SelectPhoto", {
                 name: name.value,
                 caption: caption.value,

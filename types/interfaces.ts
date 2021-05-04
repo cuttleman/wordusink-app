@@ -133,7 +133,7 @@ export interface PhotoAlbumP {
   selectPhoto: photoPInAlbum;
   selectPhotoAction: (photo: any) => void;
   onSrollBotReached: (params: SrollBotReachedP) => void;
-  createWordAction: () => Promise<void>;
+  doneAction: () => Promise<void> | void;
 }
 
 export type HomeRouteParam = {
@@ -194,8 +194,8 @@ export interface UserProfleParamsP {
 }
 
 export interface EditPProp extends InputHooksR, PassedInfo {
-  editHandle: () => Promise<void>;
-  setAvatarAction: (e: any) => void;
+  avatarUrl?: string;
+  albumTrigger: () => void;
 }
 
 export interface PassedInfo extends Pick<UserPSelf, "email" | "avatar"> {}

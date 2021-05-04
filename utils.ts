@@ -33,7 +33,7 @@ export const hostForDev = (port: number, param = ""): string => {
   return `http://172.30.1.52:${port}${param}`;
 };
 
-export const inputValidation = (
+export const inputValidator = (
   name: string | undefined,
   caption: string | undefined
 ): void => {
@@ -48,5 +48,19 @@ export const inputValidation = (
     throw new Error("Meaning field limited 8 characters.");
   } else if (name !== undefined && engValidation(name) === false) {
     throw new Error("No spacing, Only English on Name field.");
+  }
+};
+
+export const userNameValidator = (userName: string | undefined) => {
+  const nameValidation = (term: string): boolean => {
+    const nameRegex = /^(([^\s!@#$%^&*._\-,;:"'+=()<>\[\]])|([a-zA-Z0-9][._]*))*(?!\s)([^\s!@#$%^&*._\-,;:"'=+()<>\[\]])$/g;
+    return nameRegex.test(term);
+  };
+  if (userName === "") {
+    throw new Error("Please fill in the Name field.");
+  } else if (userName !== undefined && userName.length > 15) {
+    throw new Error("Username field limited 15 characters.");
+  } else if (userName !== undefined && nameValidation(userName) === false) {
+    throw new Error("Check on Username conditions");
   }
 };
