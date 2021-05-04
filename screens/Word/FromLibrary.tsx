@@ -56,7 +56,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       try {
         const {
           data: { file },
-        } = await axios.post(hostForDev(5000, "/api/upload"), formData, {
+        } = await axios.post(hostForDev(5000, "/api/upload/word"), formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         const { data } = await createWordMutation({

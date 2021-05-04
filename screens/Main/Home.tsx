@@ -104,8 +104,12 @@ const Home: React.FC = () => {
         }}
         onScroll={onScroll}
       >
-        <SectionTitle text={"PRACTICE FROM IMAGES"} />
-        <HomeSlide />
+        {data?.havingWords?.length !== 0 && (
+          <>
+            <SectionTitle text={"이미지 보고 연습하기"} />
+            <HomeSlide />
+          </>
+        )}
       </ScrollContainer>
     </Container>
   );

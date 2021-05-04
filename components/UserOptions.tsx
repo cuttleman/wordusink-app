@@ -54,7 +54,7 @@ export default ({ animation, toggleFunc, userInfo }: UserOptionsP) => {
       </CloseBtn>
       <OptionsContainer>
         <FuncBtn onPress={logOut} style={{ elevation: 5 }}>
-          <BtnText>Log out</BtnText>
+          <BtnText>로그아웃</BtnText>
         </FuncBtn>
         <FuncBtn
           onPress={() => {
@@ -64,7 +64,7 @@ export default ({ animation, toggleFunc, userInfo }: UserOptionsP) => {
           isEdit
           style={{ elevation: 5 }}
         >
-          <BtnText>Edit</BtnText>
+          <BtnText>수정</BtnText>
         </FuncBtn>
       </OptionsContainer>
     </Container>

@@ -46,7 +46,7 @@ export default () => {
             }
           }}
         >
-          <NextText>Pick Image</NextText>
+          <NextText>이미지 선택</NextText>
           <MaterialIcons
             name={"keyboard-arrow-right"}
             color={"white"}

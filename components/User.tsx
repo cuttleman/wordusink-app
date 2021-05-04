@@ -84,9 +84,7 @@ export default ({ refreshing, onRefresh, self }: UserP) => {
   return (
     <>
       <Header style={{ elevation: 5 }}>
-        <UserName style={{ fontSize: smalling }}>
-          {self.userName ? self.userName : "Human"}
-        </UserName>
+        <UserName style={{ fontSize: smalling }}>{self.userName}</UserName>
         <Options onPress={toggleOpen}>
           <AntDesign name={"menufold"} size={24} />
         </Options>
@@ -108,11 +106,11 @@ export default ({ refreshing, onRefresh, self }: UserP) => {
         </AvatarContainer>
         <HavingContainer>
           <HavingWords>
-            <Title>Total</Title>
+            <Title>총 단어 수</Title>
             <Number>{self?.images?.length}</Number>
           </HavingWords>
           <HavingWords>
-            <Title>Today</Title>
+            <Title>오늘 추가한 단어 수</Title>
             <Number>{self?.onTodayWords?.length}</Number>
           </HavingWords>
         </HavingContainer>

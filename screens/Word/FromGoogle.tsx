@@ -37,7 +37,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     }
   };
 
-  const createWordAction = async () => {
+  const doneAction = async () => {
     try {
       const { data } = await createWordMutation({
         variables: {
@@ -108,7 +108,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       selectPhoto={selectPhoto}
       selectPhotoAction={selectPhotoAction}
       onSrollBotReached={onSrollBotReached}
-      createWordAction={createWordAction}
+      doneAction={doneAction}
     />
   );
 };

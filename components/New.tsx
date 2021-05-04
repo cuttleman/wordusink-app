@@ -45,16 +45,16 @@ export default ({ name, caption }: NewP) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <InputContainer>
-          <SectionTitle text={"Name ( ex> apple ) *"} />
+          <SectionTitle text={"단어 이름 ( 예> apple ) *"} />
           <TextInputS
             style={{ elevation: 8 }}
             selectionColor={theme.colors.liteMainColor}
             value={name.value}
             onChangeText={name.onChangeText}
             autoCapitalize={"none"}
-            placeholder={"Name"}
+            placeholder={"이름"}
           />
-          <SectionTitle text={"Meaning ( ex> 사과 )"} />
+          <SectionTitle text={"단어 의미 ( 예> 사과 )"} />
           <TextInputS
             style={{ elevation: 8 }}
             selectionColor={theme.colors.liteMainColor}
@@ -62,7 +62,7 @@ export default ({ name, caption }: NewP) => {
             onChangeText={caption.onChangeText}
             autoCapitalize={"none"}
             maxLength={8}
-            placeholder={"Meaning (8 character)"}
+            placeholder={"의미 (8글자)"}
           />
         </InputContainer>
         <AdsContainer>

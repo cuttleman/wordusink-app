@@ -91,7 +91,7 @@ export default ({ url, name, caption, doneHandle, preDeleteHandle }: EditP) => {
                 value={name.value}
                 onChangeText={name.onChangeText}
                 autoCapitalize={"none"}
-                placeholder={"Name"}
+                placeholder={"이름"}
               />
               <TextInputS
                 selectionColor={theme.colors.liteMainColor}
@@ -99,16 +99,16 @@ export default ({ url, name, caption, doneHandle, preDeleteHandle }: EditP) => {
                 onChangeText={caption.onChangeText}
                 autoCapitalize={"none"}
                 maxLength={8}
-                placeholder={"Meaning (8 character)"}
+                placeholder={"의미 (8글자)"}
               />
             </InputContainer>
           </ContentsContainer>
           <BtnContainer>
             <Button onPress={doneHandle} isDone>
-              <BtnText>Done</BtnText>
+              <BtnText>수정</BtnText>
             </Button>
             <Button onPress={preDeleteHandle}>
-              <BtnText>Delete</BtnText>
+              <BtnText>지우기</BtnText>
             </Button>
           </BtnContainer>
         </CardContainer>

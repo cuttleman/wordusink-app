@@ -70,7 +70,7 @@ export default () => {
         });
         const {
           data: { file },
-        } = await axios.post(hostForDev(5000, "/api/upload"), formData, {
+        } = await axios.post(hostForDev(5000, "/api/upload/avatar"), formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         result = await editProfileMutation({
@@ -121,7 +121,7 @@ export default () => {
             }
           }}
         >
-          <DoneText>Done</DoneText>
+          <DoneText>수정완료</DoneText>
           <MaterialIcons
             name={"keyboard-arrow-right"}
             color={"white"}
