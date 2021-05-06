@@ -12,7 +12,7 @@ import {
 import { useMutation } from "@apollo/client";
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { CREATE_WORD } from "../../queries";
-import { hostForDev } from "../../utils";
+import { exampleGenerator, hostForDev } from "../../utils";
 
 const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
@@ -63,6 +63,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
           variables: {
             name: stackRoute.params?.name,
             caption: stackRoute.params?.caption,
+            examples: stackRoute.params?.examples,
             url: file.linkUrl,
           },
         });

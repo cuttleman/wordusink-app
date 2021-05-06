@@ -1,4 +1,5 @@
-import * as ImageManipulator from "expo-image-manipulator";
+import axios from "axios";
+import { DictionaryData } from "./types/interfaces";
 
 export const colors = [
   "#EA2027", // A
@@ -62,5 +63,24 @@ export const userNameValidator = (userName: string | undefined) => {
     throw new Error("닉네임은 15글자까지 입력할 수 있습니다.");
   } else if (userName !== undefined && nameValidation(userName) === false) {
     throw new Error("닉네임 작성 조건을 확인해주세요.");
+  }
+};
+
+export const exampleGenerator = async (term: string): Promise<string[]> => {
+  const baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en_US/";
+  const examples: string[] = [];
+  try {
+    const result: DictionaryData = await axios.get(`${baseUrl}${term}`);
+    if (result) {
+      const filtering = result.data[0].meanings[0];
+      filtering.definitions?.map((definition: { example?: string }) => {
+        if (definition.example) {
+          examples.push(definition.example);
+        }
+      });
+    }
+  } catch (e) {
+  } finally {
+    return examples;
   }
 };

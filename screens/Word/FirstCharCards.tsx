@@ -43,7 +43,7 @@ const FirstCharCards: React.FC = () => {
           itemWidth={constants.width}
           inactiveSlideOpacity={1}
           inactiveSlideScale={0.8}
-          initialNumToRender={getWords.length}
+          initialNumToRender={1}
           renderItem={({ item, index }: CarouselP) => (
             <Card
               key={item.id}

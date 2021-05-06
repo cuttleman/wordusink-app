@@ -11,7 +11,7 @@ import { Alert } from "react-native";
 import useInput from "../../hooks/useInput";
 import { EditWordParams } from "../../types/interfaces";
 import { DELETE_WORD, EDIT_WORD } from "../../queries";
-import { inputValidator } from "../../utils";
+import { exampleGenerator, inputValidator } from "../../utils";
 import EditW from "../../components/EditW";
 
 export default () => {
@@ -27,23 +27,28 @@ export default () => {
 
   const doneHandle = async () => {
     try {
-      inputValidator(inputName?.value, inputCaption?.value);
-      const {
-        data: { editWord: result },
-      } = await editWordMutation({
-        variables: {
-          wordId: params?.wordId,
-          name: inputName.value,
-          caption: inputCaption.value,
-        },
-      });
-      if (result) {
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: routesHistory[0] }],
-          })
-        );
+      if (inputName.value) {
+        inputValidator(inputName?.value, inputCaption?.value);
+        const examples = await exampleGenerator(inputName.value);
+        console.log(examples);
+        const {
+          data: { editWord: result },
+        } = await editWordMutation({
+          variables: {
+            wordId: params?.wordId,
+            name: inputName.value,
+            caption: inputCaption.value,
+            examples,
+          },
+        });
+        if (result) {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: routesHistory[0] }],
+            })
+          );
+        }
       }
     } catch (e) {
       Alert.alert("", e.message);

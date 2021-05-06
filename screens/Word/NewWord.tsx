@@ -1,11 +1,12 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 import React, { useLayoutEffect } from "react";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
 import New from "../../components/New";
 import useInput from "../../hooks/useInput";
-import { inputValidator } from "../../utils";
+import { exampleGenerator, inputValidator } from "../../utils";
 
 const NextBtn = styled.TouchableOpacity`
   padding: 10px;
@@ -34,13 +35,17 @@ export default () => {
     navigation.setOptions({
       headerRight: () => (
         <NextBtn
-          onPress={() => {
+          onPress={async () => {
             try {
-              inputValidator(name.value, caption.value);
-              navigation.navigate("SelectPhoto", {
-                name: name.value,
-                caption: caption.value,
-              });
+              if (name.value) {
+                inputValidator(name.value, caption.value);
+                const examples = await exampleGenerator(name.value);
+                navigation.navigate("SelectPhoto", {
+                  name: name.value,
+                  caption: caption.value,
+                  examples,
+                });
+              }
             } catch (e) {
               Alert.alert("", e.message);
             }

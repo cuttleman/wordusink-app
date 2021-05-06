@@ -16,6 +16,7 @@ export const ALL_WORDS = gql`
       id
       name
       caption
+      examples
       votes {
         id
       }
@@ -33,6 +34,7 @@ export const SPECIFIC_WORDS = gql`
       id
       name
       caption
+      examples
       image {
         url
       }
@@ -67,8 +69,15 @@ export const EDIT_WORD = gql`
     $name: String
     $caption: String
     $url: String
+    $examples: [String]!
   ) {
-    editWord(wordId: $wordId, name: $name, caption: $caption, url: $url)
+    editWord(
+      wordId: $wordId
+      name: $name
+      caption: $caption
+      url: $url
+      examples: $examples
+    )
   }
 `;
 
@@ -97,8 +106,13 @@ export const SELF_PROFILE = gql`
 `;
 
 export const CREATE_WORD = gql`
-  mutation createWord($name: String!, $caption: String!, $url: String) {
-    createWord(name: $name, caption: $caption, url: $url) {
+  mutation createWord(
+    $name: String!
+    $caption: String!
+    $url: String
+    $examples: [String]!
+  ) {
+    createWord(name: $name, caption: $caption, url: $url, examples: $examples) {
       result
       message
     }

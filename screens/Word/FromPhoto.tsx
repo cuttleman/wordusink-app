@@ -64,6 +64,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
               variables: {
                 name: stackRoute.params?.name,
                 caption: stackRoute.params?.caption,
+                examples: stackRoute.params?.examples,
                 url: file.linkUrl,
               },
             });

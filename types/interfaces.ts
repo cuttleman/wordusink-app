@@ -1,7 +1,6 @@
 import { Asset } from "expo-media-library";
 import { Camera } from "expo-camera";
 import { Animated } from "react-native";
-
 type subset<T> = { [P in keyof T]: T[P] };
 
 export interface WordP {
@@ -18,6 +17,7 @@ export interface Vote {
 export interface PartialWord {
   id: string;
   caption: string;
+  examples: string[];
   image: {
     id: string;
     url: string;
@@ -117,6 +117,7 @@ export interface StackRouteP {
   params?: {
     name?: string;
     caption?: string;
+    examples?: string[];
   };
 }
 
@@ -199,6 +200,26 @@ export interface EditPProp extends InputHooksR, PassedInfo {
 }
 
 export interface PassedInfo extends Pick<UserPSelf, "email" | "avatar"> {}
+
+// Api type
+
+export interface DictionaryData {
+  data: {
+    word: string;
+    phonetics: {
+      text?: string;
+      audio?: string;
+    }[];
+    meanings: {
+      partOfSpeech: string;
+      definitions: {
+        definition?: string;
+        example?: string;
+        synonyms?: string[];
+      }[];
+    }[];
+  }[];
+}
 
 // Styled Type
 
