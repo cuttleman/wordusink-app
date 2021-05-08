@@ -60,13 +60,21 @@ export default ({
   avatar,
   email,
   albumTrigger,
+  isClear,
+  clearAvatarAction,
 }: EditPProp) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <AvatarContainer>
-          <Avatar avatar={avatarUrl ?? avatar} size="lg" />
+          <Avatar avatar={isClear ? null : avatarUrl ?? avatar} size="lg" />
 
+          <AvatarEditBtn
+            style={{ elevation: 4, top: 0, right: 0 }}
+            onPress={clearAvatarAction}
+          >
+            <MaterialIcons name={"cancel"} color="black" size={23} />
+          </AvatarEditBtn>
           <AvatarEditBtn
             style={{ elevation: 4, bottom: 0, right: 0 }}
             onPress={albumTrigger}

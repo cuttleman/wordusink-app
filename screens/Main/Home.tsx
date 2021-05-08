@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useQuery } from "@apollo/client";
 import CardListH from "../../components/CardListH";
-import { HAVING_WORDS } from "../../queries";
+import { ALL_IMAGES, HAVING_WORDS } from "../../queries";
 import { useNavigation } from "@react-navigation/core";
 import {
   NativeScrollEvent,
@@ -35,14 +35,26 @@ const Home: React.FC = () => {
   const navigation = useNavigation();
   const [scrollDown, setScrollDown] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const { data, loading, refetch } = useQuery(HAVING_WORDS, {
+  const {
+    data: havingData,
+    loading: havingLoading,
+    refetch: havingRefetch,
+  } = useQuery(HAVING_WORDS, {
+    fetchPolicy: "network-only",
+  });
+  const {
+    data: allImageData,
+    loading: allImageLoading,
+    refetch: allImageRefetch,
+  } = useQuery(ALL_IMAGES, {
     fetchPolicy: "network-only",
   });
 
   const onRefresh = async () => {
     try {
       setRefreshing(true);
-      refetch();
+      havingRefetch();
+      allImageRefetch();
     } catch (e) {
       console.log(e);
     } finally {
@@ -76,7 +88,6 @@ const Home: React.FC = () => {
       headerShown: false,
     });
   }, [navigation]);
-
   return (
     <Container>
       <BgImage
@@ -84,9 +95,9 @@ const Home: React.FC = () => {
         resizeMode={"contain"}
       />
       <CardListH
-        words={data?.havingWords}
+        words={havingData?.havingWords}
         scrollEvent={scrollDown}
-        loading={loading}
+        loading={havingLoading}
       />
       <ScrollContainer
         refreshControl={
@@ -104,10 +115,13 @@ const Home: React.FC = () => {
         }}
         onScroll={onScroll}
       >
-        {data?.havingWords?.length !== 0 && (
+        {havingData?.havingWords?.length !== 0 && (
           <>
             <SectionTitle text={"이미지 보고 연습하기"} />
-            <HomeSlide />
+            <HomeSlide
+              images={allImageData?.allImages}
+              loading={allImageLoading}
+            />
           </>
         )}
       </ScrollContainer>

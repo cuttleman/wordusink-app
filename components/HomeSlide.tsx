@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/client";
 import { ALL_IMAGES } from "../queries";
 import constants from "../constants";
 import Loading from "./Loading";
+import { HomeSlideP } from "../types/interfaces";
 
 const ItemContainer = styled.View`
   padding: 10px;
@@ -16,18 +17,14 @@ const ItemContainer = styled.View`
   border-color: ${(prop) => prop.theme.colors.tabColor};
 `;
 
-export default () => {
-  const { data, loading } = useQuery(ALL_IMAGES, {
-    fetchPolicy: "network-only",
-  });
-
-  return loading || data.allImages === undefined ? (
+export default ({ images, loading }: HomeSlideP) => {
+  return loading || images === undefined ? (
     <Loading />
   ) : (
     <ItemContainer>
       <Carousel
         layout={"default"}
-        data={data.allImages}
+        data={images}
         firstItem={0}
         initialNumToRender={1}
         sliderWidth={constants.width / 1.2}
@@ -35,7 +32,7 @@ export default () => {
         autoplay={true}
         loop={true}
         autoplayInterval={3000}
-        loopClonesPerSide={data.allImages.length}
+        loopClonesPerSide={images.length}
         renderItem={({ item }: { item: { id: string; url: string } }) => (
           <Image
             source={{ uri: item.url }}

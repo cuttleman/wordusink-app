@@ -30,7 +30,6 @@ export default () => {
       if (inputName.value) {
         inputValidator(inputName?.value, inputCaption?.value);
         const examples = await exampleGenerator(inputName.value);
-        console.log(examples);
         const {
           data: { editWord: result },
         } = await editWordMutation({

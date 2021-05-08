@@ -1,6 +1,7 @@
 import { Asset } from "expo-media-library";
 import { Camera } from "expo-camera";
 import { Animated } from "react-native";
+import * as MediaLibrary from "expo-media-library";
 type subset<T> = { [P in keyof T]: T[P] };
 
 export interface WordP {
@@ -196,10 +197,24 @@ export interface UserProfleParamsP {
 
 export interface EditPProp extends InputHooksR, PassedInfo {
   avatarUrl?: string;
+  isClear: boolean;
   albumTrigger: () => void;
+  clearAvatarAction: () => void;
+}
+
+export interface AvatarFromLibraryP {
+  setAvatarAction: (v: MediaLibrary.Asset) => void;
 }
 
 export interface PassedInfo extends Pick<UserPSelf, "email" | "avatar"> {}
+
+export interface HomeSlideP {
+  images?: {
+    id: string;
+    url: string;
+  }[];
+  loading: boolean;
+}
 
 // Api type
 
@@ -245,4 +260,9 @@ export interface EditBtnSt {
 
 export interface AvatarStyle {
   size: AvatarSize;
+}
+
+export interface PhotoItemSt {
+  selectPhoto: photoPInAlbum;
+  photo: photoPInAlbum;
 }

@@ -6,6 +6,7 @@ import axios from "axios";
 import Loading from "../../components/Loading";
 import PhotoAlbum from "../../components/PhotoAlbum";
 import {
+  AvatarFromLibraryP,
   ComponentInMaterialTabs,
   SrollBotReachedP,
 } from "../../types/interfaces";
@@ -17,11 +18,7 @@ import { hostForDev } from "../../utils";
 const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
 
-export default ({
-  setAvatarAction,
-}: {
-  setAvatarAction: (v: MediaLibrary.Asset) => void;
-}) => {
+export default ({ setAvatarAction }: AvatarFromLibraryP) => {
   const [photos, setPhotos] = useState<MediaLibrary.Asset[]>([]);
   const [startNum, setStartNum] = useState<number>(START_NUM);
   const [hasNext, setHasNext] = useState<boolean>(false);

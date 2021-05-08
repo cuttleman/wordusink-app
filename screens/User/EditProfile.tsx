@@ -43,21 +43,27 @@ const DoneText = styled.Text`
 `;
 
 export default () => {
+  const panel = useRef<SlidingUpPanel>(null);
   const navigation = useNavigation();
   const { params }: UserProfleParamsP = useRoute();
   const [editProfileMutation] = useMutation(EDIT_PROFILE);
-  const panel = useRef<SlidingUpPanel>(null);
   const [avatarUrl, setAvatarUrl] = useState<MediaLibrary.Asset | null>(null);
+  const [isClear, setIsClear] = useState<boolean>(false);
   const name = useInput(params?.userInfo?.userName);
   const passedInfo: PassedInfo = {
     avatar: params?.userInfo?.avatar,
     email: params?.userInfo?.email,
   };
 
+  const clearAvatarAction = () => {
+    setIsClear(true);
+  };
+
   const doneHandle = async () => {
     const formData: any = new FormData();
     let result;
     try {
+      // prevent leak of resources
       if (avatarUrl) {
         const manipulatedImg = await ImageManipulator.manipulateAsync(
           avatarUrl.uri,
@@ -76,13 +82,14 @@ export default () => {
         result = await editProfileMutation({
           variables: {
             userName: name.value,
-            avatar: file.linkUrl,
+            avatar: isClear ? null : file.linkUrl,
           },
         });
       } else {
         result = await editProfileMutation({
           variables: {
             userName: name.value,
+            avatar: isClear ? null : passedInfo.avatar,
           },
         });
       }
@@ -101,6 +108,7 @@ export default () => {
 
   const setAvatarAction = (selected: MediaLibrary.Asset) => {
     setAvatarUrl(selected);
+    setIsClear(false);
     panel?.current?.hide();
   };
 
@@ -137,6 +145,8 @@ export default () => {
       <EditP
         albumTrigger={openAlbum}
         avatarUrl={avatarUrl?.uri}
+        isClear={isClear}
+        clearAvatarAction={clearAvatarAction}
         {...name}
         {...passedInfo}
       />

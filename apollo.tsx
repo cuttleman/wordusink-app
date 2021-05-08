@@ -41,6 +41,9 @@ export const cache = new InMemoryCache({
         allImages: {
           merge: merged(),
         },
+        self: {
+          merge: merged(),
+        },
       },
     },
     User: {

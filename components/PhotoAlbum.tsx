@@ -2,7 +2,39 @@ import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 import constants from "../constants";
-import { PhotoAlbumP, photoPInAlbum } from "../types/interfaces";
+import { PhotoAlbumP, PhotoItemSt, photoPInAlbum } from "../types/interfaces";
+
+const Container = styled.View`
+  flex: 1;
+`;
+
+const Selected = styled(Container)``;
+
+const Preview = styled.Image`
+  flex: 1;
+`;
+
+const DoneBtn = styled.TouchableOpacity`
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  right: 10px;
+  top: 10px;
+`;
+
+const DoneText = styled.Text``;
+
+const PhotoList = styled.ScrollView`
+  flex: 1;
+`;
+
+const PhotoContainer = styled.TouchableOpacity``;
+
+const PhotoItem = styled.Image<PhotoItemSt>`
+  width: ${constants.width / 3}px;
+  height: ${constants.height / 6}px;
+  opacity: ${(prop) => (prop.selectPhoto === prop.photo ? 0.4 : 1)};
+`;
 
 export default ({
   photos,
@@ -12,9 +44,9 @@ export default ({
   doneAction,
 }: PhotoAlbumP) => {
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <Image
+    <Container style={{ flex: 1 }}>
+      <Selected style={{ flex: 1 }}>
+        <Preview
           source={{
             uri:
               typeof selectPhoto === "string" ? selectPhoto : selectPhoto.uri,
@@ -24,21 +56,11 @@ export default ({
             flex: 1,
           }}
         />
-        <TouchableOpacity
-          style={{
-            position: "absolute",
-            backgroundColor: "white",
-            padding: 10,
-            right: 10,
-            top: 10,
-          }}
-          onPress={doneAction}
-        >
-          <Text>test</Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView
-        style={{ flex: 1 }}
+        <DoneBtn onPress={doneAction}>
+          <DoneText>test</DoneText>
+        </DoneBtn>
+      </Selected>
+      <PhotoList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           flexDirection: "row",
@@ -48,23 +70,17 @@ export default ({
         onScroll={({ nativeEvent }) => onSrollBotReached(nativeEvent)}
       >
         {photos.map((photo: photoPInAlbum, index: number) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => selectPhotoAction(photo)}
-          >
-            <Image
+          <PhotoContainer key={index} onPress={() => selectPhotoAction(photo)}>
+            <PhotoItem
               source={{
                 uri: typeof photo === "string" ? photo : photo.uri,
               }}
-              style={{
-                width: constants.width / 3,
-                height: constants.height / 6,
-                opacity: selectPhoto === photo ? 0.4 : 1,
-              }}
+              selectPhoto={selectPhoto}
+              photo={photo}
             />
-          </TouchableOpacity>
+          </PhotoContainer>
         ))}
-      </ScrollView>
-    </View>
+      </PhotoList>
+    </Container>
   );
 };
