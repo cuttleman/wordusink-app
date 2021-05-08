@@ -30,7 +30,7 @@ export default () => {
   const navigation = useNavigation();
   const inputName = useInput("");
   const inputCaption = useInput("");
-  console.log(inputName.value);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (

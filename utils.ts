@@ -46,6 +46,8 @@ export const inputValidator = (
   if (name !== undefined && caption !== undefined) {
     if (name === "") {
       throw new Error("단어 이름을 입력해주세요.");
+    } else if (name.length > 22) {
+      throw new Error("단어 이름은 22글자까지 입력할 수 있습니다.");
     } else if (caption.length > 8) {
       throw new Error("단어 의미는 8글자까지 입력할 수 있습니다.");
     } else if (engValidation(name) === false) {

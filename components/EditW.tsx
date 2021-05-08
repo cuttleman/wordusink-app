@@ -91,6 +91,7 @@ export default ({ url, name, caption, doneHandle, preDeleteHandle }: EditP) => {
                 value={name.value}
                 onChangeText={name.onChangeText}
                 autoCapitalize={"none"}
+                maxLength={22}
                 placeholder={"이름"}
               />
               <TextInputS

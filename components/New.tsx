@@ -52,6 +52,7 @@ export default ({ name, caption }: NewP) => {
             value={name.value}
             onChangeText={name.onChangeText}
             autoCapitalize={"none"}
+            maxLength={22}
             placeholder={"이름"}
           />
           <SectionTitle text={"단어 의미 ( 예> 사과 )"} />
