@@ -51,6 +51,9 @@ export const cache = new InMemoryCache({
         onTodayWords: {
           merge: merged(),
         },
+        images: {
+          merge: merged(),
+        },
       },
     },
     Word: {

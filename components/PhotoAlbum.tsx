@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
@@ -17,12 +18,19 @@ const Preview = styled.Image`
 const DoneBtn = styled.TouchableOpacity`
   position: absolute;
   background-color: white;
-  padding: 10px;
+  padding: 10px 10px 10px 16px;
   right: 10px;
   top: 10px;
+  border-radius: 10px;
+  flex-direction: row;
+  background-color: ${(prop) => prop.theme.colors.mainColor};
 `;
 
-const DoneText = styled.Text``;
+const DoneText = styled.Text`
+  color: white;
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
+  font-size: 15px;
+`;
 
 const PhotoList = styled.ScrollView`
   flex: 1;
@@ -57,7 +65,12 @@ export default ({
           }}
         />
         <DoneBtn onPress={doneAction}>
-          <DoneText>test</DoneText>
+          <DoneText>등록</DoneText>
+          <MaterialIcons
+            name={"keyboard-arrow-right"}
+            color={"white"}
+            size={18}
+          />
         </DoneBtn>
       </Selected>
       <PhotoList

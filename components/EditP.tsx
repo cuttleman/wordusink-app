@@ -87,6 +87,9 @@ export default ({
           <ConditionContainer>
             <Conditions> _ . 은 문자 중간에만 입력할 수 있습니다.</Conditions>
             <Conditions>띄어쓰기는 사용할 수 없습니다.</Conditions>
+            <Conditions>
+              닉네임은 영어, 숫자, _ . 만 사용할 수 있습니다.
+            </Conditions>
             <Conditions>닉네임은 15자까지 입력할 수 있습니다.</Conditions>
           </ConditionContainer>
           <Input

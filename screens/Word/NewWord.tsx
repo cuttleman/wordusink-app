@@ -28,21 +28,21 @@ const NextText = styled.Text`
 
 export default () => {
   const navigation = useNavigation();
-  const name = useInput("");
-  const caption = useInput("");
-
+  const inputName = useInput("");
+  const inputCaption = useInput("");
+  console.log(inputName.value);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <NextBtn
           onPress={async () => {
             try {
-              if (name.value) {
-                inputValidator(name.value, caption.value);
-                const examples = await exampleGenerator(name.value);
+              if (inputName.value) {
+                inputValidator(inputName.value, inputCaption.value);
+                const examples = await exampleGenerator(inputName.value);
                 navigation.navigate("SelectPhoto", {
-                  name: name.value,
-                  caption: caption.value,
+                  name: inputName.value,
+                  caption: inputCaption.value,
                   examples,
                 });
               }
@@ -62,5 +62,5 @@ export default () => {
     });
   });
 
-  return <New name={name} caption={caption} />;
+  return <New name={inputName} caption={inputCaption} />;
 };
