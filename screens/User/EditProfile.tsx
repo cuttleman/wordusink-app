@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert } from "react-native";
 import { useMutation } from "@apollo/client";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/core";
@@ -47,7 +47,10 @@ export default () => {
   const navigation = useNavigation();
   const { params }: UserProfleParamsP = useRoute();
   const [editProfileMutation] = useMutation(EDIT_PROFILE);
-  const [avatarUrl, setAvatarUrl] = useState<MediaLibrary.Asset | null>(null);
+  const [
+    avatarUrl,
+    setAvatarUrl,
+  ] = useState<Partial<MediaLibrary.Asset> | null>(null);
   const [isClear, setIsClear] = useState<boolean>(false);
   const name = useInput(params?.userInfo?.userName);
   const passedInfo: PassedInfo = {
@@ -64,10 +67,10 @@ export default () => {
     let result;
     try {
       // prevent leak of resources
-      if (avatarUrl) {
+      if (avatarUrl && avatarUrl.uri && avatarUrl.filename) {
         const manipulatedImg = await ImageManipulator.manipulateAsync(
           avatarUrl.uri,
-          [{ resize: { width: 300 } }]
+          [{ resize: { width: 150 } }]
         );
         formData.append("photo", {
           name: avatarUrl.filename,
@@ -106,17 +109,27 @@ export default () => {
     }
   };
 
-  const setAvatarAction = (selected: MediaLibrary.Asset) => {
-    setAvatarUrl(selected);
-    setIsClear(false);
-    panel?.current?.hide();
+  const manipulatingAvatar = (selected: MediaLibrary.Asset) => {
+    const passedData = {
+      url: selected.uri,
+      doneAction: (url: string) => {
+        setAvatarUrl({
+          filename: selected.filename,
+          uri: url,
+        });
+        setIsClear(false);
+        navigation.dispatch(CommonActions.goBack());
+      },
+    };
+    navigation.navigate("Manipulator", { ...passedData });
   };
 
   const openAlbum = () => {
     panel?.current?.show();
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    panel?.current?.hide();
     navigation.setOptions({
       headerRight: () => (
         <DoneBtn
@@ -152,7 +165,11 @@ export default () => {
       />
       <SlidingUpPanel ref={panel} allowDragging={false}>
         <Container>
-          <AvatarFromLibrary setAvatarAction={setAvatarAction} />
+          <AvatarFromLibrary
+            setAvatarAction={(selected: MediaLibrary.Asset) =>
+              manipulatingAvatar(selected)
+            }
+          />
         </Container>
       </SlidingUpPanel>
     </>

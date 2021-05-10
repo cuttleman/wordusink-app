@@ -67,7 +67,10 @@ export default ({
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <AvatarContainer>
-          <Avatar avatar={isClear ? null : avatarUrl ?? avatar} size="lg" />
+          <Avatar
+            avatar={isClear ? null : avatarUrl ? avatarUrl : avatar}
+            size="lg"
+          />
 
           <AvatarEditBtn
             style={{ elevation: 4, top: 0, right: 0 }}

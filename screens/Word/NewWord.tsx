@@ -1,7 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
 import New from "../../components/New";
@@ -31,7 +31,7 @@ export default () => {
   const inputName = useInput("");
   const inputCaption = useInput("");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <NextBtn

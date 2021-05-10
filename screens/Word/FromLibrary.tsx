@@ -41,12 +41,12 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     }
   };
 
-  const createWordAction = async () => {
+  const uploadImage = async (manipulatedUrl: string) => {
     const formData: any = new FormData();
     if (selectPhoto !== undefined) {
       const manipulatedImg = await ImageManipulator.manipulateAsync(
-        selectPhoto.uri,
-        [{ resize: { width: 300 } }]
+        manipulatedUrl,
+        [{ resize: { width: 200 } }]
       );
       formData.append("photo", {
         name: selectPhoto.filename,
@@ -76,6 +76,14 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         console.log(e);
       }
     }
+  };
+
+  const nextAction = async () => {
+    const passedData = {
+      url: selectPhoto?.uri,
+      doneAction: (url: string) => uploadImage(url),
+    };
+    navigation.navigate("Manipulator", { ...passedData });
   };
 
   const selectPhotoAction = (selected: MediaLibrary.Asset) => {
@@ -121,7 +129,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       selectPhoto={selectPhoto}
       selectPhotoAction={selectPhotoAction}
       onSrollBotReached={onSrollBotReached}
-      doneAction={createWordAction}
+      doneAction={nextAction}
     />
   );
 };

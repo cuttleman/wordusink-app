@@ -6,7 +6,7 @@ import { Camera } from "expo-camera";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as MediaLibrary from "expo-media-library";
 import CameraSection from "../../components/CameraSection";
-import { ComponentInMaterialTabs } from "../../types/interfaces";
+import { ComponentInMaterialTabs, StackRouteP } from "../../types/interfaces";
 import { CREATE_WORD } from "../../queries";
 import { hostForDev } from "../../utils";
 
@@ -31,53 +31,62 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     setType((prev): "back" | "front" => (prev === "back" ? "front" : "back"));
   };
 
-  const takeAction = async () => {
+  const uploadPhoto = async (manipulatedUrl: string) => {
     try {
-      if (ready) {
-        const formData: any = new FormData();
-        const takePhoto = await cameraRef.current?.takePictureAsync({
-          quality: 1,
+      const formData: any = new FormData();
+      const manipulatedImg = await ImageManipulator.manipulateAsync(
+        manipulatedUrl,
+        [{ resize: { width: 200 } }]
+      );
+      const savedPhoto = await MediaLibrary.createAssetAsync(
+        manipulatedImg.uri
+      );
+      if (savedPhoto) {
+        formData.append("photo", {
+          name: savedPhoto.filename,
+          uri: manipulatedImg.uri,
+          type: `image/${savedPhoto.filename.split(".")[1]}`,
         });
-        if (takePhoto) {
-          const savedPhoto = await MediaLibrary.createAssetAsync(takePhoto.uri);
-          const manipulatedImg = await ImageManipulator.manipulateAsync(
-            savedPhoto.uri,
-            [{ resize: { width: 300 } }]
-          );
-          if (savedPhoto) {
-            formData.append("photo", {
-              name: savedPhoto.filename,
-              uri: manipulatedImg.uri,
-              type: `image/${savedPhoto.filename.split(".")[1]}`,
-            });
-            const {
-              data: { file },
-            } = await axios({
-              url: hostForDev(5000, "/api/upload"),
-              method: "POST",
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-              data: formData,
-            });
-            const { data } = await createWordMutation({
-              variables: {
-                name: stackRoute.params?.name,
-                caption: stackRoute.params?.caption,
-                examples: stackRoute.params?.examples,
-                url: file.linkUrl,
-              },
-            });
-            if (data?.createWord?.result) {
-              navigation.dispatch(StackActions.replace("Tab"));
-            } else {
-              throw Error(data?.createWord?.message);
-            }
-          }
+        const {
+          data: { file },
+        } = await axios.post(hostForDev(5000, "/api/upload/word"), formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        const { data } = await createWordMutation({
+          variables: {
+            name: stackRoute.params?.name,
+            caption: stackRoute.params?.caption,
+            examples: stackRoute.params?.examples,
+            url: file.linkUrl,
+          },
+        });
+        if (data?.createWord?.result) {
+          navigation.dispatch(StackActions.replace("Tab"));
+        } else {
+          throw Error(data?.createWord?.message);
         }
       }
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const takeAction = async () => {
+    if (ready) {
+      try {
+        const takePhoto = await cameraRef.current?.takePictureAsync({
+          quality: 1,
+        });
+        if (takePhoto) {
+          const passedData = {
+            url: takePhoto.uri,
+            doneAction: (url: string) => uploadPhoto(url),
+          };
+          navigation.navigate("Manipulator", { ...passedData });
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 

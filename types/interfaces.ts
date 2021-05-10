@@ -119,6 +119,8 @@ export interface StackRouteP {
     name?: string;
     caption?: string;
     examples?: string[];
+    url?: string;
+    doneAction?: (url: string | MediaLibrary.Asset) => Promise<void>;
   };
 }
 

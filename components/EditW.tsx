@@ -105,11 +105,11 @@ export default ({ url, name, caption, doneHandle, preDeleteHandle }: EditP) => {
             </InputContainer>
           </ContentsContainer>
           <BtnContainer>
-            <Button onPress={doneHandle} isDone>
-              <BtnText>수정</BtnText>
-            </Button>
             <Button onPress={preDeleteHandle}>
               <BtnText>지우기</BtnText>
+            </Button>
+            <Button onPress={doneHandle} isDone>
+              <BtnText>수정</BtnText>
             </Button>
           </BtnContainer>
         </CardContainer>

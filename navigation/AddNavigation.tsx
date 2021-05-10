@@ -11,6 +11,7 @@ import FromPhoto from "../screens/Word/FromPhoto";
 import NewWord from "../screens/Word/NewWord";
 import { MaterialTabsP, StackRouteP } from "../types/interfaces";
 import theme from "../theme";
+import Manipulator from "../screens/Image/Manipulator";
 
 const MaterialTab = createMaterialTopTabNavigator();
 const AddStack = createStackNavigator();
@@ -77,6 +78,7 @@ export default () => {
           );
         }}
       </AddStack.Screen>
+      <AddStack.Screen name={"Manipulator"} component={Manipulator} />
     </AddStack.Navigator>
   );
 };

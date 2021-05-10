@@ -18,6 +18,7 @@ import EditProfile from "../screens/User/EditProfile";
 import { StacksP } from "../types/interfaces";
 import TabIcon from "../components/TabIcon";
 import theme from "../theme";
+import Manipulator from "../screens/Image/Manipulator";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -137,6 +138,7 @@ export default () => {
           stackFactory([
             { name: "Profile", component: Profile },
             { name: "EditProfile", component: EditProfile },
+            { name: "Manipulator", component: Manipulator },
           ])
         }
       </Tab.Screen>
