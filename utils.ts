@@ -1,4 +1,5 @@
 import axios from "axios";
+import Toast from "react-native-toast-message";
 import { DictionaryData } from "./types/interfaces";
 
 export const colors = [
@@ -89,4 +90,16 @@ export const exampleGenerator = async (term: string): Promise<string[]> => {
   } finally {
     return examples;
   }
+};
+
+export const globalNotifi = (
+  type: "success" | "error" | "info",
+  text: string
+): void => {
+  Toast.show({
+    type,
+    text1: text,
+    topOffset: 30,
+    visibilityTime: 1000,
+  });
 };

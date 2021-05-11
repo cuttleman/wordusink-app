@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { Keyboard, TextInput } from "react-native";
+import { Keyboard } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import constants from "../constants";

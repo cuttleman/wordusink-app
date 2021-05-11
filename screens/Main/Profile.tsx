@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import Loading from "../../components/Loading";
 import User from "../../components/User";
 import { SELF_PROFILE } from "../../queries";
+import { globalNotifi } from "../../utils";
 
 export default () => {
   const navigation = useNavigation();
@@ -18,12 +19,13 @@ export default () => {
       await refetch();
     } catch (e) {
       console.log(e);
+      globalNotifi("error", "새로고침 할 수 없습니다.😱");
     } finally {
       setRefreshing(false);
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });

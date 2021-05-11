@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import styled from "styled-components/native";
+import React from "react";
 import {
   useNavigation,
   useRoute,
@@ -11,7 +10,7 @@ import { Alert } from "react-native";
 import useInput from "../../hooks/useInput";
 import { EditWordParams } from "../../types/interfaces";
 import { DELETE_WORD, EDIT_WORD } from "../../queries";
-import { exampleGenerator, inputValidator } from "../../utils";
+import { exampleGenerator, globalNotifi, inputValidator } from "../../utils";
 import EditW from "../../components/EditW";
 
 export default () => {
@@ -44,13 +43,17 @@ export default () => {
           navigation.dispatch(
             CommonActions.reset({
               index: 0,
-              routes: [{ name: routesHistory[0] }],
+              routes: [
+                { name: routesHistory[0] },
+                { name: routesHistory[0] === "Words" ? "Home" : "Words" },
+              ],
             })
           );
+          globalNotifi("success", "단어가 수정되었습니다.😊");
         }
       }
     } catch (e) {
-      Alert.alert("", e.message);
+      globalNotifi("error", e.message);
     }
   };
 
@@ -65,12 +68,16 @@ export default () => {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: routesHistory[0] }],
+            routes: [
+              { name: routesHistory[0] },
+              { name: routesHistory[0] === "Words" ? "Home" : "Words" },
+            ],
           })
         );
+        globalNotifi("success", "단어가 삭제되었습니다.😞");
       }
     } catch (e) {
-      console.log(e);
+      globalNotifi("error", e.message);
     }
   };
 

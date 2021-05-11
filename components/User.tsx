@@ -64,7 +64,7 @@ const MyImagesContainer = styled.View`
   flex-direction: row;
 `;
 
-const ImageBtn = styled.View<{ index: number }>`
+const ImageContent = styled.View<{ index: number }>`
   width: ${constants.width / 2}px;
   height: ${constants.width / 2}px;
   border-color: white;
@@ -116,9 +116,9 @@ export default ({ refreshing, onRefresh, self }: UserP) => {
         </HavingContainer>
         <MyImagesContainer>
           {self?.images?.map((image, idx) => (
-            <ImageBtn key={image.id} index={idx}>
+            <ImageContent key={image.id} index={idx}>
               <MyImage source={{ uri: image.url }} resizeMode={"cover"} />
-            </ImageBtn>
+            </ImageContent>
           ))}
         </MyImagesContainer>
       </Container>

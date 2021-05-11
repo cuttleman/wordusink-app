@@ -12,7 +12,7 @@ import {
 import { useMutation } from "@apollo/client";
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { CREATE_WORD } from "../../queries";
-import { exampleGenerator, hostForDev } from "../../utils";
+import { exampleGenerator, globalNotifi, hostForDev } from "../../utils";
 
 const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
@@ -69,11 +69,12 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         });
         if (data?.createWord?.result) {
           navigation.dispatch(StackActions.replace("Tab"));
+          globalNotifi("success", "새 단어가 등록되었습니다.😎");
         } else {
           throw Error(data?.createWord?.message);
         }
       } catch (e) {
-        console.log(e);
+        globalNotifi("error", e.message);
       }
     }
   };

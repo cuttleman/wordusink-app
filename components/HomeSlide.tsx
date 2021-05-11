@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components/native";
 import { Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
@@ -18,6 +18,16 @@ const ItemContainer = styled.View`
 `;
 
 export default ({ images, loading }: HomeSlideP) => {
+  const renderItem = ({ item }: { item: { id: string; url: string } }) => (
+    <Image
+      source={{ uri: item.url }}
+      resizeMode={"contain"}
+      style={{ flex: 1, borderRadius: 5 }}
+    />
+  );
+
+  const memoizedValue = useMemo(() => renderItem, [images]);
+
   return loading || images === undefined ? (
     <Loading />
   ) : (
@@ -33,13 +43,7 @@ export default ({ images, loading }: HomeSlideP) => {
         loop={true}
         autoplayInterval={3000}
         loopClonesPerSide={images.length}
-        renderItem={({ item }: { item: { id: string; url: string } }) => (
-          <Image
-            source={{ uri: item.url }}
-            resizeMode={"contain"}
-            style={{ flex: 1, borderRadius: 5 }}
-          />
-        )}
+        renderItem={memoizedValue}
       />
     </ItemContainer>
   );

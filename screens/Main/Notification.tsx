@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 
 const Container = styled.View`
@@ -13,7 +13,7 @@ const Text = styled.Text``;
 export default () => {
   const navigation = useNavigation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });

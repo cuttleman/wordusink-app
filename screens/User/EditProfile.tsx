@@ -11,7 +11,7 @@ import useInput from "../../hooks/useInput";
 import { EDIT_PROFILE } from "../../queries";
 import { PassedInfo, UserProfleParamsP } from "../../types/interfaces";
 import { MaterialIcons } from "@expo/vector-icons";
-import { hostForDev, userNameValidator } from "../../utils";
+import { globalNotifi, hostForDev, userNameValidator } from "../../utils";
 import AvatarFromLibrary from "./AvatarFromLibrary";
 import axios from "axios";
 
@@ -103,9 +103,10 @@ export default () => {
             routes: [{ name: "Profile" }],
           })
         );
+        globalNotifi("success", "프로필이 수정되었습니다.😊");
       }
     } catch (e) {
-      Alert.alert("", e.message);
+      globalNotifi("error", e.message);
     }
   };
 

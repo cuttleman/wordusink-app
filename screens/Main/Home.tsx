@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useQuery } from "@apollo/client";
 import CardListH from "../../components/CardListH";
@@ -9,9 +9,9 @@ import {
   NativeSyntheticEvent,
   RefreshControl,
 } from "react-native";
-import constants from "../../constants";
 import HomeSlide from "../../components/HomeSlide";
 import SectionTitle from "../../components/SectionTitle";
+import { globalNotifi } from "../../utils";
 
 const Container = styled.View`
   flex: 1;
@@ -57,6 +57,7 @@ const Home: React.FC = () => {
       allImageRefetch();
     } catch (e) {
       console.log(e);
+      globalNotifi("error", "새로고침 할 수 없습니다.😱");
     } finally {
       setRefreshing(false);
     }
@@ -83,11 +84,12 @@ const Home: React.FC = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, [navigation]);
+
   return (
     <Container>
       <BgImage

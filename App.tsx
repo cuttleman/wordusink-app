@@ -14,6 +14,7 @@ import {
 import { persistCache, AsyncStorageWrapper } from "apollo3-cache-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import Toast from "react-native-toast-message";
 import { options as apolloOptions, cache } from "./apollo";
 import NavController from "./components/NavController";
 import { AuthProvider } from "./components/AuthContext";
@@ -77,7 +78,8 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <AuthProvider initLoggedIn={isLoggedIn}>
           <NavController />
-          <StatusBar barStyle="light-content" />
+          <StatusBar barStyle="light-content" animated={true} />
+          <Toast ref={(ref) => Toast.setRef(ref)} />
         </AuthProvider>
       </ThemeProvider>
     </ApolloProvider>

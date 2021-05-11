@@ -6,7 +6,7 @@ import { Alert } from "react-native";
 import styled from "styled-components/native";
 import New from "../../components/New";
 import useInput from "../../hooks/useInput";
-import { exampleGenerator, inputValidator } from "../../utils";
+import { exampleGenerator, globalNotifi, inputValidator } from "../../utils";
 
 const NextBtn = styled.TouchableOpacity`
   padding: 10px;
@@ -47,7 +47,7 @@ export default () => {
                 });
               }
             } catch (e) {
-              Alert.alert("", e.message);
+              globalNotifi("error", e.message);
             }
           }}
         >

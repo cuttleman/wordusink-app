@@ -13,7 +13,7 @@ import {
 import { useMutation } from "@apollo/client";
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { CREATE_WORD } from "../../queries";
-import { hostForDev } from "../../utils";
+import { globalNotifi, hostForDev } from "../../utils";
 
 const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
@@ -65,7 +65,7 @@ export default ({ setAvatarAction }: AvatarFromLibraryP) => {
       }
     } catch (e) {
       console.log(e);
-      Alert.alert("Error", "Dont get the data");
+      globalNotifi("error", "앨범 접근권한이 없습니다.😨");
     } finally {
       setLoading(false);
     }

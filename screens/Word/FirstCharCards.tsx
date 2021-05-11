@@ -1,7 +1,7 @@
-import React, { useLayoutEffect } from "react";
+import React, { useMemo } from "react";
 import { Text } from "react-native";
 import { useQuery } from "@apollo/client";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import Loading from "../../components/Loading";
@@ -27,31 +27,28 @@ const FirstCharCards: React.FC = () => {
     variables: { alphabet: params?.firstTerm?.toLowerCase() },
   });
 
-  const getWords: PartialWord[] | undefined = data?.specificWords;
+  const renderItem = ({ item }: CarouselP) => (
+    <Card key={item.id} word={item} />
+  );
 
-  return loading || getWords === undefined ? (
+  const memoizedValue = useMemo(() => renderItem, [data?.specificWords]);
+
+  return loading || data?.specificWords === undefined ? (
     <Loading />
   ) : (
     <Container>
-      {getWords.length === 0 ? (
+      {data?.specificWords.length === 0 ? (
         <Text>Nothing</Text>
       ) : (
         <Carousel
           layout={"default"}
-          data={getWords}
+          data={data?.specificWords}
           sliderWidth={constants.width}
           itemWidth={constants.width}
           inactiveSlideOpacity={1}
           inactiveSlideScale={0.8}
           initialNumToRender={1}
-          renderItem={({ item, index }: CarouselP) => (
-            <Card
-              key={item.id}
-              word={item}
-              index={index}
-              total={getWords.length}
-            />
-          )}
+          renderItem={memoizedValue}
         />
       )}
     </Container>

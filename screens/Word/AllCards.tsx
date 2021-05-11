@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useMemo } from "react";
 import { Text } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";
@@ -17,6 +17,12 @@ const Container = styled.View`
 export default () => {
   const { params }: AllWordsParamsP = useRoute();
 
+  const renderItem = ({ item }: CarouselP) => (
+    <Card key={item.id} word={item} />
+  );
+
+  const memoizedValue = useMemo(() => renderItem, [params?.words]);
+
   return (
     <Container>
       {params?.words?.length === 0 ||
@@ -33,14 +39,7 @@ export default () => {
           inactiveSlideOpacity={1}
           inactiveSlideScale={0.8}
           initialNumToRender={params?.words?.length}
-          renderItem={({ item, index }: CarouselP) => (
-            <Card
-              key={item.id}
-              word={item}
-              index={index}
-              total={params?.words?.length}
-            />
-          )}
+          renderItem={memoizedValue}
         />
       )}
     </Container>

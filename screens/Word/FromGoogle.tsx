@@ -10,7 +10,7 @@ import {
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { useMutation } from "@apollo/client";
 import { CREATE_WORD } from "../../queries";
-import { hostForDev } from "../../utils";
+import { globalNotifi, hostForDev } from "../../utils";
 import Manipulator from "../Image/Manipulator";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
@@ -49,14 +49,13 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         },
       });
       if (data?.createWord?.result) {
-        // Will Change - regist 2021/3/21
         navigation.dispatch(StackActions.replace("Tab"));
+        globalNotifi("success", "새 단어가 등록되었습니다.😎");
       } else {
         throw Error(data?.createWord?.message);
       }
     } catch (e) {
-      console.log(e);
-      Alert.alert("error", e.message);
+      globalNotifi("error", e.message);
     }
   };
 

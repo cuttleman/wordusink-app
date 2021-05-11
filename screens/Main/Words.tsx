@@ -1,11 +1,11 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useQuery } from "@apollo/client";
 import { RefreshControl } from "react-native";
 import CardListV from "../../components/CardListV";
 import { ALL_WORDS } from "../../queries";
-import constants from "../../constants";
 import { useNavigation } from "@react-navigation/core";
+import { globalNotifi } from "../../utils";
 
 const Container = styled.View`
   flex: 1;
@@ -38,12 +38,13 @@ export default () => {
       refetch();
     } catch (e) {
       console.log(e);
+      globalNotifi("error", "새로고침 할 수 없습니다.😱");
     } finally {
       setRefreshing(false);
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });

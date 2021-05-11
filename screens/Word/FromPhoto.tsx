@@ -8,7 +8,7 @@ import * as MediaLibrary from "expo-media-library";
 import CameraSection from "../../components/CameraSection";
 import { ComponentInMaterialTabs, StackRouteP } from "../../types/interfaces";
 import { CREATE_WORD } from "../../queries";
-import { hostForDev } from "../../utils";
+import { globalNotifi, hostForDev } from "../../utils";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const cameraRef = useRef<Camera>(null);
@@ -62,11 +62,13 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         });
         if (data?.createWord?.result) {
           navigation.dispatch(StackActions.replace("Tab"));
+          globalNotifi("success", "새 단어가 등록되었습니다.😎");
         } else {
           throw Error(data?.createWord?.message);
         }
       }
     } catch (e) {
+      globalNotifi("error", e.message);
       console.log(e);
     }
   };

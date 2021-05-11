@@ -96,7 +96,7 @@ const EditBtn = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export default ({ word, index, total }: WordP) => {
+export default ({ word }: WordP) => {
   const { toggleTurn, turnning, perspectiving, NameZIndexing } = useTurn();
   const { navigate } = useNavigation();
 

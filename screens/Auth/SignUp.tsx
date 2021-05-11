@@ -7,6 +7,7 @@ import AuthButton from "../../components/AuthButton";
 import AppName from "../../components/AppName";
 import { useLogIn } from "../../components/AuthContext";
 import { SIGN_UP } from "../../queries";
+import { globalNotifi } from "../../utils";
 
 const Container = styled.View`
   flex: 1;
@@ -62,13 +63,14 @@ const SignUp: React.FC = () => {
           } = await signUpMutation({ variables: { email } });
           if (type === true) {
             logIn(token);
+            globalNotifi("success", message);
           } else {
             throw Error(message);
           }
         }
       }
     } catch (e) {
-      console.log(e.message);
+      globalNotifi("error", e.message);
     }
   };
 
