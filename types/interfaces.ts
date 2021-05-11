@@ -202,13 +202,21 @@ export interface EditPProp extends InputHooksR, PassedInfo {
   isClear: boolean;
   albumTrigger: () => void;
   clearAvatarAction: () => void;
+  openDeleteView: () => void;
 }
 
 export interface AvatarFromLibraryP {
   setAvatarAction: (v: MediaLibrary.Asset) => void;
 }
 
-export interface PassedInfo extends Pick<UserPSelf, "email" | "avatar"> {}
+export interface PassedInfo
+  extends Pick<UserPSelf, "email" | "avatar" | "userName" | "images"> {}
+
+export interface DeleteUserP extends PassedInfo {
+  isModal: boolean;
+  closeDeleteView: () => void;
+  preDeleteHandle: () => void;
+}
 
 export interface HomeSlideP {
   images?: {
@@ -267,4 +275,8 @@ export interface AvatarStyle {
 export interface PhotoItemSt {
   selectPhoto: photoPInAlbum;
   photo: photoPInAlbum;
+}
+
+export interface DeleteBtnSt {
+  verified: boolean;
 }

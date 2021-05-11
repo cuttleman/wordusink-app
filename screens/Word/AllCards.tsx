@@ -1,6 +1,6 @@
-import React, { useLayoutEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Text } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import Card from "../../components/Card";

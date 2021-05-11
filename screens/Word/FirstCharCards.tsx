@@ -6,11 +6,7 @@ import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
-import {
-  CarouselP,
-  PartialWord,
-  SpecificWordParamsP,
-} from "../../types/interfaces";
+import { CarouselP, SpecificWordParamsP } from "../../types/interfaces";
 import { SPECIFIC_WORDS } from "../../queries";
 import constants from "../../constants";
 
@@ -20,7 +16,7 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const FirstCharCards: React.FC = () => {
+export default () => {
   const { params }: SpecificWordParamsP = useRoute();
   const { data, loading } = useQuery(SPECIFIC_WORDS, {
     fetchPolicy: "network-only",
@@ -54,5 +50,3 @@ const FirstCharCards: React.FC = () => {
     </Container>
   );
 };
-
-export default FirstCharCards;

@@ -1,7 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { Keyboard } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
 import constants from "../constants";
 import { EditPProp } from "../types/interfaces";
@@ -53,6 +52,23 @@ const Input = styled.TextInput`
   font-size: 17px;
 `;
 
+const DeleteUserBtn = styled.TouchableOpacity`
+  max-width: 300px;
+  width: ${constants.width / 1.8}px;
+  margin-top: ${constants.height / 10}px;
+  padding: 15px 0;
+  background-color: ${(prop) => prop.theme.colors.darkDeleteColor};
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DeleteText = styled.Text`
+  color: white;
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
+  font-size: 17px;
+`;
+
 export default ({
   value,
   onChangeText,
@@ -62,6 +78,7 @@ export default ({
   albumTrigger,
   isClear,
   clearAvatarAction,
+  openDeleteView,
 }: EditPProp) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -102,6 +119,9 @@ export default ({
             value={value}
           />
         </InputContainer>
+        <DeleteUserBtn style={{ elevation: 7 }} onPress={openDeleteView}>
+          <DeleteText>계정 삭제</DeleteText>
+        </DeleteUserBtn>
       </Container>
     </TouchableWithoutFeedback>
   );

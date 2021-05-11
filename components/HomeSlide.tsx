@@ -2,8 +2,6 @@ import React, { useMemo } from "react";
 import styled from "styled-components/native";
 import { Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
-import { useQuery } from "@apollo/client";
-import { ALL_IMAGES } from "../queries";
 import constants from "../constants";
 import Loading from "./Loading";
 import { HomeSlideP } from "../types/interfaces";

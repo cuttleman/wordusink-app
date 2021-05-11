@@ -124,3 +124,9 @@ export const EDIT_PROFILE = gql`
     editProfile(userName: $userName, avatar: $avatar)
   }
 `;
+
+export const DELETE_USER = gql`
+  mutation deleteUser($email: String!) {
+    deleteUser(email: $email)
+  }
+`;

@@ -12,7 +12,9 @@ declare module "styled-components" {
       cardIconColor: string;
       doneColor: string;
       deleteColor: string;
+      darkDeleteColor: string;
       closeColor: string;
+      opacityBlack: string;
     };
     fontFamily: {
       rubik500: string;
@@ -33,6 +35,8 @@ export default {
     cardIconColor: "#474787",
     doneColor: "#70a1ff",
     deleteColor: "#1289A7",
+    darkDeleteColor: "#c23616",
+    opacityBlack: "#00000099",
     closeColor: "#eb2f06",
   },
   fontFamily: {

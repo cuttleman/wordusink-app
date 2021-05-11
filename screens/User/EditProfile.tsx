@@ -8,20 +8,26 @@ import * as MediaLibrary from "expo-media-library";
 import * as ImageManipulator from "expo-image-manipulator";
 import EditP from "../../components/EditP";
 import useInput from "../../hooks/useInput";
-import { EDIT_PROFILE } from "../../queries";
+import { DELETE_USER, EDIT_PROFILE } from "../../queries";
 import { PassedInfo, UserProfleParamsP } from "../../types/interfaces";
 import { MaterialIcons } from "@expo/vector-icons";
 import { globalNotifi, hostForDev, userNameValidator } from "../../utils";
 import AvatarFromLibrary from "./AvatarFromLibrary";
 import axios from "axios";
+import DeleteUser from "./DeleteUser";
+import { useLogOut } from "../../components/AuthContext";
 
 const Container = styled.View`
-  background-color: ${(prop) => prop.theme.colors.bgColor};
+  flex: 1;
+`;
+
+const PanelContainer = styled.View`
   flex: 1;
   margin-top: 150px;
   padding-top: 30px;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
+  background-color: ${(prop) => prop.theme.colors.bgColor};
 `;
 
 const DoneBtn = styled.TouchableOpacity`
@@ -43,19 +49,23 @@ const DoneText = styled.Text`
 `;
 
 export default () => {
-  const panel = useRef<SlidingUpPanel>(null);
+  const avatarPanel = useRef<SlidingUpPanel>(null);
   const navigation = useNavigation();
   const { params }: UserProfleParamsP = useRoute();
   const [editProfileMutation] = useMutation(EDIT_PROFILE);
-  const [
-    avatarUrl,
-    setAvatarUrl,
-  ] = useState<Partial<MediaLibrary.Asset> | null>(null);
+  const [deleteUserMutation] = useMutation(DELETE_USER);
   const [isClear, setIsClear] = useState<boolean>(false);
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [panelToggle, setPanelToggle] = useState<boolean>(false);
+  const [avatarUrl, setAvatarUrl] =
+    useState<Partial<MediaLibrary.Asset> | null>(null);
   const name = useInput(params?.userInfo?.userName);
+  const logOut = useLogOut();
   const passedInfo: PassedInfo = {
     avatar: params?.userInfo?.avatar,
     email: params?.userInfo?.email,
+    userName: params?.userInfo?.userName,
+    images: params?.userInfo?.images,
   };
 
   const clearAvatarAction = () => {
@@ -110,10 +120,41 @@ export default () => {
     }
   };
 
+  const deleteHandle = async () => {
+    try {
+      const { data } = await deleteUserMutation({
+        variables: { email: passedInfo.email },
+      });
+      if (data.deleteUser) {
+        logOut();
+      } else {
+        throw new Error();
+      }
+    } catch (e) {
+      globalNotifi("error", "요청작업을 완료할 수 없습니다.😥");
+    }
+  };
+
+  const preDeleteHandle = () => {
+    Alert.alert(
+      "계정을 정말 지우시겠습니까?",
+      "(지울 시 저장된 데이터가 모두 삭제됩니다.)",
+      [
+        {
+          text: "아니요",
+          style: "cancel",
+        },
+        { text: "예", onPress: (): Promise<void> => deleteHandle() },
+      ],
+      { cancelable: false }
+    );
+  };
+
   const manipulatingAvatar = (selected: MediaLibrary.Asset) => {
     const passedData = {
       url: selected.uri,
       doneAction: (url: string) => {
+        setPanelToggle((prev) => !prev);
         setAvatarUrl({
           filename: selected.filename,
           uri: url,
@@ -126,11 +167,18 @@ export default () => {
   };
 
   const openAlbum = () => {
-    panel?.current?.show();
+    avatarPanel?.current?.show();
+  };
+
+  const openDeleteView = () => {
+    setIsModal(true);
+  };
+
+  const closeDeleteView = () => {
+    setIsModal(false);
   };
 
   useEffect(() => {
-    panel?.current?.hide();
     navigation.setOptions({
       headerRight: () => (
         <DoneBtn
@@ -139,7 +187,7 @@ export default () => {
               userNameValidator(name?.value);
               doneHandle();
             } catch (e) {
-              Alert.alert("", e.message);
+              globalNotifi("error", e.message);
             }
           }}
         >
@@ -154,25 +202,36 @@ export default () => {
     });
   });
 
+  useEffect(() => {
+    avatarPanel?.current?.hide();
+  }, [panelToggle]);
+
   return (
-    <>
+    <Container>
       <EditP
         albumTrigger={openAlbum}
         avatarUrl={avatarUrl?.uri}
         isClear={isClear}
         clearAvatarAction={clearAvatarAction}
+        openDeleteView={openDeleteView}
         {...name}
         {...passedInfo}
       />
-      <SlidingUpPanel ref={panel} allowDragging={false}>
-        <Container>
+      <SlidingUpPanel ref={avatarPanel} allowDragging={false}>
+        <PanelContainer>
           <AvatarFromLibrary
             setAvatarAction={(selected: MediaLibrary.Asset) =>
               manipulatingAvatar(selected)
             }
           />
-        </Container>
+        </PanelContainer>
       </SlidingUpPanel>
-    </>
+      <DeleteUser
+        isModal={isModal}
+        closeDeleteView={closeDeleteView}
+        preDeleteHandle={preDeleteHandle}
+        {...passedInfo}
+      />
+    </Container>
   );
 };

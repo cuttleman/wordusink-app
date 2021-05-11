@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Animated } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";

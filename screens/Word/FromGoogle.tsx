@@ -11,7 +11,6 @@ import { StackActions, useNavigation } from "@react-navigation/core";
 import { useMutation } from "@apollo/client";
 import { CREATE_WORD } from "../../queries";
 import { globalNotifi, hostForDev } from "../../utils";
-import Manipulator from "../Image/Manipulator";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<string[]>([]);

@@ -5,6 +5,6 @@ interface ScreenV {
   height: number;
 }
 
-const constants: ScreenV = Dimensions.get("screen");
+const constants: ScreenV = Dimensions.get("window");
 
 export default constants;
