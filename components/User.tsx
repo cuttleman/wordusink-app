@@ -88,11 +88,13 @@ export default ({ refreshing, onRefresh, self }: UserP) => {
         <Options onPress={toggleOpen}>
           <AntDesign name={"menufold"} size={24} />
         </Options>
-        <UserOptions
-          animation={sliding}
-          toggleFunc={toggleOpen}
-          userInfo={self}
-        />
+        {self.isSelf && (
+          <UserOptions
+            animation={sliding}
+            toggleFunc={toggleOpen}
+            userInfo={self}
+          />
+        )}
       </Header>
       <Container
         showsVerticalScrollIndicator={false}

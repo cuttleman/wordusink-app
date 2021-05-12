@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Keyboard } from "react-native";
 import { useMutation } from "@apollo/client";
 import { CommonActions, useNavigation, useRoute } from "@react-navigation/core";
 import styled from "styled-components/native";
@@ -9,7 +9,12 @@ import * as ImageManipulator from "expo-image-manipulator";
 import EditP from "../../components/EditP";
 import useInput from "../../hooks/useInput";
 import { DELETE_USER, EDIT_PROFILE } from "../../queries";
-import { PassedInfo, UserProfleParamsP } from "../../types/interfaces";
+import {
+  ManipulatedAvatarP,
+  ManipulatorPassP,
+  PassedInfo,
+  UserProfleParamsP,
+} from "../../types/interfaces";
 import { MaterialIcons } from "@expo/vector-icons";
 import { globalNotifi, hostForDev, userNameValidator } from "../../utils";
 import AvatarFromLibrary from "./AvatarFromLibrary";
@@ -56,10 +61,10 @@ export default () => {
   const [deleteUserMutation] = useMutation(DELETE_USER);
   const [isClear, setIsClear] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
-  const [panelToggle, setPanelToggle] = useState<boolean>(false);
-  const [avatarUrl, setAvatarUrl] =
-    useState<Partial<MediaLibrary.Asset> | null>(null);
-  const name = useInput(params?.userInfo?.userName);
+  const [avatarUrl, setAvatarUrl] = useState<ManipulatedAvatarP | null>(null);
+  const name = useInput(
+    params?.manipulated?.userName ?? params?.userInfo?.userName
+  );
   const logOut = useLogOut();
   const passedInfo: PassedInfo = {
     avatar: params?.userInfo?.avatar,
@@ -77,9 +82,9 @@ export default () => {
     let result;
     try {
       // prevent leak of resources
-      if (avatarUrl && avatarUrl.uri && avatarUrl.filename) {
+      if (avatarUrl && avatarUrl.url && avatarUrl.filename) {
         const manipulatedImg = await ImageManipulator.manipulateAsync(
-          avatarUrl.uri,
+          avatarUrl.url,
           [{ resize: { width: 150 } }]
         );
         formData.append("photo", {
@@ -151,23 +156,28 @@ export default () => {
   };
 
   const manipulatingAvatar = (selected: MediaLibrary.Asset) => {
-    const passedData = {
+    setTimeout(() => avatarPanel?.current?.hide(), 500);
+    const passedData: Partial<ManipulatorPassP> = {
       url: selected.uri,
-      doneAction: (url: string) => {
-        setPanelToggle((prev) => !prev);
-        setAvatarUrl({
-          filename: selected.filename,
-          uri: url,
-        });
-        setIsClear(false);
-        navigation.dispatch(CommonActions.goBack());
-      },
+      name: "",
+      caption: "",
+      examples: [],
+      filename: selected.filename,
+      from: "EditProfile",
     };
-    navigation.navigate("Manipulator", { ...passedData });
+    navigation.navigate("Manipulator", { ...passedData, userName: name.value });
   };
 
   const openAlbum = () => {
-    avatarPanel?.current?.show();
+    let checkKeyboard = false;
+    Keyboard.addListener("keyboardDidShow", () => (checkKeyboard = true));
+    Keyboard.addListener("keyboardDidHide", () => (checkKeyboard = false));
+    if (checkKeyboard) {
+      avatarPanel?.current?.show();
+    } else {
+      Keyboard.dismiss();
+      setTimeout(() => avatarPanel?.current?.show(), 400);
+    }
   };
 
   const openDeleteView = () => {
@@ -203,14 +213,23 @@ export default () => {
   });
 
   useEffect(() => {
-    avatarPanel?.current?.hide();
-  }, [panelToggle]);
+    if (
+      params?.manipulated !== undefined &&
+      params?.manipulated?.url !== undefined &&
+      params?.manipulated?.filename !== undefined
+    ) {
+      setAvatarUrl({
+        url: params.manipulated.url,
+        filename: params.manipulated.filename,
+      });
+    }
+  }, [params]);
 
   return (
     <Container>
       <EditP
         albumTrigger={openAlbum}
-        avatarUrl={avatarUrl?.uri}
+        avatarUrl={avatarUrl?.url}
         isClear={isClear}
         clearAvatarAction={clearAvatarAction}
         openDeleteView={openDeleteView}

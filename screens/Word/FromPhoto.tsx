@@ -6,7 +6,11 @@ import { Camera } from "expo-camera";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as MediaLibrary from "expo-media-library";
 import CameraSection from "../../components/CameraSection";
-import { ComponentInMaterialTabs, StackRouteP } from "../../types/interfaces";
+import {
+  ComponentInMaterialTabs,
+  ManipulatorPassP,
+  StackRouteP,
+} from "../../types/interfaces";
 import { CREATE_WORD } from "../../queries";
 import { globalNotifi, hostForDev } from "../../utils";
 
@@ -80,9 +84,12 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
           quality: 1,
         });
         if (takePhoto) {
-          const passedData = {
+          const passedData: Partial<ManipulatorPassP> = {
             url: takePhoto.uri,
-            doneAction: (url: string) => uploadPhoto(url),
+            name: stackRoute.params?.name,
+            caption: stackRoute.params?.caption,
+            examples: stackRoute.params?.examples,
+            from: "Photo",
           };
           navigation.navigate("Manipulator", { ...passedData });
         }

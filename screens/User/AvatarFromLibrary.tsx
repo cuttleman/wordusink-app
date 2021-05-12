@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Alert } from "react-native";
-import * as ImageManipulator from "expo-image-manipulator";
 import * as MediaLibrary from "expo-media-library";
-import axios from "axios";
 import Loading from "../../components/Loading";
 import PhotoAlbum from "../../components/PhotoAlbum";
-import {
-  AvatarFromLibraryP,
-  ComponentInMaterialTabs,
-  SrollBotReachedP,
-} from "../../types/interfaces";
-import { useMutation } from "@apollo/client";
-import { StackActions, useNavigation } from "@react-navigation/core";
-import { CREATE_WORD } from "../../queries";
-import { globalNotifi, hostForDev } from "../../utils";
+import { AvatarFromLibraryP, SrollBotReachedP } from "../../types/interfaces";
+import { globalNotifi } from "../../utils";
 
 const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;

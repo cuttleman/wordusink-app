@@ -94,6 +94,7 @@ export const SELF_PROFILE = gql`
       userName
       email
       avatar
+      isSelf
       images {
         id
         url

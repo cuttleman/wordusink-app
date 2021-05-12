@@ -115,14 +115,21 @@ export interface MaterialTabsP {
 }
 
 export interface StackRouteP {
-  params?: {
-    name?: string;
-    caption?: string;
-    examples?: string[];
-    url?: string;
-    doneAction?: (url: string | MediaLibrary.Asset) => Promise<void>;
-  };
+  params?: subset<Partial<ManipulatorPassP>>;
 }
+
+export interface ManipulatorPassP {
+  name: string;
+  caption: string;
+  examples: string[];
+  url: string;
+  filename: string;
+  from: "Library" | "Photo" | "EditProfile" | "";
+  userName?: string;
+}
+
+export interface ManipulatedAvatarP
+  extends Pick<ManipulatorPassP, "url" | "filename"> {}
 
 export interface SrollBotReachedP {
   layoutMeasurement: { height: number };
@@ -170,6 +177,7 @@ type UserPSelf = {
   userName?: string;
   email?: string;
   avatar?: string | null;
+  isSelf?: boolean;
   images?: {
     id: string;
     url: string;
@@ -194,6 +202,11 @@ export interface UserOptionsP {
 export interface UserProfleParamsP {
   params?: {
     userInfo?: subset<UserPSelf>;
+    manipulated?: {
+      url?: string;
+      filename?: string;
+      userName?: string;
+    };
   };
 }
 
