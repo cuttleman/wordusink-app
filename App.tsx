@@ -7,10 +7,12 @@ import * as Font from "expo-font";
 import { Asset } from "expo-asset";
 import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { Rubik_400Regular, Rubik_500Medium } from "@expo-google-fonts/rubik";
+import { GamjaFlower_400Regular } from "@expo-google-fonts/gamja-flower";
 import {
-  WorkSans_400Regular,
-  WorkSans_600SemiBold,
-} from "@expo-google-fonts/work-sans";
+  NotoSansKR_400Regular,
+  NotoSansKR_700Bold,
+  NotoSansKR_500Medium,
+} from "@expo-google-fonts/noto-sans-kr";
 import { persistCache, AsyncStorageWrapper } from "apollo3-cache-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
@@ -23,10 +25,8 @@ import theme from "./theme";
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [
-    clientS,
-    setClientS,
-  ] = useState<ApolloClient<NormalizedCacheObject> | null>(null);
+  const [clientS, setClientS] =
+    useState<ApolloClient<NormalizedCacheObject> | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   const preLoad = async () => {
@@ -43,8 +43,10 @@ const App: React.FC = () => {
         ...AntDesign.font,
         Rubik_400Regular,
         Rubik_500Medium,
-        WorkSans_400Regular,
-        WorkSans_600SemiBold,
+        GamjaFlower_400Regular,
+        NotoSansKR_400Regular,
+        NotoSansKR_700Bold,
+        NotoSansKR_500Medium,
       });
       images.map(async (image) => Asset.fromModule(image).downloadAsync());
 

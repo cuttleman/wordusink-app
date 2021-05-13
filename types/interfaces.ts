@@ -45,18 +45,9 @@ export interface AllWordsParamsP {
   };
 }
 
-export interface CardListHP {
-  words: {
-    name?: string;
-    count?: number;
-  }[];
-  scrollEvent: boolean;
-  loading: boolean;
-}
-
-export interface CardListVP {
-  words: subset<PartialWord>[];
-  loading: boolean;
+export interface HavingWord {
+  count: number;
+  name: string;
 }
 
 export type AuthButtonP = {
@@ -84,15 +75,6 @@ export type InputHooksP = string | undefined;
 export interface InputHooksR {
   value: InputHooksP;
   onChangeText: (text: string) => void;
-}
-
-export interface EditP {
-  url: string | undefined;
-  name: subset<InputHooksR>;
-  caption: subset<InputHooksR>;
-  doneHandle: () => Promise<void>;
-  deleteHandle: () => Promise<void>;
-  preDeleteHandle: () => void;
 }
 
 export type NewP = { [K in "name" | "caption"]: InputHooksR };
@@ -172,25 +154,9 @@ export interface TabIconP {
   iconName: string | any;
 }
 
-type UserPSelf = {
-  id?: string;
-  userName?: string;
-  email?: string;
-  avatar?: string | null;
-  isSelf?: boolean;
-  images?: {
-    id: string;
-    url: string;
-  }[];
-  onTodayWords?: {
-    id: string;
-  }[];
-};
-
-export interface UserP {
-  refreshing: boolean;
-  onRefresh: () => void;
-  self: subset<UserPSelf>;
+export interface ProfileImageP {
+  id: string;
+  url: string;
 }
 
 export interface UserOptionsP {
@@ -208,14 +174,6 @@ export interface UserProfleParamsP {
       userName?: string;
     };
   };
-}
-
-export interface EditPProp extends InputHooksR, PassedInfo {
-  avatarUrl?: string;
-  isClear: boolean;
-  albumTrigger: () => void;
-  clearAvatarAction: () => void;
-  openDeleteView: () => void;
 }
 
 export interface AvatarFromLibraryP {
@@ -269,7 +227,7 @@ export interface AuthBtnSt {
   type: string | undefined;
 }
 
-export interface CardNameStyle {
+export interface CardNameSt {
   isName?: boolean;
 }
 
@@ -293,3 +251,20 @@ export interface PhotoItemSt {
 export interface DeleteBtnSt {
   verified: boolean;
 }
+
+// Query return type
+
+export type UserPSelf = {
+  id?: string;
+  userName?: string;
+  email?: string;
+  avatar?: string | null;
+  isSelf?: boolean;
+  images?: {
+    id: string;
+    url: string;
+  }[];
+  onTodayWords?: {
+    id: string;
+  }[];
+};

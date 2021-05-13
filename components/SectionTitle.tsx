@@ -8,8 +8,9 @@ const Container = styled.View`
 `;
 
 const Text = styled.Text`
-  font-family: ${(prop) => prop.theme.fontFamily.workSans600};
-  font-size: 16px;
+  font-family: ${(prop) => prop.theme.fontFamily.noto700};
+  font-size: 17px;
+  line-height: 25px;
   color: ${(prop) => prop.theme.colors.titleColor};
 `;
 

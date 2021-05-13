@@ -19,8 +19,10 @@ declare module "styled-components" {
     fontFamily: {
       rubik500: string;
       rubik400: string;
-      workSans400: string;
-      workSans600: string;
+      gamja400: string;
+      noto400: string;
+      noto500: string;
+      noto700: string;
     };
   }
 }
@@ -42,7 +44,9 @@ export default {
   fontFamily: {
     rubik500: "Rubik_500Medium",
     rubik400: "Rubik_400Regular",
-    workSans400: "WorkSans_400Regular",
-    workSans600: "WorkSans_600SemiBold",
+    gamja400: "GamjaFlower_400Regular",
+    noto400: "NotoSansKR_400Regular",
+    noto500: "NotoSansKR_500Medium",
+    noto700: "NotoSansKR_700Bold",
   },
 } as DefaultTheme;

@@ -6,7 +6,7 @@ import SectionTitle from "../../components/SectionTitle";
 import constants from "../../constants";
 import useInput from "../../hooks/useInput";
 import theme from "../../theme";
-import { DeleteBtnSt, DeleteUserP, InputHooksP } from "../../types/interfaces";
+import { DeleteBtnSt, DeleteUserP } from "../../types/interfaces";
 
 const Container = styled.View`
   position: absolute;

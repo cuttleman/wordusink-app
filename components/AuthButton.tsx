@@ -3,14 +3,15 @@ import styled from "styled-components/native";
 import { Animated, Easing } from "react-native";
 import { AuthButtonP, AuthBtnSt } from "../types/interfaces";
 import constants from "../constants";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Container = styled(Animated.View)``;
 
 const Btn = styled.TouchableOpacity<AuthBtnSt>`
-  padding: 20px 35px;
+  padding: 10px 35px;
+  padding-right: 15px;
   border-top-left-radius: 20px;
   background-color: #574b90;
-  display: flex;
   border-width: 0;
   flex-direction: row;
   justify-content: center;
@@ -19,8 +20,8 @@ const Btn = styled.TouchableOpacity<AuthBtnSt>`
 
 const TextSt = styled.Text`
   color: white;
-  font-size: 17px;
-  font-family: ${(prop) => prop.theme.fontFamily.workSans600};
+  font-size: 18px;
+  font-family: ${(prop) => prop.theme.fontFamily.noto700};
 `;
 
 export default ({ text, type, onPress }: AuthButtonP) => {
@@ -34,7 +35,7 @@ export default ({ text, type, onPress }: AuthButtonP) => {
   useEffect(() => {
     Animated.timing(slideAni, {
       toValue: 1,
-      duration: 1400,
+      duration: 1100,
       useNativeDriver: false,
       easing: Easing.linear,
     }).start();
@@ -44,6 +45,12 @@ export default ({ text, type, onPress }: AuthButtonP) => {
     <Container style={{ marginRight: slideToLeft }}>
       <Btn type={type} onPress={onPress}>
         <TextSt>{text}</TextSt>
+        <MaterialIcons
+          name={"keyboard-arrow-right"}
+          size={20}
+          color="white"
+          style={{ marginLeft: 5 }}
+        />
       </Btn>
     </Container>
   );

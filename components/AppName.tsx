@@ -9,7 +9,8 @@ const Container = styled(Animated.View)`
 `;
 
 const Text = styled.Text`
-  font-size: 25px;
+  font-size: 45px;
+  font-family: ${(prop) => prop.theme.fontFamily.gamja400};
 `;
 
 export default (): React.ReactElement => {
@@ -31,7 +32,7 @@ export default (): React.ReactElement => {
 
   return (
     <Container style={{ marginBottom: toUp }}>
-      <Text style={{ fontFamily: "Rubik_500Medium" }}>WORDUSINK</Text>
+      <Text>단어징어</Text>
     </Container>
   );
 };

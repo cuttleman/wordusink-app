@@ -22,7 +22,7 @@ const Maincharacter = styled.Image`
 `;
 
 const Message = styled.Text`
-  font-family: ${(prop) => prop.theme.fontFamily.workSans400};
+  font-family: ${(prop) => prop.theme.fontFamily.rubik400};
   font-size: 16px;
 `;
 
@@ -81,7 +81,7 @@ const SignUp: React.FC = () => {
       <AppName />
       <BtnContainer>
         <AuthButton
-          text={"Google Login"}
+          text={"구글 로그인"}
           type={"google"}
           onPress={signUpWithGoogle}
         />

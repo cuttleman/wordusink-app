@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import constants from "../constants";
 import useTurn from "../hooks/useTurn";
-import { CardNameStyle, WordP } from "../types/interfaces";
+import { CardNameSt, WordP } from "../types/interfaces";
 import { Ionicons } from "@expo/vector-icons";
 
 const Container = styled.View`
@@ -15,7 +15,7 @@ const Container = styled.View`
 
 const CardContainer = styled.View`
   width: ${constants.width / 1.1}px;
-  height: ${constants.height / 1.5}px;
+  height: ${constants.height / 1.4}px;
   align-items: center;
   justify-content: center;
   border-radius: 20px;
@@ -39,7 +39,7 @@ const Photo = styled.Image`
   border-radius: 4px;
 `;
 
-const BoldText = styled.Text<CardNameStyle>`
+const BoldText = styled.Text<CardNameSt>`
   font-size: 20px;
   font-family: ${(prop) => prop.theme.fontFamily.rubik500};
   ${(props) => props.isName && "text-transform: capitalize;"};
@@ -99,7 +99,7 @@ const EditBtn = styled.TouchableOpacity`
 export default ({ word }: WordP) => {
   const { toggleTurn, turnning, perspectiving, NameZIndexing } = useTurn();
   const { navigate } = useNavigation();
-
+  console.log(constants.height);
   return (
     <Container>
       <CardContainer

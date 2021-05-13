@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useQuery } from "@apollo/client";
-import { RefreshControl } from "react-native";
-import CardListV from "../../components/CardListV";
+import { RefreshControl, Text } from "react-native";
 import { ALL_WORDS } from "../../queries";
 import { useNavigation } from "@react-navigation/core";
 import { globalNotifi } from "../../utils";
+import Loading from "../../components/Loading";
+import { PartialWord, CardNameSt, IsCaptionP } from "../../types/interfaces";
+import constants from "../../constants";
 
 const Container = styled.View`
   flex: 1;
@@ -23,6 +25,38 @@ const BgImage = styled.Image`
   z-index: 0;
   bottom: 0;
   left: 0;
+`;
+
+const ContentContainer = styled.TouchableOpacity`
+  width: ${constants.width / 1.3}px;
+  height: ${constants.height / 10}px;
+  background-color: white;
+  margin: 10px 0;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: ${(prop) => prop.theme.colors.tabColor};
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  overflow: hidden;
+`;
+
+const SectionContainer = styled.View<CardNameSt>`
+  width: ${constants.width / 3}px;
+  justify-content: center;
+  align-items: ${(props) => (props.isName ? "flex-start" : "flex-end")};
+`;
+
+const Name = styled.Text`
+  font-size: 17px;
+  font-family: ${(prop) => prop.theme.fontFamily.rubik500};
+  text-transform: capitalize;
+`;
+
+const Caption = styled.Text<IsCaptionP>`
+  font-size: 15px;
+  color: ${(prop) => (prop.isCaption ? "black" : prop.theme.colors.tabColor)};
 `;
 
 export default () => {
@@ -63,7 +97,33 @@ export default () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ alignItems: "center", padding: 30 }}
       >
-        <CardListV words={data?.allWords} loading={loading} />
+        {loading ? (
+          <Loading />
+        ) : data?.allWords?.length === 0 ? (
+          <Text>You have 0 word</Text>
+        ) : (
+          data?.allWords?.map((word: PartialWord, index: number) => (
+            <ContentContainer
+              key={word.id}
+              onPress={() =>
+                navigation.navigate("AllCards", {
+                  words: data?.allWords,
+                  index,
+                })
+              }
+              style={{ elevation: 8 }}
+            >
+              <SectionContainer isName>
+                <Name>{word.name}</Name>
+              </SectionContainer>
+              <SectionContainer>
+                <Caption isCaption={word.caption}>
+                  {word.caption ? word.caption : "입력해주세요"}
+                </Caption>
+              </SectionContainer>
+            </ContentContainer>
+          ))
+        )}
       </ScrollContainer>
     </Container>
   );
