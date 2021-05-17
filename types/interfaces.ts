@@ -127,6 +127,7 @@ export interface PhotoAlbumP {
   selectPhotoAction: (photo: any) => void;
   onSrollBotReached: (params: SrollBotReachedP) => void;
   doneAction: () => Promise<void> | void;
+  isEnd: boolean;
 }
 
 export type HomeRouteParam = {

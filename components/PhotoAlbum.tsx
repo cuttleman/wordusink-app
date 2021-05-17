@@ -44,12 +44,26 @@ const PhotoItem = styled.Image<PhotoItemSt>`
   opacity: ${(prop) => (prop.selectPhoto === prop.photo ? 0.4 : 1)};
 `;
 
+const EndContainer = styled.View`
+  width: ${constants.width}px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(prop) => prop.theme.colors.mainColor};
+`;
+
+const EndText = styled.Text`
+  font-family: ${(prop) => prop.theme.fontFamily.noto400};
+  font-size: 16px;
+  color: white;
+`;
+
 export default ({
   photos,
   selectPhoto,
   selectPhotoAction,
   onSrollBotReached,
   doneAction,
+  isEnd,
 }: PhotoAlbumP) => {
   return (
     <Container style={{ flex: 1 }}>
@@ -94,6 +108,11 @@ export default ({
           </PhotoContainer>
         ))}
       </PhotoList>
+      {isEnd && (
+        <EndContainer>
+          <EndText>더이상 이미지가 없습니다.😐</EndText>
+        </EndContainer>
+      )}
     </Container>
   );
 };

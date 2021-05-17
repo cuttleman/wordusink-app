@@ -1,9 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Animated } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Animated, Alert } from "react-native";
 import styled from "styled-components/native";
-import { UserOptionsP } from "../types/interfaces";
 import { useLogOut } from "./AuthContext";
+import { UserOptionsP } from "../types/interfaces";
 
 const Container = styled(Animated.View)`
   position: absolute;
@@ -13,21 +13,21 @@ const Container = styled(Animated.View)`
   border-bottom-left-radius: 10px;
   flex-direction: row;
   align-items: center;
-  background-color: white;
+  background-color: ${(prop) => prop.theme.colors.bgColor};
   overflow: hidden;
 `;
 
 const CloseBtn = styled.TouchableOpacity`
-  width: 40px;
+  width: 30px;
   height: 60px;
-  background-color: ${(prop) => prop.theme.colors.closeColor};
+  background-color: ${(prop) => prop.theme.colors.darkDeleteColor};
   justify-content: center;
   align-items: center;
 `;
 
 const OptionsContainer = styled.View`
   flex-direction: row;
-  padding: 0 5px;
+  padding: 0 10px;
 `;
 
 const FuncBtn = styled.TouchableOpacity<{ isEdit?: boolean }>`
@@ -47,13 +47,28 @@ const BtnText = styled.Text`
 export default ({ animation, toggleFunc, userInfo }: UserOptionsP) => {
   const logOut = useLogOut();
   const { navigate } = useNavigation();
+
+  const preLogOut = () => {
+    Alert.alert(
+      "",
+      "로그아웃하시겠습니까?",
+      [
+        {
+          text: "아니요",
+          style: "cancel",
+        },
+        { text: "예", onPress: () => logOut() },
+      ],
+      { cancelable: false }
+    );
+  };
   return (
     <Container style={{ transform: [{ translateX: animation }] }}>
       <CloseBtn onPress={toggleFunc}>
         <BtnText>x</BtnText>
       </CloseBtn>
       <OptionsContainer>
-        <FuncBtn onPress={logOut} style={{ elevation: 5 }}>
+        <FuncBtn onPress={preLogOut} style={{ elevation: 5 }}>
           <BtnText>로그아웃</BtnText>
         </FuncBtn>
         <FuncBtn

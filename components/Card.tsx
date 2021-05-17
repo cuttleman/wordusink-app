@@ -20,6 +20,7 @@ const CardContainer = styled.View`
   justify-content: center;
   border-radius: 20px;
   padding: 20px;
+  overflow: hidden;
   background-color: ${(prop) => prop.theme.colors.mainColor};
 `;
 
@@ -80,11 +81,11 @@ const Caption = styled(Name)`
 
 const EditContainer = styled.View`
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 0;
+  right: 0;
   display: flex;
   flex-direction: row;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
   justify-content: center;
   align-items: center;
   padding: 5px;
@@ -92,6 +93,7 @@ const EditContainer = styled.View`
 `;
 
 const EditBtn = styled.TouchableOpacity`
+  padding: 5px;
   justify-content: center;
   align-items: center;
 `;
@@ -99,7 +101,7 @@ const EditBtn = styled.TouchableOpacity`
 export default ({ word }: WordP) => {
   const { toggleTurn, turnning, perspectiving, NameZIndexing } = useTurn();
   const { navigate } = useNavigation();
-  console.log(constants.height);
+
   return (
     <Container>
       <CardContainer

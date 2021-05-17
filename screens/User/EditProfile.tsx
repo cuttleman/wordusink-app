@@ -24,20 +24,20 @@ import constants from "../../constants";
 import Avatar from "../../components/Avatar";
 import SectionTitle from "../../components/SectionTitle";
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
 `;
 
 const ProfileContainer = styled.View`
   width: ${constants.width}px;
-  height: ${constants.height}px;
+  height: ${constants.height - 120}px;
   background-color: ${(prop) => prop.theme.colors.bgColor};
   align-items: center;
-  padding-top: 30px;
+  padding-top: 20px;
 `;
 
 const AvatarContainer = styled.View`
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 `;
 
 const AvatarEditBtn = styled.TouchableOpacity`
@@ -61,9 +61,7 @@ const Conditions = styled.Text`
   line-height: 25px;
 `;
 
-const InputContainer = styled.View`
-  margin-bottom: 20px;
-`;
+const InputContainer = styled.View``;
 
 const Input = styled.TextInput`
   width: ${constants.width / 2}px;
@@ -74,9 +72,10 @@ const Input = styled.TextInput`
 `;
 
 const DeleteUserBtn = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 15px;
   max-width: 300px;
   width: ${constants.width / 1.8}px;
-  margin-top: ${constants.height / 10}px;
   padding: 15px 0;
   background-color: ${(prop) => prop.theme.colors.darkDeleteColor};
   border-radius: 10px;
@@ -293,8 +292,8 @@ export default () => {
   }, [params]);
 
   return (
-    <Container>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container showsVerticalScrollIndicator={false}>
         <ProfileContainer>
           <AvatarContainer>
             <Avatar
@@ -342,22 +341,22 @@ export default () => {
             <DeleteText>계정 삭제</DeleteText>
           </DeleteUserBtn>
         </ProfileContainer>
-      </TouchableWithoutFeedback>
-      <SlidingUpPanel ref={avatarPanel} allowDragging={false}>
-        <PanelContainer>
-          <AvatarFromLibrary
-            setAvatarAction={(selected: MediaLibrary.Asset) =>
-              manipulatingAvatar(selected)
-            }
-          />
-        </PanelContainer>
-      </SlidingUpPanel>
-      <DeleteUser
-        isModal={isModal}
-        closeDeleteView={closeDeleteView}
-        preDeleteHandle={preDeleteHandle}
-        {...passedInfo}
-      />
-    </Container>
+        <SlidingUpPanel ref={avatarPanel} allowDragging={false}>
+          <PanelContainer>
+            <AvatarFromLibrary
+              setAvatarAction={(selected: MediaLibrary.Asset) =>
+                manipulatingAvatar(selected)
+              }
+            />
+          </PanelContainer>
+        </SlidingUpPanel>
+        <DeleteUser
+          isModal={isModal}
+          closeDeleteView={closeDeleteView}
+          preDeleteHandle={preDeleteHandle}
+          {...passedInfo}
+        />
+      </Container>
+    </TouchableWithoutFeedback>
   );
 };

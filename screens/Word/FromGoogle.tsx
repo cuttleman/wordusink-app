@@ -10,7 +10,8 @@ import {
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { useMutation } from "@apollo/client";
 import { CREATE_WORD } from "../../queries";
-import { globalNotifi, hostForDev } from "../../utils";
+import { globalNotifi, hostForDev, hostForProd } from "../../utils";
+import Empty from "../../components/Empty";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<string[]>([]);
@@ -18,6 +19,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [selectPhoto, setSelectPhoto] = useState<string>("");
+  const [isEnd, setIsEnd] = useState<boolean>(false);
   const [hasNext, setHasNext] = useState<boolean>(true);
   const [createWordMutation] = useMutation(CREATE_WORD);
   const navigation = useNavigation();
@@ -67,7 +69,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     try {
       setFetching(true);
       const { data } = await axios.get(
-        hostForDev(3000, `/api/${stackRoute?.params?.name}/${startNum}`),
+        hostForProd("api", `/api/${stackRoute?.params?.name}/${startNum}`),
         {
           responseType: "json",
         }
@@ -75,11 +77,13 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       const filteringArray = data.filter((image: string) => {
         const pattern = new RegExp("^(data:image|https://encrypted-tbn0).*");
         const result = pattern.test(image);
+        // 고화질 이미지 받아올시 !result 로 바꾸기
         if (result) return image;
       });
 
       if (filteringArray.length === 0) {
         setHasNext(false);
+        setIsEnd(true);
       } else {
         setPhotos([...photos, ...filteringArray]);
       }
@@ -88,8 +92,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         setSelectPhoto(filteringArray?.[0]);
       }
     } catch (e) {
-      console.log(e);
-      Alert.alert("Error", "Dont get the data");
+      globalNotifi("error", "구글에서 이미지를 가져올 수 없습니다.😰");
     } finally {
       setLoading(false);
       setFetching(false);
@@ -100,8 +103,10 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     if (hasNext) fetchFromApi();
   }, [startNum]);
 
-  return loading || selectPhoto === "" || photos.length === 0 ? (
+  return loading ? (
     <Loading />
+  ) : selectPhoto === "" || photos.length === 0 ? (
+    <Empty />
   ) : (
     <PhotoAlbum
       photos={photos}
@@ -109,6 +114,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       selectPhotoAction={selectPhotoAction}
       onSrollBotReached={onSrollBotReached}
       doneAction={doneAction}
+      isEnd={isEnd}
     />
   );
 };

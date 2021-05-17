@@ -6,6 +6,14 @@ export const hostForDev = (port: number, param = ""): string => {
   return `http://172.30.1.52:${port}${param}`;
 };
 
+export const hostForProd = (type: "api" | "server", param = ""): string => {
+  if (type === "api") {
+    return `https://wordusink-api-server.herokuapp.com${param}`;
+  } else {
+    return "";
+  }
+};
+
 export const inputValidator = (
   name: string | undefined,
   caption: string | undefined

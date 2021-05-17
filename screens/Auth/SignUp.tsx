@@ -8,17 +8,18 @@ import AppName from "../../components/AppName";
 import { useLogIn } from "../../components/AuthContext";
 import { SIGN_UP } from "../../queries";
 import { globalNotifi } from "../../utils";
+import constants from "../../constants";
 
 const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #f1f2f6;
+  background-color: ${(prop) => prop.theme.colors.bgColor};
 `;
 
 const Maincharacter = styled.Image`
   width: 200px;
-  height: 300px;
+  height: 250px;
 `;
 
 const Message = styled.Text`
@@ -77,7 +78,10 @@ const SignUp: React.FC = () => {
   return (
     <Container>
       <Message>Hello. human</Message>
-      <Maincharacter source={require("../../assets/character.png")} />
+      <Maincharacter
+        source={require("../../assets/character.png")}
+        resizeMode="contain"
+      />
       <AppName />
       <BtnContainer>
         <AuthButton
