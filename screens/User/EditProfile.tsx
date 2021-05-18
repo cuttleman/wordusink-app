@@ -42,7 +42,7 @@ const AvatarContainer = styled.View`
 
 const AvatarEditBtn = styled.TouchableOpacity`
   position: absolute;
-  padding: 10px;
+  padding: 5px;
   border-width: 1px;
   border-color: ${(prop) => prop.theme.colors.tabColor};
   border-radius: 30px;
@@ -308,7 +308,7 @@ export default () => {
             />
 
             <AvatarEditBtn
-              style={{ elevation: 4, top: 0, right: 0 }}
+              style={{ elevation: 4, bottom: 0, left: 0 }}
               onPress={clearAvatarAction}
             >
               <MaterialIcons name={"cancel"} color="black" size={23} />

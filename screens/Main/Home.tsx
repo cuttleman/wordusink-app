@@ -10,7 +10,6 @@ import {
   RefreshControl,
   ScrollView,
   Animated,
-  Text,
   Easing,
 } from "react-native";
 import HomeSlide from "../../components/HomeSlide";
@@ -19,6 +18,7 @@ import { globalNotifi } from "../../utils";
 import constants from "../../constants";
 import Loading from "../../components/Loading";
 import { HavingWord } from "../../types/interfaces";
+import IssueImage from "../../components/IssueImage";
 
 const Container = styled.View`
   flex: 1;
@@ -27,6 +27,8 @@ const Container = styled.View`
 
 const ScrollContainer = styled.ScrollView`
   background-color: transparent;
+  width: ${constants.width}px;
+  height: ${constants.height}px;
 `;
 
 const BgImage = styled.Image`
@@ -47,6 +49,11 @@ const CardListH = styled(Animated.View)`
   padding: 20px;
   position: absolute;
   z-index: 998;
+`;
+
+const EmptyText = styled.Text`
+  font-family: ${(prop) => prop.theme.fontFamily.noto400};
+  font-size: 16px;
 `;
 
 const PreviewWordContainer = styled(Animated.View)`
@@ -70,6 +77,12 @@ const WordText = styled(Animated.Text)`
   text-transform: uppercase;
 `;
 
+const HomeContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  padding-top: 130px;
+  padding-bottom: 70px;
+`;
 const HomeContents = styled.View``;
 
 const Home: React.FC = () => {
@@ -162,7 +175,7 @@ const Home: React.FC = () => {
           {havingLoading ? (
             <Loading />
           ) : havingData.havingWords.length === 0 ? (
-            <Text>단어를 추가해보세요</Text>
+            <EmptyText>단어를 추가해보세요</EmptyText>
           ) : (
             havingData.havingWords.map((word: HavingWord, idx: number) => (
               <PreviewWordContainer key={idx}>
@@ -191,21 +204,21 @@ const Home: React.FC = () => {
           />
         }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          alignItems: "center",
-          paddingTop: 130,
-          paddingBottom: 70,
-        }}
+        contentContainerStyle={{ flex: 1 }}
         onScroll={onScroll}
       >
-        {havingData?.havingWords?.length !== 0 && (
-          <HomeContents>
-            <SectionTitle text={"이미지 보고 연습하기"} />
-            <HomeSlide
-              images={allImageData?.allImages}
-              loading={allImageLoading}
-            />
-          </HomeContents>
+        {havingData?.havingWords?.length === 0 ? (
+          <IssueImage type="empty" />
+        ) : (
+          <HomeContainer>
+            <HomeContents>
+              <SectionTitle text={"이미지 보고 연습하기"} />
+              <HomeSlide
+                images={allImageData?.allImages}
+                loading={allImageLoading}
+              />
+            </HomeContents>
+          </HomeContainer>
         )}
       </ScrollContainer>
     </Container>

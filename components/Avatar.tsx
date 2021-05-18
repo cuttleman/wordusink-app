@@ -12,9 +12,9 @@ const Container = styled.View`
 
 const Avatar = styled.Image<AvatarStyle>`
   width: ${(props) =>
-    props.size === "lg" ? "150px" : props.size === "md" ? "80px" : "50px"};
+    props.size === "lg" ? "130px" : props.size === "md" ? "80px" : "50px"};
   height: ${(props) =>
-    props.size === "lg" ? "150px" : props.size === "md" ? "80px" : "50px"};
+    props.size === "lg" ? "130px" : props.size === "md" ? "80px" : "50px"};
 `;
 
 export default ({ avatar, size = "sm" }: AvatarP) => (

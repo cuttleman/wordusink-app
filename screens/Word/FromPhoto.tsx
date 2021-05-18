@@ -35,48 +35,6 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     setType((prev): "back" | "front" => (prev === "back" ? "front" : "back"));
   };
 
-  const uploadPhoto = async (manipulatedUrl: string) => {
-    try {
-      const formData: any = new FormData();
-      const manipulatedImg = await ImageManipulator.manipulateAsync(
-        manipulatedUrl,
-        [{ resize: { width: 200 } }]
-      );
-      const savedPhoto = await MediaLibrary.createAssetAsync(
-        manipulatedImg.uri
-      );
-      if (savedPhoto) {
-        formData.append("photo", {
-          name: savedPhoto.filename,
-          uri: manipulatedImg.uri,
-          type: `image/${savedPhoto.filename.split(".")[1]}`,
-        });
-        const {
-          data: { file },
-        } = await axios.post(hostForDev(5000, "/api/upload/word"), formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-        const { data } = await createWordMutation({
-          variables: {
-            name: stackRoute.params?.name,
-            caption: stackRoute.params?.caption,
-            examples: stackRoute.params?.examples,
-            url: file.linkUrl,
-          },
-        });
-        if (data?.createWord?.result) {
-          navigation.dispatch(StackActions.replace("Tab"));
-          globalNotifi("success", "새 단어가 등록되었습니다.😎");
-        } else {
-          throw Error(data?.createWord?.message);
-        }
-      }
-    } catch (e) {
-      globalNotifi("error", e.message);
-      console.log(e);
-    }
-  };
-
   const takeAction = async () => {
     if (ready) {
       try {

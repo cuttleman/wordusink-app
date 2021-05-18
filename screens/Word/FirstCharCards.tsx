@@ -9,6 +9,7 @@ import Card from "../../components/Card";
 import { CarouselP, SpecificWordParamsP } from "../../types/interfaces";
 import { SPECIFIC_WORDS } from "../../queries";
 import constants from "../../constants";
+import IssueImage from "../../components/IssueImage";
 
 const Container = styled.View`
   flex: 1;
@@ -34,7 +35,7 @@ export default () => {
   ) : (
     <Container>
       {data?.specificWords.length === 0 ? (
-        <Text>Nothing</Text>
+        <IssueImage type="empty" />
       ) : (
         <Carousel
           layout={"default"}

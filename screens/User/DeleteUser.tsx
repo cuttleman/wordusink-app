@@ -1,10 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
+import { Animated, Keyboard, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
 import SectionTitle from "../../components/SectionTitle";
 import constants from "../../constants";
 import useInput from "../../hooks/useInput";
+import useOpen from "../../hooks/useOpen";
 import theme from "../../theme";
 import { DeleteBtnSt, DeleteUserP } from "../../types/interfaces";
 
@@ -15,10 +16,16 @@ const Container = styled.View`
   justify-content: flex-start;
   align-items: center;
   padding-top: 100px;
+`;
+
+const Background = styled.Pressable`
+  position: absolute;
+  width: ${constants.width}px;
+  height: ${constants.height}px;
   background-color: ${(prop) => prop.theme.colors.opacityBlack};
 `;
 
-const Modal = styled.View`
+const Modal = styled(Animated.View)`
   background-color: ${(prop) => prop.theme.colors.bgColor};
   padding: 20px;
   width: ${constants.width / 1.2}px;
@@ -82,6 +89,8 @@ export default ({
 }: DeleteUserP) => {
   const [verified, setVerified] = useState<boolean>(false);
   const verify = useInput("");
+  // 계정 삭제 버튼 클릭시 모달 이벤트 트리거
+  const { slowDown } = useOpen(isModal);
 
   const checkSelf = () => {
     const correct = `${email}/${userName}/${images?.length}`;
@@ -103,7 +112,8 @@ export default ({
   return isModal ? (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
-        <Modal>
+        <Background onPress={closeDeleteView} />
+        <Modal style={{ transform: [{ translateY: slowDown }] }}>
           <SectionTitle text={"조건에 맞는 문구를 입력해주세요."} />
           <Condition>{"가입 이메일/닉네임/등록된 단어 수"}</Condition>
           <Input

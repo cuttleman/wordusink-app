@@ -8,6 +8,7 @@ import { globalNotifi } from "../../utils";
 import Loading from "../../components/Loading";
 import { PartialWord, CardNameSt, IsCaptionP } from "../../types/interfaces";
 import constants from "../../constants";
+import IssueImage from "../../components/IssueImage";
 
 const Container = styled.View`
   flex: 1;
@@ -25,6 +26,12 @@ const BgImage = styled.Image`
   z-index: 0;
   bottom: 0;
   left: 0;
+`;
+
+const WordsContainer = styled.View`
+  flex: 1;
+  padding: 30px;
+  align-items: center;
 `;
 
 const ContentContainer = styled.TouchableOpacity`
@@ -95,34 +102,36 @@ export default () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ alignItems: "center", padding: 30 }}
+        contentContainerStyle={{ flex: 1 }}
       >
         {loading ? (
           <Loading />
         ) : data?.allWords?.length === 0 ? (
-          <Text>You have 0 word</Text>
+          <IssueImage type="empty" />
         ) : (
-          data?.allWords?.map((word: PartialWord, index: number) => (
-            <ContentContainer
-              key={word.id}
-              onPress={() =>
-                navigation.navigate("AllCards", {
-                  words: data?.allWords,
-                  index,
-                })
-              }
-              style={{ elevation: 8 }}
-            >
-              <SectionContainer isName>
-                <Name>{word.name}</Name>
-              </SectionContainer>
-              <SectionContainer>
-                <Caption isCaption={word.caption}>
-                  {word.caption ? word.caption : "입력해주세요"}
-                </Caption>
-              </SectionContainer>
-            </ContentContainer>
-          ))
+          <WordsContainer>
+            {data?.allWords?.map((word: PartialWord, index: number) => (
+              <ContentContainer
+                key={word.id}
+                onPress={() =>
+                  navigation.navigate("AllCards", {
+                    words: data?.allWords,
+                    index,
+                  })
+                }
+                style={{ elevation: 8 }}
+              >
+                <SectionContainer isName>
+                  <Name>{word.name}</Name>
+                </SectionContainer>
+                <SectionContainer>
+                  <Caption isCaption={word.caption}>
+                    {word.caption ? word.caption : "입력해주세요"}
+                  </Caption>
+                </SectionContainer>
+              </ContentContainer>
+            ))}
+          </WordsContainer>
         )}
       </ScrollContainer>
     </Container>

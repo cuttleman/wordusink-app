@@ -4,6 +4,7 @@ import Loading from "../../components/Loading";
 import PhotoAlbum from "../../components/PhotoAlbum";
 import { AvatarFromLibraryP, SrollBotReachedP } from "../../types/interfaces";
 import { globalNotifi } from "../../utils";
+import IssueImage from "../../components/IssueImage";
 
 const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
@@ -13,6 +14,7 @@ export default ({ setAvatarAction }: AvatarFromLibraryP) => {
   const [startNum, setStartNum] = useState<number>(START_NUM);
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isEnd, setIsEnd] = useState<boolean>(false);
   const [selectPhoto, setSelectPhoto] = useState<MediaLibrary.Asset>();
 
   const onSrollBotReached = ({
@@ -39,6 +41,7 @@ export default ({ setAvatarAction }: AvatarFromLibraryP) => {
       if (photos.length === 0) {
         setLoading(true);
       }
+
       const { granted } = await MediaLibrary.requestPermissionsAsync();
 
       if (granted) {
@@ -49,13 +52,13 @@ export default ({ setAvatarAction }: AvatarFromLibraryP) => {
         setHasNext(hasNextPage);
 
         // Initial selected
-        if (selectPhoto === undefined) {
-          setSelectPhoto(assets[0]);
-        }
+        if (selectPhoto === undefined) setSelectPhoto(assets[0]);
+        if (!hasNextPage) setIsEnd(true);
+      } else {
+        throw Error("앨범에서 이미지를 가져올 수 없습니다.😰");
       }
     } catch (e) {
-      console.log(e);
-      globalNotifi("error", "앨범 접근권한이 없습니다.😨");
+      globalNotifi("error", e.message);
     } finally {
       setLoading(false);
     }
@@ -65,8 +68,10 @@ export default ({ setAvatarAction }: AvatarFromLibraryP) => {
     getFromLibrary();
   }, [startNum]);
 
-  return loading || selectPhoto === undefined ? (
+  return loading ? (
     <Loading />
+  ) : selectPhoto === undefined || photos.length === 0 ? (
+    <IssueImage type="empty" />
   ) : (
     <PhotoAlbum
       photos={photos}
@@ -74,6 +79,7 @@ export default ({ setAvatarAction }: AvatarFromLibraryP) => {
       selectPhotoAction={selectPhotoAction}
       onSrollBotReached={onSrollBotReached}
       doneAction={() => setAvatarAction(selectPhoto)}
+      isEnd={isEnd}
     />
   );
 };

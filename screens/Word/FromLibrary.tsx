@@ -9,15 +9,18 @@ import {
   ManipulatorPassP,
   SrollBotReachedP,
 } from "../../types/interfaces";
+import IssueImage from "../../components/IssueImage";
+import { globalNotifi } from "../../utils";
 
 const START_NUM: number = 12;
 const SCROLL_PADDING_BOTTOM: number = 0.1;
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<MediaLibrary.Asset[]>([]);
-  const [startNum, setStartNum] = useState<number>(START_NUM);
+  const [startNum, setStartNum] = useState<number>(0);
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isEnd, setIsEnd] = useState<boolean>(false);
   const [selectPhoto, setSelectPhoto] = useState<MediaLibrary.Asset>();
   const navigation = useNavigation();
 
@@ -57,6 +60,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       if (photos.length === 0) {
         setLoading(true);
       }
+
       const { granted } = await MediaLibrary.requestPermissionsAsync();
 
       if (granted) {
@@ -67,13 +71,13 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
         setHasNext(hasNextPage);
 
         // Initial selected
-        if (selectPhoto === undefined) {
-          setSelectPhoto(assets[0]);
-        }
+        if (selectPhoto === undefined) setSelectPhoto(assets[0]);
+        if (!hasNextPage) setIsEnd(true);
+      } else {
+        throw Error("앨범에서 이미지를 가져올 수 없습니다.😰");
       }
     } catch (e) {
-      console.log(e);
-      Alert.alert("Error", "Dont get the data");
+      globalNotifi("error", e.message);
     } finally {
       setLoading(false);
     }
@@ -83,8 +87,10 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     getFromLibrary();
   }, [startNum]);
 
-  return loading || selectPhoto === undefined ? (
+  return loading ? (
     <Loading />
+  ) : selectPhoto === undefined || photos.length === 0 ? (
+    <IssueImage type="empty" />
   ) : (
     <PhotoAlbum
       photos={photos}
@@ -92,6 +98,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
       selectPhotoAction={selectPhotoAction}
       onSrollBotReached={onSrollBotReached}
       doneAction={nextAction}
+      isEnd={isEnd}
     />
   );
 };

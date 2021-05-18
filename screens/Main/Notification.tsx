@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import styled from "styled-components/native";
+import IssueImage from "../../components/IssueImage";
 
 const Container = styled.View`
   flex: 1;
@@ -25,10 +26,7 @@ export default () => {
 
   return (
     <Container>
-      <Maincharacter
-        source={require("../../assets/soon.png")}
-        resizeMode="contain"
-      />
+      <IssueImage type="soon" />
     </Container>
   );
 };

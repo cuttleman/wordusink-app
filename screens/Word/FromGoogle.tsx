@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Alert } from "react-native";
 import axios from "axios";
 import Loading from "../../components/Loading";
 import PhotoAlbum from "../../components/PhotoAlbum";
@@ -11,7 +10,7 @@ import { StackActions, useNavigation } from "@react-navigation/core";
 import { useMutation } from "@apollo/client";
 import { CREATE_WORD } from "../../queries";
 import { globalNotifi, hostForDev, hostForProd } from "../../utils";
-import Empty from "../../components/Empty";
+import IssueImage from "../../components/IssueImage";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<string[]>([]);
@@ -69,7 +68,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     try {
       setFetching(true);
       const { data } = await axios.get(
-        hostForProd("api", `/api/${stackRoute?.params?.name}/${startNum}`),
+        hostForDev(3000, `/api/${stackRoute?.params?.name}/${startNum}`),
         {
           responseType: "json",
         }
@@ -106,7 +105,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
   return loading ? (
     <Loading />
   ) : selectPhoto === "" || photos.length === 0 ? (
-    <Empty />
+    <IssueImage type="empty" />
   ) : (
     <PhotoAlbum
       photos={photos}

@@ -21,16 +21,23 @@ const Permission = styled.View`
 `;
 
 const CameraSt = styled(Camera)`
-  flex: 2;
+  flex: 3;
 `;
 
-const ToggleBtn = styled.TouchableOpacity``;
+const ToggleBtn = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  padding: 5px;
+`;
 
 const ControlBox = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
   background-color: black;
+  border-top-width: 2px;
+  border-top-color: white;
 `;
 
 const TakePhotoBtn = styled.TouchableOpacity`
@@ -62,7 +69,7 @@ export default ({
           onCameraReady={readyForCamera}
         >
           <ToggleBtn onPress={typeAction}>
-            <Ionicons name={"camera-reverse"} color={"#ffffff"} size={25} />
+            <Ionicons name={"camera-reverse"} color={"#ffffff"} size={30} />
           </ToggleBtn>
         </CameraSt>
         <ControlBox>

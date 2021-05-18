@@ -34,7 +34,9 @@ const App: React.FC = () => {
       require("./assets/init_human.png"),
       require("./assets/character.png"),
       require("./assets/front.png"),
-      require("./assets/point.png"),
+      require("./assets/soon.png"),
+      require("./assets/empty.png"),
+      require("./assets/splash.png"),
     ];
     try {
       await Font.loadAsync({

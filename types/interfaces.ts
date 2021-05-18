@@ -245,8 +245,9 @@ export interface AvatarStyle {
 }
 
 export interface PhotoItemSt {
-  selectPhoto: photoPInAlbum;
-  photo: photoPInAlbum;
+  selectPhoto?: photoPInAlbum;
+  photo?: photoPInAlbum;
+  index?: number;
 }
 
 export interface DeleteBtnSt {

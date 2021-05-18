@@ -36,10 +36,18 @@ const PhotoList = styled.ScrollView`
   flex: 1;
 `;
 
-const PhotoContainer = styled.TouchableOpacity``;
+const PhotoContainer = styled.TouchableOpacity<PhotoItemSt>`
+  overflow: hidden;
+  padding-top: ${(prop) =>
+    prop.index !== undefined && prop.index < 3 ? 0 : 1.5}px;
+  padding-left: ${(prop) =>
+    prop.index !== undefined && prop.index % 3 === 1 ? 1.5 : 0}px;
+  padding-right: ${(prop) =>
+    prop.index !== undefined && prop.index % 3 === 1 ? 1.5 : 0}px;
+`;
 
 const PhotoItem = styled.Image<PhotoItemSt>`
-  width: ${constants.width / 3}px;
+  width: ${constants.width / 3 - 1}px;
   height: ${constants.height / 6}px;
   opacity: ${(prop) => (prop.selectPhoto === prop.photo ? 0.4 : 1)};
 `;
@@ -97,7 +105,11 @@ export default ({
         onScroll={({ nativeEvent }) => onSrollBotReached(nativeEvent)}
       >
         {photos.map((photo: photoPInAlbum, index: number) => (
-          <PhotoContainer key={index} onPress={() => selectPhotoAction(photo)}>
+          <PhotoContainer
+            key={index}
+            index={index}
+            onPress={() => selectPhotoAction(photo)}
+          >
             <PhotoItem
               source={{
                 uri: typeof photo === "string" ? photo : photo.uri,
@@ -107,12 +119,12 @@ export default ({
             />
           </PhotoContainer>
         ))}
+        {isEnd && (
+          <EndContainer>
+            <EndText>더이상 이미지가 없습니다.😐</EndText>
+          </EndContainer>
+        )}
       </PhotoList>
-      {isEnd && (
-        <EndContainer>
-          <EndText>더이상 이미지가 없습니다.😐</EndText>
-        </EndContainer>
-      )}
     </Container>
   );
 };
