@@ -88,7 +88,7 @@ const EditContainer = styled.View`
   border-top-left-radius: 10px;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 6px;
   background-color: ${(prop) => prop.theme.colors.liteMainColor};
 `;
 

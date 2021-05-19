@@ -53,6 +53,7 @@ export default ({
   type,
   typeAction,
   takeAction,
+  isTake,
   readyForCamera,
 }: CameraSectionP) => (
   <Container>
@@ -73,7 +74,7 @@ export default ({
           </ToggleBtn>
         </CameraSt>
         <ControlBox>
-          <TakePhotoBtn onPress={takeAction}></TakePhotoBtn>
+          <TakePhotoBtn onPress={takeAction} disabled={isTake}></TakePhotoBtn>
         </ControlBox>
       </Permission>
     )}

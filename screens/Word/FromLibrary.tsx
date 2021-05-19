@@ -17,7 +17,7 @@ const SCROLL_PADDING_BOTTOM: number = 0.1;
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
   const [photos, setPhotos] = useState<MediaLibrary.Asset[]>([]);
-  const [startNum, setStartNum] = useState<number>(0);
+  const [startNum, setStartNum] = useState<number>(START_NUM);
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [isEnd, setIsEnd] = useState<boolean>(false);

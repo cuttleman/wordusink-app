@@ -145,6 +145,7 @@ export interface CameraSectionP {
   cameraRef: React.MutableRefObject<Camera | null>;
   hasPermission: boolean;
   type: "back" | "front";
+  isTake: boolean;
   typeAction: () => void;
   takeAction: () => Promise<void>;
   readyForCamera: () => void;

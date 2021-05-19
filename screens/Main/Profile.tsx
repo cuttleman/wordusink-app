@@ -43,7 +43,9 @@ const UserName = styled(Animated.Text)`
   font-family: ${(prop) => prop.theme.fontFamily.rubik500};
 `;
 
-const Options = styled.TouchableOpacity``;
+const Options = styled.TouchableOpacity`
+  padding: 5px;
+`;
 
 const AvatarContainer = styled.View`
   margin-bottom: 30px;

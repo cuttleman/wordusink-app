@@ -39,7 +39,7 @@ export default ({ focused = false, iconName = "home" }: TabIconP) => {
     <Container>
       <BtnContainer
         onPress={() => navigation.navigate("Add")}
-        style={{ elevation: 5 }}
+        style={{ elevation: 3 }}
       >
         <BtnText>+</BtnText>
       </BtnContainer>
