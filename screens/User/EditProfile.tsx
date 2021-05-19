@@ -260,8 +260,10 @@ export default () => {
         <DoneBtn
           onPress={() => {
             try {
-              userNameValidator(inputName?.value);
-              doneHandle();
+              if (inputName.value !== undefined) {
+                userNameValidator(inputName.value);
+                doneHandle();
+              }
             } catch (e) {
               globalNotifi("error", e.message);
             }

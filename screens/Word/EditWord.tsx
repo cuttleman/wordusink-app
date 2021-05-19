@@ -98,7 +98,7 @@ export default () => {
 
   const doneHandle = async () => {
     try {
-      if (inputName.value) {
+      if (inputName.value !== undefined) {
         inputValidator(inputName?.value, inputCaption?.value);
         const examples = await exampleGenerator(inputName.value);
         const {

@@ -75,7 +75,7 @@ export default () => {
       const formData: any = new FormData();
       const manipulatedImg = await ExpoImageManipulator.manipulateAsync(
         manipulatedUrl,
-        [{ resize: { width: 200 } }]
+        [{ resize: { width: 300 } }]
       );
       if (passedData.from !== "EditProfile") {
         if (passedData.from === "Photo") {
