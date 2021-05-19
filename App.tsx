@@ -82,7 +82,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <AuthProvider initLoggedIn={isLoggedIn}>
           <NavController />
-          <StatusBar barStyle="light-content" animated={true} />
+          <StatusBar barStyle="default" animated={true} />
           <Toast ref={(ref) => Toast.setRef(ref)} />
         </AuthProvider>
       </ThemeProvider>

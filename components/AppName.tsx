@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { Animated, Easing } from "react-native";
+import constants from "../constants";
 
 const Container = styled(Animated.View)`
   margin-top: 20px;
@@ -18,7 +19,7 @@ export default (): React.ReactElement => {
 
   const toUp = nameAni.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 120],
+    outputRange: [0, Math.floor(constants.height / 4.2)],
   });
 
   useEffect(() => {

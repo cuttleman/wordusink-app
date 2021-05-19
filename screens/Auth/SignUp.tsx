@@ -8,7 +8,7 @@ import AppName from "../../components/AppName";
 import { useLogIn } from "../../components/AuthContext";
 import { SIGN_UP } from "../../queries";
 import { globalNotifi } from "../../utils";
-import constants from "../../constants";
+import { makeRedirectUri } from "expo-auth-session";
 
 const Container = styled.View`
   flex: 1;
@@ -44,7 +44,8 @@ const SignUp: React.FC = () => {
   const signUpWithGoogle = async () => {
     try {
       // Google Auth api with Expo
-      const result = await promptAsync();
+      const result = await promptAsync({ useProxy: false });
+      console.log(result);
       if (result.type === "success") {
         const {
           data: { email },
@@ -69,6 +70,8 @@ const SignUp: React.FC = () => {
             throw Error(message);
           }
         }
+      } else {
+        throw Error("지금은 구글 로그인을 사용할 수 없습니다.😨");
       }
     } catch (e) {
       globalNotifi("error", e.message);
@@ -82,6 +85,7 @@ const SignUp: React.FC = () => {
         source={require("../../assets/character.png")}
         resizeMode="contain"
       />
+
       <AppName />
       <BtnContainer>
         <AuthButton

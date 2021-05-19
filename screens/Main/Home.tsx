@@ -172,7 +172,7 @@ const Home: React.FC = () => {
           contentContainerStyle={{ alignItems: "center" }}
           showsHorizontalScrollIndicator={false}
         >
-          {havingLoading ? (
+          {havingLoading || havingData === undefined ? (
             <Loading />
           ) : havingData.havingWords.length === 0 ? (
             <EmptyText>단어를 추가해보세요</EmptyText>

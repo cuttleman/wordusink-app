@@ -3,7 +3,7 @@ import Toast from "react-native-toast-message";
 import { DictionaryData } from "./types/interfaces";
 
 export const hostForDev = (port: number, param = ""): string => {
-  return `http://172.30.1.38:${port}${param}`;
+  return `http://172.30.1.45:${port}${param}`;
 };
 
 export const hostForProd = (type: "api" | "server", param = ""): string => {
@@ -75,13 +75,13 @@ export const exampleGenerator = async (term: string): Promise<string[]> => {
 export const globalNotifi = (
   type: "success" | "error" | "info",
   text1: string,
-  text2?: string
+  text2 = ""
 ): void => {
   Toast.show({
     type,
     text1,
     text2,
     topOffset: 30,
-    visibilityTime: 1000,
+    visibilityTime: 2500,
   });
 };
