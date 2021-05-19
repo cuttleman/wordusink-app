@@ -14,42 +14,35 @@ export const hostForProd = (type: "api" | "server", param = ""): string => {
   }
 };
 
-export const inputValidator = (
-  name: string | undefined,
-  caption: string | undefined
-): void => {
+export const inputValidator = (name: string, caption?: string): void => {
   const engValidation = (term: string): boolean => {
     const enRegex = new RegExp("^[a-zA-Z]*$");
     return enRegex.test(term);
   };
 
-  if (name !== undefined && caption !== undefined) {
-    if (name === "") {
-      throw new Error("단어 이름을 입력해주세요.");
-    } else if (name.length > 22) {
-      throw new Error("단어 이름은 22글자까지 입력할 수 있습니다.");
-    } else if (caption.length > 8) {
-      throw new Error("단어 의미는 8글자까지 입력할 수 있습니다.");
-    } else if (engValidation(name) === false) {
-      throw new Error("띄어쓰기 없이 영어로만 입력해주세요.");
-    }
+  if (name === "") {
+    throw new Error("단어 이름을 입력해주세요.");
+  } else if (name.length > 22) {
+    throw new Error("단어 이름은 22글자까지 입력할 수 있습니다.");
+  } else if (caption !== undefined && caption.length > 8) {
+    throw new Error("단어 의미는 8글자까지 입력할 수 있습니다.");
+  } else if (engValidation(name) === false) {
+    throw new Error("띄어쓰기 없이 영어로만 입력해주세요.");
   }
 };
 
-export const userNameValidator = (userName: string | undefined) => {
+export const userNameValidator = (userName: string) => {
   const nameValidation = (term: string): boolean => {
     const nameRegex =
       /^([^\s!?@#$%^&*._\-~,;:"'+=()<>\[\]ㄱ-ㅎ가-힣]|([a-zA-Z0-9][._]+))*[^\s!?@#$%^&*._\-~,;:"'+=()<>\[\]ㄱ-ㅎ가-힣]$/;
     return nameRegex.test(term);
   };
-  if (userName !== undefined) {
-    if (userName === "") {
-      throw new Error("닉네임을 입력해주세요.");
-    } else if (userName.length > 15) {
-      throw new Error("닉네임은 15글자까지 입력할 수 있습니다.");
-    } else if (nameValidation(userName) === false) {
-      throw new Error("닉네임 작성 조건을 확인해주세요.");
-    }
+  if (userName === "") {
+    throw new Error("닉네임을 입력해주세요.");
+  } else if (userName.length > 15) {
+    throw new Error("닉네임은 15글자까지 입력할 수 있습니다.");
+  } else if (nameValidation(userName) === false) {
+    throw new Error("닉네임 작성 조건을 확인해주세요.");
   }
 };
 
@@ -82,6 +75,6 @@ export const globalNotifi = (
     text1,
     text2,
     topOffset: 30,
-    visibilityTime: 2500,
+    visibilityTime: 2000,
   });
 };

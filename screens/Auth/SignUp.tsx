@@ -33,10 +33,12 @@ const BtnContainer = styled.View`
   right: 0;
 `;
 
-const SignUp: React.FC = () => {
+export default () => {
   const [_, __, promptAsync] = Google.useAuthRequest({
     expoClientId:
       "873102509009-39ht480mj5i51r7o89uf1e78s2hb6s8l.apps.googleusercontent.com",
+    androidClientId:
+      "873102509009-udqkijuniaii6bd2le98gsgpp6mt3405.apps.googleusercontent.com",
   });
   const [signUpMutation] = useMutation(SIGN_UP);
   const logIn = useLogIn();
@@ -44,8 +46,7 @@ const SignUp: React.FC = () => {
   const signUpWithGoogle = async () => {
     try {
       // Google Auth api with Expo
-      const result = await promptAsync({ useProxy: false });
-      console.log(result);
+      const result = await promptAsync();
       if (result.type === "success") {
         const {
           data: { email },
@@ -97,5 +98,3 @@ const SignUp: React.FC = () => {
     </Container>
   );
 };
-
-export default SignUp;

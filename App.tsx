@@ -36,7 +36,6 @@ const App: React.FC = () => {
       require("./assets/front.png"),
       require("./assets/soon.png"),
       require("./assets/empty.png"),
-      require("./assets/splash.png"),
     ];
     try {
       await Font.loadAsync({
