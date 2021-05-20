@@ -9,7 +9,7 @@ import {
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { useMutation } from "@apollo/client";
 import { CREATE_WORD } from "../../queries";
-import { globalNotifi, hostForDev, hostForProd } from "../../utils";
+import { globalNotifi, hostForDev } from "../../utils";
 import IssueImage from "../../components/IssueImage";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
