@@ -1,7 +1,7 @@
 import { HttpLink, concat, ApolloLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import AsyncStorage from "@react-native-community/async-storage";
-import { hostForDev } from "./utils";
+import { hostForDev, hostForProd } from "./utils";
 
 interface optionI {
   link: ApolloLink;
@@ -9,7 +9,7 @@ interface optionI {
 
 // Dynamically ip everything change
 const httpLink: HttpLink = new HttpLink({
-  uri: hostForDev(5000),
+  uri: hostForProd("server"),
 });
 
 const authLink: ApolloLink = setContext(async () => {
@@ -21,9 +21,11 @@ export const options: optionI = {
   link: concat(authLink, httpLink),
 };
 
-const merged = () => (_: any, incoming = []) => {
-  return incoming;
-};
+const merged =
+  () =>
+  (_: any, incoming = []) => {
+    return incoming;
+  };
 
 export const cache = new InMemoryCache({
   typePolicies: {

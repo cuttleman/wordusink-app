@@ -17,7 +17,7 @@ import Loading from "../../components/Loading";
 import theme from "../../theme";
 import SectionTitle from "../../components/SectionTitle";
 import { CREATE_WORD } from "../../queries";
-import { globalNotifi, hostForDev } from "../../utils";
+import { globalNotifi, hostForDev, hostForProd } from "../../utils";
 
 const Container = styled.View`
   flex: 1;
@@ -98,9 +98,13 @@ export default () => {
         }
         const {
           data: { file },
-        } = await axios.post(hostForDev(5000, "/api/upload/word"), formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        } = await axios.post(
+          hostForProd("server", "/api/upload/word"),
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
         const { data } = await createWordMutation({
           variables: {
             name: passedData.name,

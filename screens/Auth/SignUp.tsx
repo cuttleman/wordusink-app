@@ -58,12 +58,14 @@ export default () => {
             Authorization: `Bearer ${result?.authentication?.accessToken}`,
           },
         });
+
         if (email) {
           const {
             data: {
               signUp: { token, message, type },
             },
           } = await signUpMutation({ variables: { email } });
+
           if (type === true) {
             logIn(token);
             globalNotifi("success", message);
@@ -75,6 +77,7 @@ export default () => {
         throw Error("지금은 구글 로그인을 사용할 수 없습니다.😨");
       }
     } catch (e) {
+      console.log(e);
       globalNotifi("error", e.message);
     }
   };
