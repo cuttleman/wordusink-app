@@ -292,8 +292,8 @@ export default () => {
   useEffect(() => {
     if (
       params?.manipulated !== undefined &&
-      params?.manipulated?.url !== undefined &&
-      params?.manipulated?.filename !== undefined
+      params.manipulated.url !== undefined &&
+      params.manipulated.filename !== undefined
     ) {
       setAvatarUrl({
         url: params.manipulated.url,

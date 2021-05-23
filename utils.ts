@@ -10,7 +10,7 @@ export const hostForProd = (type: "api" | "server", param = ""): string => {
   if (type === "api") {
     return `https://wordusink-api-server.herokuapp.com${param}`;
   } else {
-    return "https://wordusink-server.herokuapp.com/";
+    return `https://wordusink-server.herokuapp.com${param}`;
   }
 };
 

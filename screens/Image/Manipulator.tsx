@@ -72,12 +72,12 @@ export default () => {
 
   const uploadImage = async (manipulatedUrl: string) => {
     try {
-      const formData: any = new FormData();
-      const manipulatedImg = await ExpoImageManipulator.manipulateAsync(
-        manipulatedUrl,
-        [{ resize: { width: 300 } }]
-      );
       if (passedData.from !== "EditProfile") {
+        const formData: any = new FormData();
+        const manipulatedImg = await ExpoImageManipulator.manipulateAsync(
+          manipulatedUrl,
+          [{ resize: { width: 300 } }]
+        );
         if (passedData.from === "Photo") {
           const savedPhoto = await MediaLibrary.createAssetAsync(
             manipulatedImg.uri
