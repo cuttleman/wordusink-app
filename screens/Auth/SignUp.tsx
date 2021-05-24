@@ -37,6 +37,8 @@ export default () => {
   const [_, __, promptAsync] = Google.useAuthRequest({
     expoClientId:
       "873102509009-39ht480mj5i51r7o89uf1e78s2hb6s8l.apps.googleusercontent.com",
+    androidClientId:
+      "873102509009-udqkijuniaii6bd2le98gsgpp6mt3405.apps.googleusercontent.com",
   });
   const [signUpMutation] = useMutation(SIGN_UP);
   const logIn = useLogIn();
@@ -56,12 +58,14 @@ export default () => {
             Authorization: `Bearer ${result?.authentication?.accessToken}`,
           },
         });
+
         if (email) {
           const {
             data: {
               signUp: { token, message, type },
             },
           } = await signUpMutation({ variables: { email } });
+
           if (type === true) {
             logIn(token);
             globalNotifi("success", message);
@@ -73,6 +77,7 @@ export default () => {
         throw Error("지금은 구글 로그인을 사용할 수 없습니다.😨");
       }
     } catch (e) {
+      console.log(e);
       globalNotifi("error", e.message);
     }
   };

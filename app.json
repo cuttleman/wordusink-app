@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "your.app",
+    "scheme": "com.mestus.wodusink-app",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -19,9 +19,11 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.mestus.wodusink_app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#0984e3"
+        "backgroundColor": "#8264db"
       },
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713"

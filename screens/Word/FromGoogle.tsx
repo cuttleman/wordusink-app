@@ -9,7 +9,7 @@ import {
 import { StackActions, useNavigation } from "@react-navigation/core";
 import { useMutation } from "@apollo/client";
 import { CREATE_WORD } from "../../queries";
-import { globalNotifi, hostForDev, hostForProd } from "../../utils";
+import { globalNotifi, hostForProd } from "../../utils";
 import IssueImage from "../../components/IssueImage";
 
 export default ({ stackRoute }: ComponentInMaterialTabs) => {
@@ -68,7 +68,7 @@ export default ({ stackRoute }: ComponentInMaterialTabs) => {
     try {
       setFetching(true);
       const { data } = await axios.get(
-        hostForDev(3000, `/api/${stackRoute?.params?.name}/${startNum}`),
+        hostForProd("api", `/api/${stackRoute?.params?.name}/${startNum}`),
         {
           responseType: "json",
         }

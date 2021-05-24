@@ -175,7 +175,7 @@ const Home: React.FC = () => {
           {havingLoading || havingData === undefined ? (
             <Loading />
           ) : havingData.havingWords.length === 0 ? (
-            <EmptyText>단어를 추가해보세요</EmptyText>
+            <EmptyText>단어를 추가해보세요.😊</EmptyText>
           ) : (
             havingData.havingWords.map((word: HavingWord, idx: number) => (
               <PreviewWordContainer key={idx}>
