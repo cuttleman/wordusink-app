@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "wordusink-app",
-    "slug": "wordusink-app",
+    "name": "단어징어",
+    "slug": "단어징어",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "com.mestus.wodusink-app",
+    "scheme": "com.mestus.wodusink",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,22 +15,13 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
-      "package": "com.mestus.wodusink_app",
-      "versionCode": 1,
+      "package": "com.mestus.wodusink",
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#8264db"
-      },
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }
