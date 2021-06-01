@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "단어징어",
-    "slug": "단어징어",
+    "slug": "wordusink-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,13 +17,10 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.mestus.wodusink",
-      "versionCode": 3,
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#8264db"
-      },
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~3347511713"
       }
     }
   }
