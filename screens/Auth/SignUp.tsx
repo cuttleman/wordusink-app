@@ -8,7 +8,6 @@ import AppName from "../../components/AppName";
 import { useLogIn } from "../../components/AuthContext";
 import { SIGN_UP } from "../../queries";
 import { globalNotifi } from "../../utils";
-import { makeRedirectUri } from "expo-auth-session";
 
 const Container = styled.View`
   flex: 1;
