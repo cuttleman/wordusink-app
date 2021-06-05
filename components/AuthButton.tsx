@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { Animated, Easing } from "react-native";
 import { AuthButtonP, AuthBtnSt } from "../types/interfaces";
-import constants from "../constants";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Container = styled(Animated.View)``;

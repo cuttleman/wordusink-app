@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components/native";
-import constants from "../constants";
 
 const Container = styled.View`
   flex: 1;

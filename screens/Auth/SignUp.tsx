@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components/native";
 import axios from "axios";
 import { useMutation } from "@apollo/client";
-import * as Google from "expo-auth-session/providers/google";
+// import * as Google from "expo-auth-session/providers/google";
 import AuthButton from "../../components/AuthButton";
 import AppName from "../../components/AppName";
 import { useLogIn } from "../../components/AuthContext";
 import { SIGN_UP } from "../../queries";
 import { globalNotifi } from "../../utils";
-import { makeRedirectUri } from "expo-auth-session";
+import * as Google from "expo-google-app-auth";
 
 const Container = styled.View`
   flex: 1;
@@ -34,19 +34,20 @@ const BtnContainer = styled.View`
 `;
 
 export default () => {
-  const [_, __, promptAsync] = Google.useAuthRequest({
-    expoClientId:
-      "873102509009-39ht480mj5i51r7o89uf1e78s2hb6s8l.apps.googleusercontent.com",
-    androidClientId:
-      "873102509009-udqkijuniaii6bd2le98gsgpp6mt3405.apps.googleusercontent.com",
-  });
   const [signUpMutation] = useMutation(SIGN_UP);
   const logIn = useLogIn();
 
   const signUpWithGoogle = async () => {
     try {
       // Google Auth api with Expo
-      const result = await promptAsync();
+      const result = await Google.logInAsync({
+        clientId:
+          "873102509009-39ht480mj5i51r7o89uf1e78s2hb6s8l.apps.googleusercontent.com",
+        androidStandaloneAppClientId:
+          "873102509009-7mua9cufgv5id8lb3mkov6saotb01v24.apps.googleusercontent.com",
+        scopes: ["email"],
+      });
+
       if (result.type === "success") {
         const {
           data: { email },
@@ -55,7 +56,7 @@ export default () => {
           responseType: "json",
           method: "get",
           headers: {
-            Authorization: `Bearer ${result?.authentication?.accessToken}`,
+            Authorization: `Bearer ${result?.accessToken}`,
           },
         });
 

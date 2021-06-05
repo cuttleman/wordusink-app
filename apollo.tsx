@@ -1,7 +1,7 @@
 import { HttpLink, concat, ApolloLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import AsyncStorage from "@react-native-community/async-storage";
-import { hostForDev, hostForProd } from "./utils";
+import { hostForProd } from "./utils";
 
 interface optionI {
   link: ApolloLink;

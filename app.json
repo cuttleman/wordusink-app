@@ -4,8 +4,8 @@
     "slug": "wordusink-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "scheme": "com.mestus.wodusink",
+    "icon": "./assets/icon(512x512).png",
+    "scheme": "com.mestus.wordusink",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -16,11 +16,17 @@
     },
     "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.mestus.wodusink",
-      "versionCode": 1,
+      "package": "com.mestus.wordusink",
+      "versionCode": 2,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon(512x512).png",
         "backgroundColor": "#8264db"
+      },
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyCiNlupW48wK35gEmSc2NyBtnU43MhHRQg",
+          "certificateHash": "9B30C7D75AA8DEAE9E8091136CB24FC6BDC7A5F7"
+        }
       }
     }
   }

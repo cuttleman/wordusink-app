@@ -15,12 +15,7 @@ import {
   UserProfleParamsP,
 } from "../../types/interfaces";
 import { MaterialIcons } from "@expo/vector-icons";
-import {
-  globalNotifi,
-  hostForDev,
-  hostForProd,
-  userNameValidator,
-} from "../../utils";
+import { globalNotifi, hostForProd, userNameValidator } from "../../utils";
 import AvatarFromLibrary from "./AvatarFromLibrary";
 import axios from "axios";
 import DeleteUser from "./DeleteUser";
