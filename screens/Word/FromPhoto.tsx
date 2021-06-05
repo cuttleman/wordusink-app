@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { Camera } from "expo-camera";
 import CameraSection from "../../components/CameraSection";

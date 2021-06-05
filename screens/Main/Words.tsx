@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { useQuery } from "@apollo/client";
-import { RefreshControl, Text } from "react-native";
+import { RefreshControl } from "react-native";
 import { ALL_WORDS } from "../../queries";
 import { useNavigation } from "@react-navigation/core";
 import { globalNotifi } from "../../utils";

@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { Text } from "react-native";
 import { useQuery } from "@apollo/client";
 import { useRoute } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";

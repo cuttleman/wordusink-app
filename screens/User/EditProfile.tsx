@@ -15,7 +15,7 @@ import {
   UserProfleParamsP,
 } from "../../types/interfaces";
 import { MaterialIcons } from "@expo/vector-icons";
-import { globalNotifi, hostForDev, userNameValidator } from "../../utils";
+import { globalNotifi, hostForProd, userNameValidator } from "../../utils";
 import AvatarFromLibrary from "./AvatarFromLibrary";
 import axios from "axios";
 import DeleteUser from "./DeleteUser";
@@ -157,9 +157,13 @@ export default () => {
         });
         const {
           data: { file },
-        } = await axios.post(hostForDev(5000, "/api/upload/avatar"), formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        } = await axios.post(
+          hostForProd("server", "/api/upload/avatar"),
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
         result = await editProfileMutation({
           variables: {
             userName: inputName.value,

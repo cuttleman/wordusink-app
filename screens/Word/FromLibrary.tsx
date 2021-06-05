@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import * as MediaLibrary from "expo-media-library";
 import Loading from "../../components/Loading";
