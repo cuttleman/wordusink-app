@@ -39,7 +39,7 @@ export default ({ images, loading }: HomeSlideP) => {
         itemWidth={constants.width / 1.2}
         autoplay={true}
         loop={true}
-        autoplayInterval={3000}
+        autoplayInterval={2000}
         loopClonesPerSide={images.length}
         renderItem={memoizedValue}
       />

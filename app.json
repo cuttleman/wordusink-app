@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon(512x512).png",
-    "scheme": "com.mestus.wodusink",
+    "scheme": "com.mestus.wordusink",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -16,7 +16,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.mestus.wodusink",
+      "package": "com.mestus.wordusink",
       "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon(512x512).png",

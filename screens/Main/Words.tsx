@@ -17,6 +17,7 @@ const Container = styled.View`
 
 const ScrollContainer = styled.ScrollView`
   background-color: transparent;
+  height: ${constants.height - 120}px;
 `;
 
 const BgImage = styled.Image`
@@ -30,7 +31,8 @@ const BgImage = styled.Image`
 
 const WordsContainer = styled.View`
   flex: 1;
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 20px;
   align-items: center;
 `;
 
@@ -102,7 +104,6 @@ export default () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flex: 1 }}
       >
         {loading ? (
           <Loading />

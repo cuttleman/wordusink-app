@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components/native";
 import axios from "axios";
 import { useMutation } from "@apollo/client";
-// import * as Google from "expo-auth-session/providers/google";
-import * as Google from "expo-google-app-auth";
+import * as Google from "expo-auth-session/providers/google";
+// import * as Google from "expo-google-app-auth";
 import AuthButton from "../../components/AuthButton";
 import AppName from "../../components/AppName";
 import { useLogIn } from "../../components/AuthContext";
@@ -34,19 +34,17 @@ const BtnContainer = styled.View`
 `;
 
 export default () => {
+  // Google Auth api with Expo
+  const [_, __, prompt] = Google.useAuthRequest({
+    clientId:
+      "873102509009-39ht480mj5i51r7o89uf1e78s2hb6s8l.apps.googleusercontent.com",
+  });
   const [signUpMutation] = useMutation(SIGN_UP);
   const logIn = useLogIn();
 
   const signUpWithGoogle = async () => {
     try {
-      // Google Auth api with Expo
-      const result = await Google.logInAsync({
-        clientId:
-          "873102509009-39ht480mj5i51r7o89uf1e78s2hb6s8l.apps.googleusercontent.com",
-        androidStandaloneAppClientId:
-          "873102509009-7mua9cufgv5id8lb3mkov6saotb01v24.apps.googleusercontent.com",
-        scopes: ["email"],
-      });
+      const result = await prompt();
       if (result.type === "success") {
         const {
           data: { email },
@@ -55,7 +53,7 @@ export default () => {
           responseType: "json",
           method: "get",
           headers: {
-            Authorization: `Bearer ${result?.accessToken}`,
+            Authorization: `Bearer ${result?.authentication?.accessToken}`,
           },
         });
         if (email) {
